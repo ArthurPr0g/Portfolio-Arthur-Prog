@@ -88,8 +88,11 @@ button {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+/* 130% e não 100%: a máscara do título tem padding-bottom para caber a
+   descendente do "g", então a linha precisa partir de mais baixo para não
+   aparecer nessa faixa antes da hora. */
 @keyframes maskUp {
-  from { opacity: 0; transform: translateY(100%); }
+  from { opacity: 0; transform: translateY(130%); }
   to { opacity: 1; transform: none; }
 }
 @keyframes marquee {
