@@ -1,0 +1,22 @@
+.sobre-heading {
+  max-width: 680px;
+}
+.sobre-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 40px;
+  margin-top: 46px;
+}
+.sobre-text {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.78;
+  color: var(--muted-5);
+  text-wrap: pretty;
+}
+.sobre-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 40px;
+}

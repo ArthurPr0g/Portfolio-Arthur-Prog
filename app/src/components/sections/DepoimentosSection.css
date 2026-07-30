@@ -1,0 +1,64 @@
+.depo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+  margin-top: 46px;
+}
+.depo-card {
+  margin: 0;
+  padding: 30px;
+  border: 1px solid oklch(0.7 0 0 / 0.09);
+  border-radius: 22px;
+  background: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+.depo-card:hover {
+  border-color: oklch(0.74 0.12 262 / 0.4);
+}
+.depo-card__quote-mark {
+  font-family: "Sora", sans-serif;
+  font-size: 38px;
+  line-height: 0.6;
+  color: #33363c;
+}
+.depo-card__quote {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.72;
+  color: var(--muted-3);
+  text-wrap: pretty;
+}
+.depo-card__author {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.depo-card__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: oklch(0.74 0.12 262 / 0.18);
+  color: var(--accent-strong);
+  font-family: "Sora", sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+.depo-card__meta {
+  display: flex;
+  flex-direction: column;
+}
+.depo-card__name {
+  font-size: 13.5px;
+  color: #f0f1f4;
+  font-weight: 500;
+}
+.depo-card__role {
+  font-size: 12px;
+  color: var(--muted-7);
+}

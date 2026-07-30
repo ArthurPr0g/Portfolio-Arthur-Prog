@@ -1,0 +1,35 @@
+.marquee {
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  padding: 20px 0;
+  overflow: hidden;
+  background: oklch(0.7 0 0 / 0.02);
+}
+.marquee__track {
+  display: flex;
+  width: max-content;
+  animation: marquee 42s linear infinite;
+}
+.marquee__group {
+  display: flex;
+  gap: 46px;
+  padding-right: 46px;
+  align-items: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted-8);
+  white-space: nowrap;
+}
+.marquee__item {
+  display: flex;
+  align-items: center;
+  gap: 46px;
+}
+.marquee__sep {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: oklch(0.6 0.12 262);
+}

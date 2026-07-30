@@ -1,0 +1,55 @@
+.comp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+  margin-top: 46px;
+}
+.comp-card {
+  padding: 28px;
+  border: 1px solid oklch(0.7 0 0 / 0.09);
+  border-radius: 22px;
+  background: var(--card-bg);
+}
+.comp-card:hover {
+  border-color: oklch(0.74 0.12 262 / 0.35);
+}
+.comp-card__head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.comp-card__bar {
+  width: 5px;
+  height: 20px;
+  border-radius: 3px;
+  background: linear-gradient(180deg, oklch(0.74 0.14 262), oklch(0.8 0.12 200));
+  flex-shrink: 0;
+}
+.comp-card__title {
+  font-family: "Sora", sans-serif;
+  font-size: 17.5px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #f0f1f4;
+}
+.comp-card__items {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.comp-chip {
+  font-size: 12.5px;
+  color: var(--muted-4);
+  padding: 7px 13px;
+  border: 1px solid oklch(0.7 0 0 / 0.1);
+  border-radius: 9px;
+  background: oklch(0.7 0 0 / 0.03);
+  transition: color 0.3s ease, border-color 0.3s ease, transform 0.3s var(--ease-out);
+}
+.comp-chip:hover {
+  color: #fff;
+  border-color: oklch(0.74 0.12 262 / 0.55);
+  transform: translateY(-2px);
+}

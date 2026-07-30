@@ -1,0 +1,52 @@
+.ia-desc {
+  font-size: 15.5px;
+  line-height: 1.72;
+  color: var(--muted-6);
+  margin: 20px 0 0;
+  max-width: 660px;
+  text-wrap: pretty;
+}
+.ia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 16px;
+  margin-top: 46px;
+}
+.ia-card {
+  padding: 26px;
+  border: 1px solid oklch(0.7 0 0 / 0.09);
+  border-radius: 20px;
+  background: var(--card-bg);
+}
+.ia-card:hover {
+  border-color: oklch(0.74 0.12 262 / 0.45);
+}
+.ia-card__head {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-bottom: 13px;
+}
+.ia-card__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: oklch(0.74 0.14 262);
+  box-shadow: 0 0 14px oklch(0.74 0.14 262 / 0.9);
+  animation: dotPulse 3s ease-in-out infinite;
+  flex-shrink: 0;
+}
+.ia-card__title {
+  font-family: "Sora", sans-serif;
+  font-size: 16.5px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: #f0f1f4;
+}
+.ia-card__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--muted-6);
+}

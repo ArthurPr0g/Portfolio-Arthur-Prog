@@ -1,0 +1,116 @@
+.metodo-heading {
+  max-width: 580px;
+}
+.metodo-timeline {
+  position: relative;
+  margin-top: 72px;
+}
+.metodo-timeline__rail {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: oklch(0.7 0 0 / 0.12);
+}
+.metodo-timeline__track {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  transform: scaleY(0);
+  transform-origin: top;
+  background: linear-gradient(180deg, oklch(0.74 0.14 262), oklch(0.8 0.12 200));
+}
+.metodo-row {
+  display: grid;
+  grid-template-columns: 1fr 46px 1fr;
+  align-items: center;
+  margin-bottom: 26px;
+}
+.metodo-row__side {
+  display: flex;
+}
+.metodo-row__side:empty {
+  display: none;
+}
+.metodo-row__side--left {
+  justify-content: flex-end;
+  text-align: right;
+}
+.metodo-row__side--right {
+  justify-content: flex-start;
+}
+.metodo-row__dot-col {
+  display: flex;
+  justify-content: center;
+}
+.metodo-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: oklch(0.74 0.13 262);
+  box-shadow: 0 0 0 4px oklch(0.74 0.13 262 / 0.14), 0 0 20px oklch(0.74 0.13 262 / 0.55);
+  transition: opacity 0.7s ease, transform 0.7s var(--ease-out) !important;
+}
+.metodo-card {
+  max-width: 380px;
+  padding: 22px 26px;
+  border: 1px solid oklch(0.7 0 0 / 0.08);
+  border-radius: 18px;
+  background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.012));
+}
+.metodo-card:hover {
+  border-color: oklch(0.74 0.12 262 / 0.45);
+}
+.metodo-card__num {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted-9);
+  margin: 0 0 8px;
+}
+.metodo-card__title {
+  font-family: "Sora", sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  margin: 0 0 7px;
+  color: #f0f1f4;
+}
+.metodo-card__desc {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.62;
+  color: var(--muted-6);
+}
+
+@media (max-width: 720px) {
+  .metodo-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .metodo-row__dot-col {
+    order: -1;
+    padding-top: 6px;
+    flex-shrink: 0;
+  }
+  .metodo-row__side--left,
+  .metodo-row__side--right {
+    justify-content: flex-start;
+    text-align: left;
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .metodo-timeline__rail,
+  .metodo-timeline__track {
+    left: 5px;
+  }
+  .metodo-card {
+    max-width: none;
+  }
+}

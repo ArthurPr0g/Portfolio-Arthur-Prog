@@ -1,0 +1,47 @@
+.carreira-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 46px;
+}
+.carreira-card {
+  padding: 26px;
+  border: 1px solid oklch(0.7 0 0 / 0.09);
+  border-radius: 20px;
+  background: var(--card-bg);
+}
+.carreira-card:hover {
+  border-color: oklch(0.74 0.12 262 / 0.45);
+}
+.carreira-card__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.carreira-card__num {
+  font-family: "Sora", sans-serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: #2f3238;
+  letter-spacing: -0.05em;
+}
+.carreira-card__year {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--accent);
+}
+.carreira-card__role {
+  font-family: "Sora", sans-serif;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  margin: 0 0 8px;
+  color: #f0f1f4;
+}
+.carreira-card__desc {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.62;
+  color: var(--muted-6);
+}

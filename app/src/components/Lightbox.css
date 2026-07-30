@@ -1,0 +1,30 @@
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: oklch(0.1 0.005 260 / 0.94);
+  backdrop-filter: blur(12px);
+  display: grid;
+  place-items: start center;
+  padding: 60px 40px 40px;
+  overflow: auto;
+  cursor: zoom-out;
+  animation: fadeIn 0.3s ease both;
+}
+.lightbox__img {
+  max-width: 1200px;
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid oklch(0.7 0 0 / 0.14);
+  box-shadow: 0 40px 100px oklch(0 0 0 / 0.65);
+  animation: popIn 0.5s var(--ease-out) both;
+}
+.lightbox__close {
+  position: fixed;
+  top: 24px;
+  right: 28px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: var(--muted-5);
+}
