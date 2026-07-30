@@ -48,13 +48,17 @@
 }
 .hero__title-mask {
   display: block;
-  /* O overflow é o que faz o reveal das linhas, mas com line-height 0.92
-     a descendente do "g" de "Prog" fica ~0.086em abaixo da caixa de linha
-     e era cortada. O padding estende a área visível e a margem negativa
-     devolve o espaço ao layout, preservando o espaçamento original. */
+  /* O overflow é o que faz o reveal das linhas, mas a tinta passa da caixa
+     de texto em dois lugares: a descendente do "g" de "Prog" desce 0.086em
+     abaixo da caixa de linha (line-height 0.92), e o itálico avança 0.103em
+     à direita do avanço da última letra ("Arthur", reto, avança 0.047em).
+     O padding estende a área visível nos dois eixos e as margens negativas
+     devolvem o espaço ao layout, preservando o espaçamento original. */
   overflow: hidden;
   padding-bottom: 0.14em;
+  padding-right: 0.16em;
   margin-bottom: -0.1em;
+  margin-right: -0.16em;
 }
 .hero__title-line {
   display: block;
