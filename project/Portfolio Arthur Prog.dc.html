@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html { background: #08080a; }
+  body { margin: 0; background: #08080a; color: #eceef1; font-family: 'DM Sans', system-ui, sans-serif; -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+  * { box-sizing: border-box; }
+  a { color: oklch(0.78 0.11 262); text-decoration: none; }
+  a:hover { color: oklch(0.88 0.09 262); }
+  ::selection { background: oklch(0.55 0.13 262); color: #fff; }
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #08080a; }
+  ::-webkit-scrollbar-thumb { background: #26272b; border-radius: 8px; }
+  ::-webkit-scrollbar-thumb:hover { background: #3a3c42; }
+  @keyframes dotPulse { 0%,100% { opacity: 1; transform: scale(1); } 50% { opacity: .3; transform: scale(.65); } }
+  @keyframes floatY { 0%,100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(-2deg); } }
+  @keyframes scrollHint { 0% { transform: scaleY(0); transform-origin: top; opacity: 0; } 40% { transform: scaleY(1); opacity: 1; } 100% { transform: scaleY(1); transform-origin: bottom; opacity: 0; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes riseIn { from { } to { opacity: 1; transform: none; } }
+  @keyframes maskUp { from { } to { opacity: 1; transform: none; } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes auraDrift { 0%,100% { transform: translate3d(0,0,0) scale(1); } 33% { transform: translate3d(4vw,3vh,0) scale(1.12); } 66% { transform: translate3d(-3vw,-2vh,0) scale(.95); } }
+  @keyframes ringSpin { to { transform: rotate(360deg); } }
+  @keyframes shine { 0% { background-position: 200% 50%; } 100% { background-position: -200% 50%; } }
+  @keyframes popIn { from { } to { opacity: 1; transform: none; } }
+
+  @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; } }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; position: relative;">
+
+  <div ref="{{ auraRef }}" style="position: fixed; inset: -20vh -10vw; pointer-events: none; z-index: 0;">
+    <div style="position: absolute; top: 0; left: 28%; width: 46vw; height: 46vw; border-radius: 50%; background: radial-gradient(circle, oklch(0.5 0.13 262 / 0.28), transparent 65%); filter: blur(30px); animation: auraDrift 26s ease-in-out infinite;"></div>
+    <div style="position: absolute; top: 30%; right: 4%; width: 38vw; height: 38vw; border-radius: 50%; background: radial-gradient(circle, oklch(0.46 0.11 300 / 0.2), transparent 65%); filter: blur(40px); animation: auraDrift 34s ease-in-out infinite reverse;"></div>
+    <div style="position: absolute; bottom: 4%; left: 2%; width: 34vw; height: 34vw; border-radius: 50%; background: radial-gradient(circle, oklch(0.5 0.1 200 / 0.14), transparent 65%); filter: blur(40px); animation: auraDrift 30s ease-in-out infinite;"></div>
+  </div>
+  <div style="position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .45; background-image: linear-gradient(oklch(0.7 0 0 / 0.035) 1px, transparent 1px), linear-gradient(90deg, oklch(0.7 0 0 / 0.035) 1px, transparent 1px); background-size: 74px 74px; mask-image: radial-gradient(circle at 50% 12%, black, transparent 80%);"></div>
+  <div ref="{{ glowRef }}" style="position: fixed; top: 0; left: 0; width: 620px; height: 620px; margin: -310px 0 0 -310px; pointer-events: none; z-index: 1; opacity: 0; transition: opacity .6s ease; background: radial-gradient(circle, oklch(0.72 0.13 262 / 0.1), transparent 62%);"></div>
+
+  <div ref="{{ barRef }}" style="position: fixed; top: 0; left: 0; height: 2px; width: 100%; transform: scaleX(0); transform-origin: left; z-index: 80; background: linear-gradient(90deg, oklch(0.72 0.14 262), oklch(0.8 0.12 200));"></div>
+
+  <header ref="{{ navRef }}" style="position: fixed; top: 0; left: 0; right: 0; z-index: 60; transition: background .4s ease, border-color .4s ease, backdrop-filter .4s ease; border-bottom: 1px solid transparent;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 16px 28px; display: flex; align-items: center; gap: 28px;">
+      <a href="#top" onClick="{{ goHome }}" style="display: flex; align-items: center; gap: 11px; color: #eceef1; font-family: 'Sora', sans-serif; font-size: 13.5px; font-weight: 500; letter-spacing: -0.01em; transition: opacity .25s ease;" style-hover="opacity: .75; color: #fff">
+        <span style="width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: oklch(0.72 0.1 262 / 0.18); border: 1px solid oklch(0.72 0.12 262 / 0.35); font-size: 11.5px; font-weight: 600; color: oklch(0.86 0.09 262);">AP</span>
+        <span>Arthur Prog</span>
+      </a>
+      <nav style="margin-left: auto; display: flex; align-items: center; gap: 24px; font-size: 13px; color: #9ba1ab;">
+        <a href="#construo" onClick="{{ goConstruo }}" style="color: inherit; position: relative; padding: 4px 0; transition: color .25s ease;" style-hover="color: #fff">O que construo</a>
+        <a href="#sobre" onClick="{{ goSobre }}" style="color: inherit; padding: 4px 0; transition: color .25s ease;" style-hover="color: #fff">Sobre</a>
+        <a href="#metodo" onClick="{{ goMetodo }}" style="color: inherit; padding: 4px 0; transition: color .25s ease;" style-hover="color: #fff">Método</a>
+        <a href="#projetos" onClick="{{ goProjetos }}" style="color: inherit; padding: 4px 0; transition: color .25s ease;" style-hover="color: #fff">Projetos</a>
+        <a href="#ia" onClick="{{ goIa }}" style="color: inherit; padding: 4px 0; transition: color .25s ease;" style-hover="color: #fff">IA</a>
+        <a href="#contato" onClick="{{ goContato }}" style="color: inherit; padding: 4px 0; transition: color .25s ease;" style-hover="color: #fff">Contato</a>
+      </nav>
+      <a href="#contato" onClick="{{ goContato }}" style="background: #f2f3f5; color: #08080a; font-size: 12.5px; font-weight: 600; padding: 9px 18px; border-radius: 999px; letter-spacing: -0.01em; transition: transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s ease;" style-hover="transform: translateY(-2px); box-shadow: 0 12px 30px oklch(0.9 0 0 / 0.2); color: #08080a">Vamos conversar</a>
+    </div>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+  <main data-screen-label="Home" style="position: relative; z-index: 2;">
+
+    <section id="top" style="min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 150px 28px 80px;">
+      <div ref="{{ heroRef }}" style="display: flex; flex-direction: column; align-items: center; will-change: transform;">
+        <div style="display: inline-flex; align-items: center; gap: 9px; padding: 7px 16px 7px 12px; border: 1px solid oklch(0.7 0 0 / 0.12); border-radius: 999px; background: oklch(0.7 0 0 / 0.045); backdrop-filter: blur(8px); font-size: 12px; color: #9ba1ab; animation: riseIn .9s cubic-bezier(.22,1,.36,1) both;">
+          <span style="width: 6px; height: 6px; border-radius: 50%; background: oklch(0.78 0.16 150); box-shadow: 0 0 10px oklch(0.78 0.16 150); animation: dotPulse 2.2s ease-in-out infinite;"></span>
+          <span>Da ideia ao produto — disponível para novos projetos</span>
+        </div>
+
+        <h1 style="font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(58px, 11.5vw, 140px); line-height: 0.92; letter-spacing: -0.05em; margin: 28px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 0 .16em;">
+          <span style="display: block; overflow: hidden; padding-bottom: .04em;">
+            <span style="display: block; background: linear-gradient(180deg, #ffffff 18%, #a7acb6 100%); -webkit-background-clip: text; background-clip: text; color: transparent; animation: maskUp 1.1s cubic-bezier(.16,1,.3,1) .1s both;">Arthur</span>
+          </span>
+          <span style="display: block; overflow: hidden; padding-bottom: .04em;">
+            <span style="display: block; font-style: italic; font-weight: 300; color: #6d727c; animation: maskUp 1.1s cubic-bezier(.16,1,.3,1) .24s both;">Prog</span>
+          </span>
+        </h1>
+
+        <p style="font-family: 'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: 0.08em; color: #8b919b; margin: 24px 0 0; animation: riseIn 1s cubic-bezier(.22,1,.36,1) .42s both;">Product Owner • Desenvolvedor • Designer • Especialista em IA</p>
+        <p style="max-width: 630px; font-size: 17px; line-height: 1.65; color: #a3a8b2; margin: 20px 0 0; text-wrap: pretty; animation: riseIn 1s cubic-bezier(.22,1,.36,1) .5s both;">Transformo ideias em produtos digitais completos utilizando estratégia, design, desenvolvimento e Inteligência Artificial.</p>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 38px; animation: riseIn 1s cubic-bezier(.22,1,.36,1) .58s both;">
+          <a href="#projetos" onClick="{{ goProjetos }}" style="display: inline-flex; align-items: center; gap: 10px; background: #f2f3f5; color: #08080a; font-size: 14.5px; font-weight: 600; padding: 15px 28px; border-radius: 999px; transition: transform .35s cubic-bezier(.22,1,.36,1), box-shadow .35s ease;" style-hover="transform: translateY(-3px) scale(1.02); box-shadow: 0 18px 44px oklch(0.9 0 0 / 0.22); color: #08080a">Conheça meus projetos <span style="font-size: 15px;">→</span></a>
+          <a href="https://wa.me/5562982133188" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 10px; border: 1px solid oklch(0.7 0 0 / 0.16); color: #d7dae0; font-size: 14.5px; font-weight: 500; padding: 15px 28px; border-radius: 999px; backdrop-filter: blur(8px); transition: background .35s ease, border-color .35s ease, transform .35s cubic-bezier(.22,1,.36,1);" style-hover="background: oklch(0.78 0.13 150 / 0.1); border-color: oklch(0.78 0.13 150 / 0.5); transform: translateY(-3px); color: #fff">Falar no WhatsApp</a>
+        </div>
+      </div>
+
+      <div style="margin-top: 84px; display: flex; flex-direction: column; align-items: center; gap: 10px; color: #565b64; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.22em; animation: fadeIn 1.6s ease 1.1s both;">
+        <span>SCROLL</span>
+        <span style="width: 1px; height: 52px; background: linear-gradient(180deg, #6a707a, transparent); animation: scrollHint 2.6s ease-in-out infinite;"></span>
+      </div>
+    </section>
+
+    <div style="border-top: 1px solid oklch(0.7 0 0 / 0.07); border-bottom: 1px solid oklch(0.7 0 0 / 0.07); padding: 20px 0; overflow: hidden; background: oklch(0.7 0 0 / 0.02);">
+      <div style="display: flex; width: max-content; animation: marquee 42s linear infinite;">
+        <div style="display: flex; gap: 46px; padding-right: 46px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6d727c; white-space: nowrap;">
+          <sc-for list="{{ ticker }}" as="t" hint-placeholder-count="12">
+            <span style="display: flex; align-items: center; gap: 46px;">{{ t }}<span style="width: 4px; height: 4px; border-radius: 50%; background: oklch(0.6 0.12 262);"></span></span>
+          </sc-for>
+        </div>
+        <div style="display: flex; gap: 46px; padding-right: 46px; align-items: center; font-family: 'JetBrains Mono', monospace; font-size: 12.5px; letter-spacing: 0.14em; text-transform: uppercase; color: #6d727c; white-space: nowrap;">
+          <sc-for list="{{ ticker }}" as="t" hint-placeholder-count="12">
+            <span style="display: flex; align-items: center; gap: 46px;">{{ t }}<span style="width: 4px; height: 4px; border-radius: 50%; background: oklch(0.6 0.12 262);"></span></span>
+          </sc-for>
+        </div>
+      </div>
+    </div>
+
+    <section id="construo" style="padding: 120px 28px;">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 44px;">O que eu construo</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px;">
+          <sc-for list="{{ pipeline }}" as="p" hint-placeholder-count="6">
+            <div data-reveal data-tilt style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1), border-color .4s ease, background .4s ease; display: flex; flex-direction: column; align-items: center; gap: 13px; padding: 30px 14px; border: 1px solid oklch(0.7 0 0 / 0.08); border-radius: 20px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.055), oklch(0.7 0 0 / 0.015)); cursor: default; will-change: transform;" style-hover="border-color: oklch(0.74 0.12 262 / 0.5); background: oklch(0.74 0.12 262 / 0.08)">
+              <span style="font-size: 28px; line-height: 1; animation: floatY 4.5s ease-in-out infinite;">{{ p.icon }}</span>
+              <span style="font-family: 'Sora', sans-serif; font-size: 13px; font-weight: 500; color: #d7dae0;">{{ p.label }}</span>
+            </div>
+          </sc-for>
+        </div>
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); max-width: 660px; margin: 46px 0 0; font-size: 20px; line-height: 1.6; color: #b7bcc5; text-wrap: pretty;">Eu não entrego apenas código ou documentos. Eu construo <span style="background: linear-gradient(90deg, oklch(0.82 0.12 262), oklch(0.86 0.1 200), oklch(0.82 0.12 262)); background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent; animation: shine 6s linear infinite;">produtos digitais completos</span>, do conceito ao lançamento.</p>
+      </div>
+    </section>
+
+    <section id="sobre" style="padding: 120px 28px; border-top: 1px solid oklch(0.7 0 0 / 0.07);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 22px;">Quem sou</p>
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.04em; margin: 0; max-width: 680px; text-wrap: pretty;">Product Owner com perfil técnico. Construo, não só coordeno.</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; margin-top: 46px;">
+          <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin: 0; font-size: 15.5px; line-height: 1.78; color: #9ba1ab; text-wrap: pretty;">Atuei como Product Owner porque adoro traduzir problemas em produtos. Mas minha maior característica é unir gestão de produto, UX/UI, desenvolvimento e IA em uma única entrega — participo de toda a construção, do primeiro insight ao deploy.</p>
+          <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin: 0; font-size: 15.5px; line-height: 1.78; color: #9ba1ab; text-wrap: pretty;">Isso significa que a estratégia que desenho é executável, o design que proponho é implementável e o código que escrevo serve ao produto. Nada se perde na tradução entre áreas — porque não há tradução: sou o mesmo profissional em todas elas.</p>
+        </div>
+        <div data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); display: flex; flex-wrap: wrap; gap: 10px; margin-top: 40px;">
+          <sc-for list="{{ pilares }}" as="t" hint-placeholder-count="4">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; letter-spacing: 0.05em; color: #b7bcc5; padding: 10px 17px; border: 1px solid oklch(0.7 0 0 / 0.12); border-radius: 999px; background: oklch(0.7 0 0 / 0.03); transition: border-color .35s ease, color .35s ease, transform .35s cubic-bezier(.16,1,.3,1);" style-hover="border-color: oklch(0.74 0.12 262 / 0.55); color: #fff; transform: translateY(-2px)">{{ t }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="metodo" style="padding: 120px 28px; border-top: 1px solid oklch(0.7 0 0 / 0.07);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 22px;">Metodologia</p>
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.04em; margin: 0; max-width: 580px; text-wrap: pretty;">Um processo claro para levar cada ideia até produção.</h2>
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size: 15.5px; color: #8b919b; margin: 18px 0 0;">Cada etapa gera valor por si só e prepara a próxima. Nada de teatro de processo.</p>
+
+        <div ref="{{ timelineRef }}" style="position: relative; margin-top: 72px;">
+          <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: oklch(0.7 0 0 / 0.12);"></div>
+          <div ref="{{ trackRef }}" style="position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; transform: scaleY(0); transform-origin: top; background: linear-gradient(180deg, oklch(0.74 0.14 262), oklch(0.8 0.12 200));"></div>
+          <sc-for list="{{ etapas }}" as="e" hint-placeholder-count="10">
+            <div style="display: grid; grid-template-columns: 1fr 46px 1fr; align-items: center; margin-bottom: 26px;">
+              <div style="display: flex; justify-content: flex-end; text-align: right;">
+                <sc-if value="{{ e.isLeft }}" hint-placeholder-val="{{ false }}">
+                  <div data-reveal data-tilt style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), border-color .4s ease; max-width: 380px; padding: 22px 26px; border: 1px solid oklch(0.7 0 0 / 0.08); border-radius: 18px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.012)); will-change: transform;" style-hover="border-color: oklch(0.74 0.12 262 / 0.45)">
+                    <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #5d626b; margin: 0 0 8px;">Etapa {{ e.num }}</p>
+                    <h3 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.025em; margin: 0 0 7px; color: #f0f1f4;">{{ e.title }}</h3>
+                    <p style="margin: 0; font-size: 14px; line-height: 1.62; color: #8b919b;">{{ e.desc }}</p>
+                  </div>
+                </sc-if>
+              </div>
+              <div style="display: flex; justify-content: center;">
+                <span data-reveal style="transition: opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1); width: 10px; height: 10px; border-radius: 50%; background: oklch(0.74 0.13 262); box-shadow: 0 0 0 4px oklch(0.74 0.13 262 / 0.14), 0 0 20px oklch(0.74 0.13 262 / 0.55);"></span>
+              </div>
+              <div style="display: flex; justify-content: flex-start;">
+                <sc-if value="{{ e.isRight }}" hint-placeholder-val="{{ true }}">
+                  <div data-reveal data-tilt style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), border-color .4s ease; max-width: 380px; padding: 22px 26px; border: 1px solid oklch(0.7 0 0 / 0.08); border-radius: 18px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.012)); will-change: transform;" style-hover="border-color: oklch(0.74 0.12 262 / 0.45)">
+                    <p style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #5d626b; margin: 0 0 8px;">Etapa {{ e.num }}</p>
+                    <h3 style="font-family: 'Sora', sans-serif; font-size: 20px; font-weight: 500; letter-spacing: -0.025em; margin: 0 0 7px; color: #f0f1f4;">{{ e.title }}</h3>
+                    <p style="margin: 0; font-size: 14px; line-height: 1.62; color: #8b919b;">{{ e.desc }}</p>
+                  </div>
+                </sc-if>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="projetos" style="padding: 120px 28px; border-top: 1px solid oklch(0.7 0 0 / 0.07);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 22px;">Projetos</p>
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.04em; margin: 0; max-width: 680px; text-wrap: pretty;">Produtos, sistemas e sites que já saíram do papel.</h2>
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size: 15.5px; color: #8b919b; margin: 18px 0 0;">Clique em qualquer projeto para ver o case completo, com galeria e detalhes.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: 22px; margin-top: 52px;">
+          <sc-for list="{{ projects }}" as="p" hint-placeholder-count="7">
+            <a href="{{ p.href }}" onClick="{{ p.open }}" data-reveal data-tilt style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .55s cubic-bezier(.16,1,.3,1), border-color .4s ease, box-shadow .4s ease; display: flex; flex-direction: column; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 22px; overflow: hidden; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015)); color: inherit; cursor: pointer; will-change: transform;" style-hover="border-color: oklch(0.74 0.12 262 / 0.5); box-shadow: 0 26px 60px oklch(0 0 0 / 0.45); color: inherit">
+              <span style="display: block; aspect-ratio: 16 / 10; overflow: hidden; background: #101116; border-bottom: 1px solid oklch(0.7 0 0 / 0.07);">
+                <img src="{{ p.cover }}" alt="{{ p.title }}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transition: transform 1s cubic-bezier(.16,1,.3,1), filter .5s ease; filter: saturate(.9);" style-hover="transform: scale(1.06); filter: saturate(1.05)" />
+              </span>
+              <span style="display: flex; flex-direction: column; gap: 9px; padding: 24px 26px 28px;">
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: #5d626b;">{{ p.meta }}</span>
+                <span style="font-family: 'Sora', sans-serif; font-size: 22px; font-weight: 500; letter-spacing: -0.03em; color: #f0f1f4;">{{ p.title }}</span>
+                <span style="font-size: 14.5px; line-height: 1.6; color: #8b919b;">{{ p.desc }}</span>
+                <span style="margin-top: 8px; font-size: 12.5px; color: oklch(0.8 0.11 262); display: inline-flex; align-items: center; gap: 7px;">Ver case completo <span>→</span></span>
+              </span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="ia" style="padding: 120px 28px; border-top: 1px solid oklch(0.7 0 0 / 0.07);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 22px;">Inteligência Artificial</p>
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.04em; margin: 0; max-width: 660px; text-wrap: pretty;">IA como multiplicador de produtividade — não como substituto.</h2>
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size: 15.5px; line-height: 1.72; color: #8b919b; margin: 20px 0 0; max-width: 660px; text-wrap: pretty;">Uso IA em desenvolvimento, documentação, design, brainstorming, arquitetura e automações. Continuo sendo o responsável pelas decisões, pela qualidade e pela entrega.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 16px; margin-top: 46px;">
+          <sc-for list="{{ ferramentas }}" as="f" hint-placeholder-count="6">
+            <div data-reveal data-tilt style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1), border-color .4s ease; padding: 26px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 20px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015)); will-change: transform;" style-hover="border-color: oklch(0.74 0.12 262 / 0.45)">
+              <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 13px;">
+                <span style="width: 8px; height: 8px; border-radius: 50%; background: oklch(0.74 0.14 262); box-shadow: 0 0 14px oklch(0.74 0.14 262 / 0.9); animation: dotPulse 3s ease-in-out infinite;"></span>
+                <h3 style="font-family: 'Sora', sans-serif; font-size: 16.5px; font-weight: 500; letter-spacing: -0.02em; margin: 0; color: #f0f1f4;">{{ f.name }}</h3>
+              </div>
+              <p style="margin: 0; font-size: 14px; line-height: 1.62; color: #8b919b;">{{ f.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 120px 28px; border-top: 1px solid oklch(0.7 0 0 / 0.07);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 22px;">Competências</p>
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.04em; margin: 0; max-width: 580px; text-wrap: pretty;">Produto, desenvolvimento e design em um só profissional.</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 46px;">
+          <sc-for list="{{ competencias }}" as="c" hint-placeholder-count="3">
+            <div data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1), border-color .4s ease; padding: 28px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 22px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015));" style-hover="border-color: oklch(0.74 0.12 262 / 0.35)">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 20px;">
+                <span style="width: 5px; height: 20px; border-radius: 3px; background: linear-gradient(180deg, oklch(0.74 0.14 262), oklch(0.8 0.12 200));"></span>
+                <h3 style="font-family: 'Sora', sans-serif; font-size: 17.5px; font-weight: 500; letter-spacing: -0.02em; margin: 0; color: #f0f1f4;">{{ c.area }}</h3>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                <sc-for list="{{ c.items }}" as="i" hint-placeholder-count="8">
+                  <span style="font-size: 12.5px; color: #a3a8b2; padding: 7px 13px; border: 1px solid oklch(0.7 0 0 / 0.1); border-radius: 9px; background: oklch(0.7 0 0 / 0.03); transition: color .3s ease, border-color .3s ease, transform .3s cubic-bezier(.16,1,.3,1);" style-hover="color: #fff; border-color: oklch(0.74 0.12 262 / 0.55); transform: translateY(-2px)">{{ i }}</span>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 120px 28px; border-top: 1px solid oklch(0.7 0 0 / 0.07);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 22px;">Carreira</p>
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.04em; margin: 0; max-width: 620px; text-wrap: pretty;">Uma trajetória construída em cima de dados, processo e produto.</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top: 46px;">
+          <sc-for list="{{ carreira }}" as="c" hint-placeholder-count="4">
+            <div data-reveal data-tilt style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1), border-color .4s ease; padding: 26px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 20px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015)); will-change: transform;" style-hover="border-color: oklch(0.74 0.12 262 / 0.45)">
+              <div style="display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 16px;">
+                <span style="font-family: 'Sora', sans-serif; font-size: 32px; font-weight: 300; color: #2f3238; letter-spacing: -0.05em;">{{ c.num }}</span>
+                <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: oklch(0.74 0.12 262);">{{ c.year }}</span>
+              </div>
+              <h3 style="font-family: 'Sora', sans-serif; font-size: 17px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 8px; color: #f0f1f4;">{{ c.role }}</h3>
+              <p style="margin: 0; font-size: 13.5px; line-height: 1.62; color: #8b919b;">{{ c.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section ref="{{ statsRef }}" style="padding: 120px 28px; border-top: 1px solid oklch(0.7 0 0 / 0.07);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 22px;">Números</p>
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.04em; margin: 0;">Produto entregue, não teórico.</h2>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; margin-top: 46px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 22px; overflow: hidden; background: oklch(0.7 0 0 / 0.09);">
+          <sc-for list="{{ stats }}" as="s" hint-placeholder-count="6">
+            <div style="padding: 36px 28px; background: #0b0c10; transition: background .4s ease;" style-hover="background: #12141a">
+              <div style="font-family: 'Sora', sans-serif; font-size: 48px; font-weight: 500; letter-spacing: -0.045em; line-height: 1; background: linear-gradient(180deg, #ffffff, #8b919b); -webkit-background-clip: text; background-clip: text; color: transparent; font-variant-numeric: tabular-nums;">{{ s.display }}</div>
+              <div style="margin-top: 12px; font-size: 13.5px; color: #8b919b;">{{ s.label }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section style="padding: 120px 28px; border-top: 1px solid oklch(0.7 0 0 / 0.07);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 22px;">Depoimentos</p>
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.04em; margin: 0; max-width: 540px; text-wrap: pretty;">O que dizem quem trabalhou comigo.</h2>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin-top: 46px;">
+          <sc-for list="{{ depoimentos }}" as="d" hint-placeholder-count="3">
+            <figure data-reveal data-tilt style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1), border-color .4s ease; margin: 0; padding: 30px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 22px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015)); display: flex; flex-direction: column; gap: 22px; will-change: transform;" style-hover="border-color: oklch(0.74 0.12 262 / 0.4)">
+              <span style="font-family: 'Sora', sans-serif; font-size: 38px; line-height: .6; color: #33363c;">“</span>
+              <blockquote style="margin: 0; font-size: 15px; line-height: 1.72; color: #b7bcc5; text-wrap: pretty;">{{ d.quote }}</blockquote>
+              <figcaption style="margin-top: auto; display: flex; align-items: center; gap: 12px;">
+                <span style="width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: oklch(0.74 0.12 262 / 0.18); color: oklch(0.86 0.09 262); font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 600;">{{ d.initials }}</span>
+                <span style="display: flex; flex-direction: column;">
+                  <span style="font-size: 13.5px; color: #f0f1f4; font-weight: 500;">{{ d.name }}</span>
+                  <span style="font-size: 12px; color: #797f89;">{{ d.role }}</span>
+                </span>
+              </figcaption>
+            </figure>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="contato" style="padding: 120px 28px 130px; border-top: 1px solid oklch(0.7 0 0 / 0.07);">
+      <div style="max-width: 1200px; margin: 0 auto;">
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 22px;">Contato</p>
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(32px, 4.6vw, 56px); line-height: 1.06; letter-spacing: -0.04em; margin: 0; max-width: 580px; text-wrap: pretty;">Tem uma ideia? Vamos transformar em produto.</h2>
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size: 15.5px; color: #8b919b; margin: 18px 0 0;">Respondo pessoalmente, geralmente em menos de 24 horas.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 18px; margin-top: 46px; align-items: start;">
+          <form onSubmit="{{ onSubmit }}" data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); padding: 30px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 22px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015)); display: flex; flex-direction: column; gap: 16px;">
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #797f89;">Nome</span>
+              <input type="text" value="{{ form.nome }}" onChange="{{ setNome }}" placeholder="Seu nome" style="background: #0b0c10; border: 1px solid oklch(0.7 0 0 / 0.12); border-radius: 11px; padding: 13px 15px; color: #eceef1; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color .3s ease, box-shadow .3s ease;" style-focus="border-color: oklch(0.74 0.13 262); box-shadow: 0 0 0 3px oklch(0.74 0.13 262 / 0.16)" />
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #797f89;">Email</span>
+              <input type="email" value="{{ form.email }}" onChange="{{ setEmail }}" placeholder="voce@email.com" style="background: #0b0c10; border: 1px solid oklch(0.7 0 0 / 0.12); border-radius: 11px; padding: 13px 15px; color: #eceef1; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color .3s ease, box-shadow .3s ease;" style-focus="border-color: oklch(0.74 0.13 262); box-shadow: 0 0 0 3px oklch(0.74 0.13 262 / 0.16)" />
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #797f89;">WhatsApp</span>
+              <input type="tel" value="{{ form.fone }}" onChange="{{ setFone }}" placeholder="(62) 90000-0000" style="background: #0b0c10; border: 1px solid oklch(0.7 0 0 / 0.12); border-radius: 11px; padding: 13px 15px; color: #eceef1; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; transition: border-color .3s ease, box-shadow .3s ease;" style-focus="border-color: oklch(0.74 0.13 262); box-shadow: 0 0 0 3px oklch(0.74 0.13 262 / 0.16)" />
+            </label>
+            <label style="display: flex; flex-direction: column; gap: 8px;">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #797f89;">Mensagem</span>
+              <textarea rows="4" value="{{ form.msg }}" onChange="{{ setMsg }}" placeholder="Conte sobre sua ideia ou projeto" style="background: #0b0c10; border: 1px solid oklch(0.7 0 0 / 0.12); border-radius: 11px; padding: 13px 15px; color: #eceef1; font-family: 'DM Sans', sans-serif; font-size: 14px; outline: none; resize: vertical; transition: border-color .3s ease, box-shadow .3s ease;" style-focus="border-color: oklch(0.74 0.13 262); box-shadow: 0 0 0 3px oklch(0.74 0.13 262 / 0.16)"></textarea>
+            </label>
+            <button type="submit" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 9px; background: #f2f3f5; color: #08080a; border: none; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; padding: 14px 26px; border-radius: 999px; cursor: pointer; transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;" style-hover="transform: translateY(-2px) scale(1.02); box-shadow: 0 16px 38px oklch(0.9 0 0 / 0.18)">{{ btnLabel }} <span>→</span></button>
+            <p style="margin: 0; font-size: 12.5px; line-height: 1.5; color: oklch(0.82 0.13 150); min-height: 18px;">{{ sentMsg }}</p>
+          </form>
+
+          <div data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); padding: 30px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 22px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015));">
+            <h3 style="font-family: 'Sora', sans-serif; font-size: 19px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 8px; color: #f0f1f4;">Prefere direto?</h3>
+            <p style="margin: 0 0 22px; font-size: 14px; line-height: 1.6; color: #8b919b;">Escolha o canal mais confortável — respondo em todos.</p>
+            <div style="display: flex; flex-direction: column; gap: 10px;">
+              <a href="https://wa.me/5562982133188" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 17px 19px; border: 1px solid oklch(0.7 0 0 / 0.1); border-radius: 15px; background: oklch(0.7 0 0 / 0.03); color: #eceef1; transition: border-color .35s ease, transform .35s cubic-bezier(.16,1,.3,1), background .35s ease;" style-hover="border-color: oklch(0.78 0.13 150 / 0.55); background: oklch(0.78 0.13 150 / 0.08); transform: translateX(6px); color: #fff">
+                <span style="display: flex; flex-direction: column; gap: 3px;">
+                  <span style="font-size: 14.5px; font-weight: 500;">WhatsApp</span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #797f89;">(62) 98213-3188</span>
+                </span>
+                <span style="font-size: 12.5px; color: #8b919b;">→</span>
+              </a>
+              <a href="https://instagram.com/prog.arthur" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 17px 19px; border: 1px solid oklch(0.7 0 0 / 0.1); border-radius: 15px; background: oklch(0.7 0 0 / 0.03); color: #eceef1; transition: border-color .35s ease, transform .35s cubic-bezier(.16,1,.3,1), background .35s ease;" style-hover="border-color: oklch(0.72 0.16 340 / 0.55); background: oklch(0.72 0.16 340 / 0.08); transform: translateX(6px); color: #fff">
+                <span style="display: flex; flex-direction: column; gap: 3px;">
+                  <span style="font-size: 14.5px; font-weight: 500;">Instagram</span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #797f89;">@prog.arthur</span>
+                </span>
+                <span style="font-size: 12.5px; color: #8b919b;">→</span>
+              </a>
+              <a href="https://www.linkedin.com/in/arthur-araujo-6a6292179/" target="_blank" rel="noopener" style="display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 17px 19px; border: 1px solid oklch(0.7 0 0 / 0.1); border-radius: 15px; background: oklch(0.7 0 0 / 0.03); color: #eceef1; transition: border-color .35s ease, transform .35s cubic-bezier(.16,1,.3,1), background .35s ease;" style-hover="border-color: oklch(0.74 0.12 262 / 0.55); background: oklch(0.74 0.12 262 / 0.08); transform: translateX(6px); color: #fff">
+                <span style="display: flex; flex-direction: column; gap: 3px;">
+                  <span style="font-size: 14.5px; font-weight: 500;">LinkedIn</span>
+                  <span style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #797f89;">arthur-araujo</span>
+                </span>
+                <span style="font-size: 12.5px; color: #8b919b;">→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ isProject }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Projeto" style="position: relative; z-index: 2; padding: 136px 28px 110px; animation: fadeIn .5s ease both;">
+    <article style="max-width: 1000px; margin: 0 auto;">
+      <a href="#projetos" onClick="{{ goProjetos }}" style="display: inline-flex; align-items: center; gap: 9px; font-size: 13px; color: #8b919b; margin-bottom: 34px; transition: color .3s ease, gap .3s ease;" style-hover="color: #fff; gap: 14px"><span>←</span> Todos os projetos</a>
+      <p style="font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.74 0.12 262); margin: 0 0 16px; animation: riseIn .8s cubic-bezier(.16,1,.3,1) both;">{{ current.meta }}</p>
+      <h1 style="font-family: 'Sora', sans-serif; font-weight: 600; font-size: clamp(40px, 6.6vw, 82px); line-height: 1; letter-spacing: -0.045em; margin: 0; background: linear-gradient(180deg, #ffffff 28%, #a7acb6 100%); -webkit-background-clip: text; background-clip: text; color: transparent; animation: riseIn .9s cubic-bezier(.16,1,.3,1) .06s both;">{{ current.title }}</h1>
+      <p style="font-size: 18.5px; line-height: 1.6; color: #a3a8b2; margin: 20px 0 0; max-width: 660px; text-wrap: pretty; animation: riseIn .9s cubic-bezier(.16,1,.3,1) .14s both;">{{ current.desc }}</p>
+
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; animation: riseIn .9s cubic-bezier(.16,1,.3,1) .2s both;">
+        <sc-if value="{{ current.hasLink }}" hint-placeholder-val="{{ true }}">
+          <a href="{{ current.linkUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; background: #f2f3f5; color: #08080a; font-size: 13.5px; font-weight: 600; padding: 13px 24px; border-radius: 999px; transition: transform .3s cubic-bezier(.16,1,.3,1), box-shadow .3s ease;" style-hover="transform: translateY(-2px); box-shadow: 0 14px 34px oklch(0.9 0 0 / 0.2); color: #08080a">{{ current.linkLabel }} <span>↗</span></a>
+        </sc-if>
+        <sc-if value="{{ current.restrito }}" hint-placeholder-val="{{ false }}">
+          <span style="display: inline-flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #797f89; border: 1px dashed oklch(0.7 0 0 / 0.2); padding: 12px 20px; border-radius: 999px;">Sistema interno — acesso restrito</span>
+        </sc-if>
+        <a href="https://wa.me/5562982133188" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 9px; border: 1px solid oklch(0.7 0 0 / 0.16); color: #d7dae0; font-size: 13.5px; font-weight: 500; padding: 13px 24px; border-radius: 999px; transition: background .3s ease, border-color .3s ease, transform .3s cubic-bezier(.16,1,.3,1);" style-hover="background: oklch(0.78 0.13 150 / 0.1); border-color: oklch(0.78 0.13 150 / 0.5); transform: translateY(-2px); color: #fff">Quero algo assim</a>
+      </div>
+
+      <button onClick="{{ current.zoomCover }}" style="margin-top: 46px; padding: 0; width: 100%; border: 1px solid oklch(0.7 0 0 / 0.1); border-radius: 24px; overflow: hidden; background: #101116; cursor: zoom-in; display: block; animation: popIn 1s cubic-bezier(.16,1,.3,1) .24s both; transition: border-color .4s ease, box-shadow .4s ease;" style-hover="border-color: oklch(0.74 0.12 262 / 0.5); box-shadow: 0 30px 70px oklch(0 0 0 / 0.5)">
+        <img ref="{{ coverImgRef }}" alt="{{ current.title }}" style="width: 100%; display: block; transition: transform 1.1s cubic-bezier(.16,1,.3,1);" style-hover="transform: scale(1.02)" />
+      </button>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-top: 58px;">
+        <div data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); padding: 30px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 22px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015));">
+          <h2 style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 12px; color: #f0f1f4;">Problema</h2>
+          <p style="margin: 0; font-size: 15px; line-height: 1.75; color: #9ba1ab; text-wrap: pretty;">{{ current.problema }}</p>
+        </div>
+        <div data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); padding: 30px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 22px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015));">
+          <h2 style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 12px; color: #f0f1f4;">Solução</h2>
+          <p style="margin: 0; font-size: 15px; line-height: 1.75; color: #9ba1ab; text-wrap: pretty;">{{ current.solucao }}</p>
+        </div>
+      </div>
+
+      <div data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin-top: 20px; padding: 30px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 22px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015));">
+        <h2 style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 16px; color: #f0f1f4;">Tecnologias</h2>
+        <div style="display: flex; flex-wrap: wrap; gap: 9px;">
+          <sc-for list="{{ current.techs }}" as="t" hint-placeholder-count="5">
+            <span style="font-family: 'JetBrains Mono', monospace; font-size: 11.5px; color: #b7bcc5; padding: 9px 15px; border: 1px solid oklch(0.7 0 0 / 0.12); border-radius: 999px; background: oklch(0.7 0 0 / 0.03); transition: border-color .3s ease, color .3s ease, transform .3s cubic-bezier(.16,1,.3,1);" style-hover="border-color: oklch(0.74 0.13 262 / 0.6); color: #fff; transform: translateY(-2px)">{{ t }}</span>
+          </sc-for>
+        </div>
+      </div>
+
+      <div data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin-top: 20px; padding: 30px; border: 1px solid oklch(0.74 0.13 262 / 0.25); border-radius: 22px; background: oklch(0.74 0.13 262 / 0.07);">
+        <h2 style="font-family: 'Sora', sans-serif; font-size: 16px; font-weight: 500; letter-spacing: -0.02em; margin: 0 0 12px; color: #f0f1f4;">Resultado</h2>
+        <p style="margin: 0; font-size: 15.5px; line-height: 1.75; color: #c3c8d0; text-wrap: pretty;">{{ current.resultado }}</p>
+      </div>
+
+      <div style="margin-top: 58px;">
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-size: clamp(25px, 3.2vw, 36px); font-weight: 600; letter-spacing: -0.035em; margin: 0 0 26px;">Processo de desenvolvimento</h2>
+        <div style="display: flex; flex-direction: column; gap: 1px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 20px; overflow: hidden; background: oklch(0.7 0 0 / 0.09);">
+          <sc-for list="{{ current.processo }}" as="step" hint-placeholder-count="5">
+            <div data-reveal style="transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1), background .3s ease; display: flex; align-items: flex-start; gap: 17px; padding: 22px 26px; background: #0b0c10;" style-hover="background: #12141a">
+              <span style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: oklch(0.74 0.12 262); padding-top: 3px;">{{ step.n }}</span>
+              <span style="font-size: 15px; line-height: 1.6; color: #b7bcc5;">{{ step.text }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+
+      <div style="margin-top: 58px;">
+        <h2 data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-family: 'Sora', sans-serif; font-size: clamp(25px, 3.2vw, 36px); font-weight: 600; letter-spacing: -0.035em; margin: 0 0 12px;">Galeria</h2>
+        <p data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); font-size: 14px; color: #797f89; margin: 0 0 26px;">Clique em qualquer imagem para ampliar.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 18px;">
+          <sc-for list="{{ current.gallery }}" as="g" hint-placeholder-count="4">
+            <figure data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .9s cubic-bezier(.16,1,.3,1); margin: 0; display: flex; flex-direction: column; gap: 10px;">
+              <button onClick="{{ g.zoom }}" data-tilt style="padding: 0; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 18px; overflow: hidden; background: #101116; cursor: zoom-in; display: block; transition: border-color .4s ease, box-shadow .4s ease, transform .5s cubic-bezier(.16,1,.3,1); will-change: transform;" style-hover="border-color: oklch(0.74 0.13 262 / 0.55); box-shadow: 0 22px 50px oklch(0 0 0 / 0.45)">
+                <img src="{{ g.src }}" alt="{{ g.caption }}" loading="lazy" data-gal style="width: 100%; aspect-ratio: 16 / 11; object-fit: cover; object-position: top; display: block; transition: transform 1.1s cubic-bezier(.16,1,.3,1);" style-hover="transform: scale(1.05)" />
+              </button>
+              <figcaption style="font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #797f89; letter-spacing: 0.05em;">{{ g.caption }}</figcaption>
+            </figure>
+          </sc-for>
+        </div>
+      </div>
+
+      <a href="{{ nextProject.href }}" onClick="{{ nextProject.open }}" data-reveal style="transition: opacity .9s cubic-bezier(.16,1,.3,1), transform .5s cubic-bezier(.16,1,.3,1), border-color .4s ease; margin-top: 70px; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 32px 34px; border: 1px solid oklch(0.7 0 0 / 0.09); border-radius: 24px; background: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015)); color: inherit;" style-hover="border-color: oklch(0.74 0.13 262 / 0.55); transform: translateY(-4px); color: inherit">
+        <span style="display: flex; flex-direction: column; gap: 8px;">
+          <span style="font-family: 'JetBrains Mono', monospace; font-size: 10.5px; letter-spacing: 0.22em; text-transform: uppercase; color: #5d626b;">Próximo projeto</span>
+          <span style="font-family: 'Sora', sans-serif; font-size: 28px; font-weight: 500; letter-spacing: -0.035em; color: #f0f1f4;">{{ nextProject.title }}</span>
+        </span>
+        <span style="font-size: 26px; color: oklch(0.8 0.11 262);">→</span>
+      </a>
+    </article>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ lightbox }}" hint-placeholder-val="{{ false }}">
+    <div onClick="{{ closeLightbox }}" style="position: fixed; inset: 0; z-index: 90; background: oklch(0.1 0.005 260 / 0.94); backdrop-filter: blur(12px); display: grid; place-items: start center; padding: 60px 40px 40px; overflow: auto; cursor: zoom-out; animation: fadeIn .3s ease both;">
+      <img ref="{{ lightboxImgRef }}" alt="" style="max-width: 1200px; width: 100%; border-radius: 14px; border: 1px solid oklch(0.7 0 0 / 0.14); box-shadow: 0 40px 100px oklch(0 0 0 / 0.65); animation: popIn .5s cubic-bezier(.16,1,.3,1) both;" />
+      <span style="position: fixed; top: 24px; right: 28px; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; color: #9ba1ab;">FECHAR ✕</span>
+    </div>
+  </sc-if>
+
+  <a href="https://wa.me/5562982133188" target="_blank" rel="noopener" style="position: fixed; right: 24px; bottom: 24px; z-index: 70; width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: oklch(0.62 0.16 150); color: #05140c; font-size: 22px; box-shadow: 0 14px 34px oklch(0.62 0.16 150 / 0.4); transition: transform .35s cubic-bezier(.16,1,.3,1), box-shadow .35s ease;" style-hover="transform: translateY(-4px) scale(1.06); box-shadow: 0 20px 46px oklch(0.62 0.16 150 / 0.55); color: #05140c" aria-label="Falar no WhatsApp"><svg viewBox="0 0 24 24" width="27" height="27" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.6 2 2.2 6.4 2.2 11.84c0 1.94.54 3.75 1.48 5.3L2 22l4.98-1.62a9.82 9.82 0 0 0 5.06 1.4c5.44 0 9.84-4.4 9.84-9.84S17.48 2 12.04 2Zm5.72 13.9c-.24.68-1.4 1.3-1.94 1.36-.54.06-1.02.1-1.76-.14-.44-.14-1.02-.32-1.76-.66-2.62-1.2-4.32-3.98-4.44-4.16-.12-.18-1.06-1.5-1.02-2.82.04-1.32.72-1.96.98-2.22.26-.26.56-.32.74-.32h.54c.18 0 .4-.02.62.5.24.56.82 2 .9 2.14.08.14.12.3.02.48-.1.18-.16.3-.32.46l-.24.28c-.16.16-.32.34-.14.66.18.32.8 1.34 1.72 2.18 1.18 1.08 1.8 1.26 2.06 1.4.26.14.42.12.58-.04.16-.16.68-.78.86-1.06.18-.28.36-.22.6-.14.24.08 1.52.72 1.78.86.26.14.44.2.5.32.06.12.06.7-.18 1.38Z"/></svg></a>
+
+  <sc-if value="{{ toast }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); z-index: 95; max-width: 90vw; padding: 13px 20px; border: 1px solid oklch(0.74 0.12 262 / 0.4); border-radius: 999px; background: oklch(0.16 0.01 265 / 0.95); backdrop-filter: blur(14px); font-size: 13px; color: #e4e6ea; box-shadow: 0 18px 44px oklch(0 0 0 / 0.5); animation: popIn .4s cubic-bezier(.16,1,.3,1) both; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ toast }}</div>
+  </sc-if>
+
+  <footer style="position: relative; z-index: 2; border-top: 1px solid oklch(0.7 0 0 / 0.07); padding: 38px 28px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: flex; align-items: center; flex-wrap: wrap; gap: 18px;">
+      <span style="width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; background: oklch(0.74 0.12 262 / 0.18); color: oklch(0.86 0.09 262); font-family: 'Sora', sans-serif; font-size: 12px; font-weight: 600;">AP</span>
+      <span style="display: flex; flex-direction: column;">
+        <span style="font-family: 'Sora', sans-serif; font-size: 14px; font-weight: 500; color: #eceef1;">Arthur Prog</span>
+        <span style="font-size: 12px; color: #6d727c;">Da ideia ao produto — 2026</span>
+      </span>
+      <span style="margin-left: auto; display: flex; gap: 20px; font-size: 12.5px;">
+        <a href="https://wa.me/5562982133188" target="_blank" rel="noopener" style="color: #8b919b;" style-hover="color: #fff">WhatsApp</a>
+        <a href="https://instagram.com/prog.arthur" target="_blank" rel="noopener" style="color: #8b919b;" style-hover="color: #fff">Instagram</a>
+        <a href="https://www.linkedin.com/in/arthur-araujo-6a6292179/" target="_blank" rel="noopener" style="color: #8b919b;" style-hover="color: #fff">LinkedIn</a>
+      </span>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;formEndpoint&quot;: {&quot;editor&quot;: &quot;text&quot;, &quot;default&quot;: &quot;&quot;, &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Formulário&quot;, &quot;label&quot;: &quot;Endpoint de notificação (Formspree/FormSubmit)&quot;}, &quot;abrirWhatsapp&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Formulário&quot;, &quot;label&quot;: &quot;Abrir WhatsApp ao enviar&quot;}}">
+const P = "assets/";
+const IMG = {
+  progCover: P + "prog-site-cover.png",
+  progSite: [P + "prog-site-1.png", P + "prog-site-2.png", P + "prog-site-3.png", P + "prog-site-4.png", P + "prog-site-5.png"],
+  progDash: P + "prog-dash.png",
+  progFin: P + "prog-financeiro.png",
+  orbiVisao: P + "orbi-visao.png",
+  orbiTreinos: P + "orbi-treinos.png",
+  vitalitiCover: P + "vitaliti-cover.png",
+  vitaliti: [P + "vitaliti-1.png", P + "vitaliti-2.png", P + "vitaliti-3.png", P + "vitaliti-4.png", P + "vitaliti-5.png"],
+  tecnoCover: P + "tecno-cover.png",
+  tecno: [P + "tecno-1.png", P + "tecno-2.png", P + "tecno-3.png", P + "tecno-4.png"],
+  consorcio: P + "consorcio.png"
+};
+
+const PROJECTS = [
+  {
+    slug: "prog-imports", title: "Prog Imports", meta: "Sistema web + e-commerce · 2025",
+    desc: "Plataforma completa de importação: loja, gestão, estoque e financeiro em um só lugar.",
+    linkUrl: "https://www.prog-imports.com", linkLabel: "prog-imports.com",
+    cover: IMG.progCover,
+    problema: "A operação dependia de planilhas soltas, conversas informais e controles manuais. Não havia visão única de estoque, vendas, orçamentos e financeiro — cada resposta exigia consolidar dados à mão.",
+    solucao: "Um produto em duas frentes: o e-commerce voltado ao cliente final (catálogo, coleções, serviços técnicos, carrinho) e o sistema interno de gestão com dashboard, clientes, produtos, estoque, orçamentos, vendas, trocas e financeiro completo.",
+    techs: ["React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind", "Recharts"],
+    resultado: "Toda a operação passou a viver em um só sistema: indicadores gerais, financeiros e comerciais em tempo real, fluxo de caixa mensal visível e catálogo online integrado ao estoque.",
+    processo: ["Discovery com a operação para mapear o fluxo real de compra, importação e venda", "Modelagem de dados de produtos, estoque, vendas e financeiro", "Design da loja e do painel interno com um mesmo sistema visual", "Desenvolvimento incremental com entregas semanais validadas", "Migração dos controles em planilha e treinamento de uso"],
+    gallery: [
+      { src: IMG.progSite[0], caption: "Loja — hero e coleções" },
+      { src: IMG.progSite[1], caption: "Loja — catálogo por categoria" },
+      { src: IMG.progSite[2], caption: "Loja — promoções e mais vendidos" },
+      { src: IMG.progSite[3], caption: "Loja — diferenciais e serviços técnicos" },
+      { src: IMG.progSite[4], caption: "Loja — depoimentos, newsletter e rodapé" },
+      { src: IMG.progDash, caption: "Painel — dashboard de indicadores" },
+      { src: IMG.progFin, caption: "Painel — financeiro e fluxo de caixa" }
+    ]
+  },
+  {
+    slug: "orbi", title: "Orbi", meta: "Produto com IA · 2025",
+    desc: "Assistente pessoal com IA reunindo agenda, tarefas, finanças e treinos.",
+    linkUrl: "https://jarvis-webapp-three.vercel.app/login", linkLabel: "Acessar Orbi",
+    cover: IMG.orbiVisao,
+    problema: "Ferramentas de produtividade tratam agenda, dinheiro, tarefas e saúde como aplicativos separados. O usuário perde tempo trocando de contexto e ninguém enxerga o dia como um todo.",
+    solucao: "O Orbi centraliza visão geral do dia, agenda, tarefas, financeiro e treino em uma interface só, com um assistente (Jarvis) que resume o dia, aponta pendências e conversa sobre o que fazer em seguida.",
+    techs: ["React", "TypeScript", "Node.js", "OpenAI", "Supabase", "Tailwind"],
+    resultado: "Rotina inteira em uma tela: clima, resumo do dia por IA, tarefas pendentes, gastos, compromissos, pagamentos a receber e acompanhamento de treino com evolução de carga e peso.",
+    processo: ["Definição das personas e dos jobs-to-be-done da rotina diária", "Arquitetura do agente e das ferramentas que ele pode acionar", "Design dos módulos (visão geral, agenda, tarefas, financeiro, treino)", "Desenvolvimento iterativo com uso real no dia a dia", "Ajuste fino de prompts, resumos e limites do assistente"],
+    gallery: [
+      { src: IMG.orbiVisao, caption: "Visão geral com resumo do Jarvis" },
+      { src: IMG.orbiTreinos, caption: "Módulo de treino, cronômetro e evolução" }
+    ]
+  },
+  {
+    slug: "vitaliti", title: "VitaliTI Soluções", meta: "Site institucional · 2025",
+    desc: "Site de credibilidade e conversão para empresa de tecnologia e segurança.",
+    linkUrl: "https://www.vitalitisolucoes.com.br", linkLabel: "vitalitisolucoes.com.br",
+    cover: IMG.vitalitiCover,
+    problema: "A VitaliTI tinha entregas técnicas fortes — CFTV, cabeamento, automação, controle de acesso — mas nenhuma presença digital que sustentasse essa autoridade e gerasse orçamentos.",
+    solucao: "Site institucional com narrativa clara de serviços, números de credibilidade, portfólio de clientes reais, depoimentos, FAQ e chamadas diretas para orçamento pelo WhatsApp.",
+    techs: ["React", "Next.js", "Tailwind", "Framer Motion", "SEO"],
+    resultado: "Percepção de marca mais sólida e um caminho curto do visitante até o pedido de orçamento, com prova social visível em cada seção.",
+    processo: ["Workshop de posicionamento e definição das mensagens-chave", "Arquitetura da informação e wireframes das seções", "Design system leve com componentes reutilizáveis", "Implementação com foco em performance, SEO e conversão"],
+    gallery: [
+      { src: IMG.vitaliti[0], caption: "Hero e indicadores de credibilidade" },
+      { src: IMG.vitaliti[1], caption: "Serviços e sobre a empresa" },
+      { src: IMG.vitaliti[2], caption: "Clientes que são referência" },
+      { src: IMG.vitaliti[3], caption: "Depoimentos e perguntas frequentes" },
+      { src: IMG.vitaliti[4], caption: "Chamada final e rodapé" }
+    ]
+  },
+  {
+    slug: "sistema-financeiro", title: "Sistema Financeiro", meta: "Módulo de gestão · 2024",
+    desc: "Receitas, despesas, previsões e fluxo de caixa com leitura imediata.",
+    restrito: true, cover: IMG.progFin,
+    problema: "O controle financeiro vivia em planilhas: sem previsto versus realizado, sem lucro por período e sem qualquer visão de fluxo de caixa ao longo do ano.",
+    solucao: "Módulo com receitas e despesas lançadas por período, status de pago e previsto, filtros por data, ano e mês, e gráfico de fluxo de caixa mensal consolidado.",
+    techs: ["React", "TypeScript", "Node.js", "PostgreSQL", "Recharts"],
+    resultado: "Receita, despesa, lucro líquido e valores previstos do período à vista, com fechamento que deixou de levar dias para levar minutos.",
+    processo: ["Levantamento dos indicadores que a gestão realmente usa", "Modelagem de lançamentos, parcelas e status", "Design das telas de listagem, filtros e gráficos", "Validação dos números contra os controles antigos"],
+    gallery: [
+      { src: IMG.progFin, caption: "Financeiro — período, indicadores e fluxo de caixa" },
+      { src: IMG.progDash, caption: "Dashboard — indicadores gerais e comerciais" }
+    ]
+  },
+  {
+    slug: "sistema-consorcio", title: "Sistema de Consórcio", meta: "Sistema web · 2024",
+    desc: "Gestão de grupos, cotas, contemplações e inadimplência.",
+    cover: IMG.consorcio,
+    problema: "Administrar consórcios envolve grupos, cotas, parcelas, contemplações e adimplência — regras que nenhuma planilha sustenta sem erro.",
+    solucao: "Sistema com dashboard consolidado de todos os consórcios: visão geral, financeiro por mês, pagamentos, próximos vencimentos, participantes a receber e um farol por participante.",
+    techs: ["React", "TypeScript", "Node.js", "PostgreSQL", "Chart.js"],
+    resultado: "Operação padronizada e auditável: cada parcela, contemplação e atraso com registro e visão imediata de quem está em dia.",
+    processo: ["Modelagem das regras de grupos, cotas e parcelas", "Design do dashboard e do farol de participantes", "Desenvolvimento com validações fortes por etapa", "Conferência do histórico financeiro migrado"],
+    gallery: [{ src: IMG.consorcio, caption: "Dashboard consolidado com farol de participantes" }]
+  },
+  {
+    slug: "sites-institucionais", title: "Sites Institucionais", meta: "Coleção · 2023 — 2025",
+    desc: "Identidades diferentes, mesmo padrão de qualidade e performance.",
+    cover: IMG.tecnoCover,
+    problema: "Cada empresa precisa de uma identidade própria, mas com o mesmo rigor de performance, SEO, acessibilidade e conversão.",
+    solucao: "Sites institucionais sob medida, cada um com seu sistema visual — como a TecnoPallet (logística) e a VitaliTI (tecnologia) — sempre com serviços claros, prova social, localização e contato direto.",
+    techs: ["React", "Next.js", "Tailwind", "Framer Motion", "SEO"],
+    resultado: "Sites rápidos, bem ranqueados e que comunicam a proposta de valor de cada cliente sem ruído.",
+    processo: ["Discovery de marca, público e posicionamento", "Design visual alinhado ao copywriting", "Implementação performática e acessível", "Acompanhamento pós-lançamento"],
+    gallery: [
+      { src: IMG.tecno[0], caption: "TecnoPallet — hero e indicadores" },
+      { src: IMG.tecno[1], caption: "TecnoPallet — serviços e quem somos" },
+      { src: IMG.tecno[2], caption: "TecnoPallet — operações e instalações" },
+      { src: IMG.tecno[3], caption: "TecnoPallet — localização e contato" },
+      { src: IMG.vitalitiCover, caption: "VitaliTI Soluções — home" }
+    ]
+  },
+  {
+    slug: "ecommerce", title: "E-commerce", meta: "Comércio digital · 2024 — 2025",
+    desc: "Vitrine, catálogo e checkout pensados para vender.",
+    linkUrl: "https://www.prog-imports.com", linkLabel: "Ver loja no ar",
+    cover: IMG.progSite[1],
+    problema: "Lojas online perdem venda em catálogo confuso, falta de informação de parcelamento e checkout longo demais.",
+    solucao: "Estrutura de e-commerce com coleções navegáveis, cards de produto com preço, parcelamento e promoção, busca, favoritos, carrinho e área de gerenciamento integrada ao estoque.",
+    techs: ["React", "TypeScript", "Node.js", "PostgreSQL", "Integrações de pagamento"],
+    resultado: "Jornada de compra curta e leitura clara do que vende, com o catálogo sempre coerente com o estoque real.",
+    processo: ["Análise do catálogo e da jornada de compra", "Redesign da vitrine e das páginas de produto", "Otimização do carrinho e das formas de pagamento", "Instrumentação de métricas de conversão"],
+    gallery: [
+      { src: IMG.progSite[1], caption: "Catálogo por categoria" },
+      { src: IMG.progSite[2], caption: "Promoções e mais vendidos" },
+      { src: IMG.progSite[4], caption: "Depoimentos e newsletter" }
+    ]
+  }
+];
+
+const WPP = "5562982133188";
+
+class Component extends DCLogic {
+  state = {
+    route: "home", slug: null, lightbox: null, progress: 1, toast: "",
+    sending: false, sentMsg: "",
+    form: { nome: "", email: "", fone: "", msg: "" }
+  };
+
+  navRef = React.createRef();
+  statsRef = React.createRef();
+  barRef = React.createRef();
+  glowRef = React.createRef();
+  heroRef = React.createRef();
+  auraRef = React.createRef();
+  timelineRef = React.createRef();
+  trackRef = React.createRef();
+  coverImgRef = React.createRef();
+  lightboxImgRef = React.createRef();
+
+  syncImgs() {
+    const cur = PROJECTS.find((p) => p.slug === this.state.slug);
+    const c = this.coverImgRef.current;
+    if (c && cur && c.getAttribute("src") !== cur.cover) c.setAttribute("src", cur.cover);
+    const l = this.lightboxImgRef.current;
+    if (l && this.state.lightbox && l.getAttribute("src") !== this.state.lightbox) l.setAttribute("src", this.state.lightbox);
+  }
+
+  findScroller() {
+    let el = this.el || document.querySelector("x-dc") || document.body;
+    while (el && el !== document.body) {
+      const st = getComputedStyle(el);
+      if ((st.overflowY === "auto" || st.overflowY === "scroll") && el.scrollHeight > el.clientHeight + 4) return el;
+      el = el.parentElement;
+    }
+    const cands = Array.prototype.slice.call(document.querySelectorAll("body > *, body > * > *"));
+    for (const c of cands) {
+      const st = getComputedStyle(c);
+      if ((st.overflowY === "auto" || st.overflowY === "scroll") && c.scrollHeight > c.clientHeight + 4) return c;
+    }
+    return null;
+  }
+
+  scrollTarget() { return this.scroller || window; }
+  scrollY() { return this.scroller ? this.scroller.scrollTop : (window.scrollY || document.documentElement.scrollTop || 0); }
+  scrollMax() {
+    const s = this.scroller;
+    if (s) return Math.max(1, s.scrollHeight - s.clientHeight);
+    const d = document.documentElement;
+    return Math.max(1, (d.scrollHeight || 0) - window.innerHeight);
+  }
+  viewH() { return this.scroller ? this.scroller.clientHeight : window.innerHeight; }
+  scrollToY(y) {
+    if (this.scroller) this.scroller.scrollTo({ top: y, behavior: "smooth" });
+    else window.scrollTo({ top: y, behavior: "smooth" });
+  }
+  scrollTop0() {
+    if (this.scroller) this.scroller.scrollTop = 0;
+    else window.scrollTo(0, 0);
+  }
+
+  componentDidMount() {
+    this.syncRoute();
+    this._hash = () => this.syncRoute();
+    window.addEventListener("hashchange", this._hash);
+
+    this.mouse = { x: 0, y: 0 };
+    this.cur = { x: 0, y: 0 };
+    this._move = (e) => {
+      this.mouse.x = e.clientX; this.mouse.y = e.clientY;
+      if (this.glowRef.current) this.glowRef.current.style.opacity = "1";
+    };
+    window.addEventListener("mousemove", this._move, { passive: true });
+
+    this.scroller = this.findScroller();
+    this._scroll = () => { this.needFrame = true; };
+    this.scrollTarget().addEventListener("scroll", this._scroll, { passive: true });
+    window.addEventListener("resize", this._scroll, { passive: true });
+    this.needFrame = true;
+
+    this.tick = () => {
+      try {
+        this.frameWork();
+        this.sweep();
+        const now = Date.now();
+        if (!this._lastScan || now - this._lastScan > 300) { this._lastScan = now; this.scan(); }
+      } catch (err) { if (!this._logged) { this._logged = true; console.warn("tick", err); } }
+    };
+    this._int = setInterval(this.tick, 120);
+    this.scrollTarget().addEventListener("scroll", this.tick, { passive: true });
+    window.addEventListener("resize", this.tick, { passive: true });
+
+    const loop = () => {
+      // cursor glow easing
+      this.cur.x += (this.mouse.x - this.cur.x) * 0.12;
+      this.cur.y += (this.mouse.y - this.cur.y) * 0.12;
+      const g = this.glowRef.current;
+      if (g) g.style.transform = "translate3d(" + this.cur.x.toFixed(1) + "px," + this.cur.y.toFixed(1) + "px,0)";
+
+      this._raf = requestAnimationFrame(loop);
+    };
+    this._raf = requestAnimationFrame(loop);
+    this.initReveals();
+    this.tick();
+  }
+
+  frameWork() {
+      {
+        const y = this.scrollY();
+        const max = this.scrollMax();
+        if (this.barRef.current) this.barRef.current.style.transform = "scaleX(" + (y / max).toFixed(4) + ")";
+
+        const n = this.navRef.current;
+        if (n) {
+          const on = y > 20;
+          n.style.background = on ? "oklch(0.13 0.006 265 / 0.74)" : "transparent";
+          n.style.backdropFilter = on ? "blur(18px) saturate(160%)" : "none";
+          n.style.borderBottomColor = on ? "oklch(0.7 0 0 / 0.08)" : "transparent";
+        }
+        const h = this.heroRef.current;
+        if (h) {
+          const p = Math.min(1, y / (this.viewH() || 800));
+          h.style.transform = "translate3d(0," + (y * 0.16).toFixed(1) + "px,0) scale(" + (1 - p * 0.05).toFixed(4) + ")";
+          h.style.opacity = String(Math.max(0, 1 - p * 1.25));
+        }
+        const a = this.auraRef.current;
+        if (a) a.style.transform = "translate3d(0," + (y * -0.05).toFixed(1) + "px,0)";
+        const t = this.timelineRef.current, tr = this.trackRef.current;
+        if (t && tr) {
+          const r = t.getBoundingClientRect();
+          const done = (this.viewH() * 0.6 - r.top) / Math.max(1, r.height);
+          tr.style.transform = "scaleY(" + Math.max(0, Math.min(1, done)).toFixed(4) + ")";
+        }
+      }
+  }
+
+  initReveals() {
+    this.pending = [];
+    this.scan();
+    this.mo = new MutationObserver(() => this.scan());
+    this.mo.observe(document.body, { childList: true, subtree: true });
+    this.syncImgs();
+  }
+
+  sweep() {
+    if (!this.pending || !this.pending.length) return;
+    const limit = this.viewH() * 0.94;
+    const keep = [];
+    for (const el of this.pending) {
+      if (!el.isConnected) continue;
+      const r = el.getBoundingClientRect();
+      if (r.top < limit) { this.show(el); continue; }
+      keep.push(el);
+    }
+    this.pending = keep;
+    if (!this._statsDone && this.statsRef.current) {
+      const r = this.statsRef.current.getBoundingClientRect();
+      if (r.top < this.viewH() * 0.85 && r.bottom > 0) { this._statsDone = true; this.runCounts(); }
+    }
+  }
+
+  copyLink(url) {
+    const done = () => this.setState({ toast: "Link copiado: " + url });
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(done, () => this.setState({ toast: url }));
+      } else {
+        const ta = document.createElement("textarea");
+        ta.value = url; document.body.appendChild(ta); ta.select();
+        document.execCommand("copy"); document.body.removeChild(ta); done();
+      }
+    } catch (err) { this.setState({ toast: url }); }
+    clearTimeout(this._toastT);
+    this._toastT = setTimeout(() => this.setState({ toast: "" }), 4200);
+  }
+
+  show(el) {
+    el.setAttribute("data-shown", "1");
+    if (el._rvAnim && el._rvAnim.playState === "paused") el._rvAnim.play();
+  }
+
+  componentDidUpdate() { this.scan(); this.syncImgs(); this.tick && this.tick(); }
+
+  componentWillUnmount() {
+    window.removeEventListener("hashchange", this._hash);
+    window.removeEventListener("scroll", this._scroll);
+    window.removeEventListener("resize", this._scroll);
+    window.removeEventListener("mousemove", this._move);
+    if (this.mo) this.mo.disconnect();
+    clearInterval(this._int);
+    this.scrollTarget().removeEventListener("scroll", this.tick);
+    window.removeEventListener("resize", this.tick);
+    if (this._raf) cancelAnimationFrame(this._raf);
+    if (this._craf) cancelAnimationFrame(this._craf);
+    clearTimeout(this._toastT);
+  }
+
+  scan() {
+    if (!this.pending) this.pending = [];
+    const canAnimate = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    document.querySelectorAll("[data-reveal]").forEach((el) => {
+      if (el.dataset.rvq === "1" && el._rvAnim) return;
+      el.dataset.rvq = "1";
+      if (!canAnimate || typeof el.animate !== "function") return;
+      const sibs = el.parentElement ? Array.prototype.indexOf.call(el.parentElement.children, el) : 0;
+      const tl = this.timelineRef.current;
+      let from = "translateY(28px)";
+      if (tl && tl.contains(el)) {
+        const r = el.getBoundingClientRect(), c = tl.getBoundingClientRect();
+        from = (r.left + r.width / 2 < c.left + c.width / 2) ? "translateX(-34px)" : "translateX(34px)";
+      }
+      const anim = el.animate(
+        [{ opacity: 0, transform: from }, { opacity: 1, transform: "none" }],
+        { duration: 820, easing: "cubic-bezier(.16,1,.3,1)", fill: "both", delay: Math.min(sibs, 7) * 70 }
+      );
+      anim.pause();
+      anim.currentTime = 0;
+      el._rvAnim = anim;
+      this.pending.push(el);
+    });
+    this.sweep();
+    // tilt
+    document.querySelectorAll("[data-tilt]").forEach((el) => {
+      if (el.dataset.tilted) return;
+      el.dataset.tilted = "1";
+      el.addEventListener("mousemove", (e) => {
+        const r = el.getBoundingClientRect();
+        const px = (e.clientX - r.left) / r.width - 0.5;
+        const py = (e.clientY - r.top) / r.height - 0.5;
+        el.style.setProperty("transform", "perspective(900px) rotateY(" + (px * 6).toFixed(2) + "deg) rotateX(" + (-py * 6).toFixed(2) + "deg) translateY(-6px)", "important");
+      });
+      el.addEventListener("mouseleave", () => { el.style.removeProperty("transform"); });
+    });
+    document.querySelectorAll('a[target="_blank"]').forEach((a) => {
+      if (a.dataset.extBound) return;
+      a.dataset.extBound = "1";
+      a.addEventListener("click", (e) => {
+        const url = a.getAttribute("href");
+        if (!url || url.charAt(0) === "#") return;
+        let win = null;
+        try { win = window.open(url, "_blank", "noopener"); } catch (err) { win = null; }
+        if (win) { e.preventDefault(); return; }
+        try { if (window.top && window.top !== window) { window.top.location.href = url; e.preventDefault(); return; } } catch (err) {}
+        e.preventDefault();
+        this.copyLink(url);
+      });
+    });
+    if (!this._scrollerRetry) {
+      this._scrollerRetry = true;
+      setTimeout(() => {
+        const s = this.findScroller();
+        if (s && s !== this.scroller) {
+          this.scroller = s;
+          s.addEventListener("scroll", this._scroll, { passive: true });
+          this.needFrame = true;
+        }
+      }, 700);
+    }
+  }
+
+  runCounts() {
+    if (this._counting) return;
+    this._counting = true;
+    this.setState({ progress: 0 });
+    const t0 = performance.now(), dur = 1700;
+    const tick = (t) => {
+      const raw = Math.min(1, (t - t0) / dur);
+      this.setState({ progress: 1 - Math.pow(1 - raw, 3) });
+      if (raw < 1) this._craf = requestAnimationFrame(tick);
+    };
+    this._craf = requestAnimationFrame(tick);
+  }
+
+  syncRoute() {
+    const m = (window.location.hash || "").match(/^#\/projetos\/([a-z0-9-]+)/i);
+    if (m && PROJECTS.some((p) => p.slug === m[1])) {
+      this.setState({ route: "project", slug: m[1] });
+      this.scrollTop0();
+    } else if (this.state.route !== "home") {
+      this.setState({ route: "home", slug: null });
+    }
+  }
+
+  openProject(slug) {
+    return (e) => {
+      if (e) e.preventDefault();
+      window.location.hash = "#/projetos/" + slug;
+      this.setState({ route: "project", slug: slug });
+      this.scrollTop0();
+    };
+  }
+
+  section(id) {
+    return (e) => {
+      if (e) e.preventDefault();
+      const go = () => {
+        const el = document.getElementById(id);
+        if (el) this.scrollToY(el.getBoundingClientRect().top + this.scrollY() - 72);
+      };
+      if (this.state.route !== "home") {
+        window.location.hash = "";
+        this.setState({ route: "home", slug: null }, () => setTimeout(go, 90));
+      } else go();
+    };
+  }
+
+  field(k) {
+    return (e) => {
+      const v = e.target.value;
+      this.setState((s) => ({ form: Object.assign({}, s.form, { [k]: v }), sentMsg: "" }));
+    };
+  }
+
+  submit = async (e) => {
+    e.preventDefault();
+    const f = this.state.form;
+    if (!f.nome || (!f.email && !f.fone)) {
+      this.setState({ sentMsg: "Preencha seu nome e ao menos um contato." });
+      return;
+    }
+    const endpoint = this.props.formEndpoint;
+    const linhas = "Nome: " + f.nome + "\nEmail: " + (f.email || "—") + "\nWhatsApp: " + (f.fone || "—") + "\nMensagem: " + (f.msg || "—");
+    this.setState({ sending: true, sentMsg: "" });
+
+    let emailOk = false;
+    if (endpoint) {
+      try {
+        const r = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({ nome: f.nome, email: f.email, whatsapp: f.fone, mensagem: f.msg, _subject: "Novo contato do portfólio — " + f.nome })
+        });
+        emailOk = r.ok;
+      } catch (err) { emailOk = false; }
+    }
+
+    if (this.props.abrirWhatsapp !== false) {
+      const txt = "Olá Arthur! Vim pelo seu portfólio.\n\n" + linhas;
+      window.open("https://wa.me/" + WPP + "?text=" + encodeURIComponent(txt), "_blank", "noopener");
+    }
+
+    this.setState({
+      sending: false,
+      form: { nome: "", email: "", fone: "", msg: "" },
+      sentMsg: emailOk
+        ? "Recebido! Sua mensagem foi enviada e também abri o WhatsApp caso queira adiantar a conversa."
+        : "Mensagem pronta no WhatsApp — respondo em menos de 24h."
+    });
+  };
+
+  renderVals() {
+    const s = this.state;
+    const idx = PROJECTS.findIndex((p) => p.slug === s.slug);
+    const cur = idx >= 0 ? PROJECTS[idx] : null;
+    const nxt = idx >= 0 ? PROJECTS[(idx + 1) % PROJECTS.length] : null;
+    const p = s.progress;
+    const zoom = (src) => () => this.setState({ lightbox: src });
+
+    return {
+      isHome: s.route === "home",
+      isProject: s.route === "project" && !!cur,
+      toast: s.toast,
+      lightbox: s.lightbox,
+      lightboxSrc: s.lightbox,
+      closeLightbox: () => this.setState({ lightbox: null }),
+      navRef: this.navRef, statsRef: this.statsRef, barRef: this.barRef,
+      glowRef: this.glowRef, heroRef: this.heroRef, auraRef: this.auraRef,
+      timelineRef: this.timelineRef, trackRef: this.trackRef,
+      coverImgRef: this.coverImgRef, lightboxImgRef: this.lightboxImgRef,
+      goHome: this.section("top"), goConstruo: this.section("construo"), goSobre: this.section("sobre"),
+      goMetodo: this.section("metodo"), goProjetos: this.section("projetos"), goIa: this.section("ia"),
+      goContato: this.section("contato"),
+
+      ticker: ["Product Owner", "React", "TypeScript", "UX / UI", "Node.js", "Power BI", "Inteligência Artificial", "PostgreSQL", "Automações", "Design Systems", "SQL", "Next.js"],
+
+      pipeline: [
+        { icon: "💡", label: "Ideia" }, { icon: "📋", label: "Estratégia" }, { icon: "🎨", label: "Design" },
+        { icon: "💻", label: "Desenvolvimento" }, { icon: "🤖", label: "IA" }, { icon: "🚀", label: "Produto" }
+      ],
+      pilares: ["Gestão de Produto", "UX / UI", "Desenvolvimento", "Inteligência Artificial"],
+
+      etapas: [
+        ["Descoberta", "Entendo o problema real antes de propor solução."],
+        ["Pesquisa", "Usuários, mercado e dados guiam as decisões."],
+        ["Estratégia", "Definição clara de objetivos, métricas e escopo."],
+        ["Roadmap", "Priorização com visão de curto, médio e longo prazo."],
+        ["Backlog", "Histórias detalhadas, critérios de aceite e valor."],
+        ["Design", "UX e UI que traduzem estratégia em interface."],
+        ["Desenvolvimento", "Código limpo, revisado e escalável."],
+        ["Testes", "Qualidade validada antes do usuário sentir."],
+        ["Deploy", "Entregas frequentes e sem sobressaltos."],
+        ["Evolução contínua", "Métricas, feedback e novos ciclos."]
+      ].map((e, i) => ({ num: String(i + 1).padStart(2, "0"), title: e[0], desc: e[1], isLeft: i % 2 === 0, isRight: i % 2 === 1 })),
+
+      projects: PROJECTS.map((pr) => ({
+        title: pr.title, meta: pr.meta, desc: pr.desc, cover: pr.cover,
+        href: "#/projetos/" + pr.slug, open: this.openProject(pr.slug)
+      })),
+
+      ferramentas: [
+        { name: "Claude Code", desc: "Codificação assistida com foco em qualidade e refactor." },
+        { name: "Claude Design", desc: "Ideação de interfaces e sistemas de design." },
+        { name: "Claude Cowork", desc: "Documentação viva, PRDs e comunicação de produto." },
+        { name: "ChatGPT", desc: "Brainstorming, arquitetura de soluções e análise." },
+        { name: "Lovable", desc: "Prototipação e entrega acelerada de produtos." },
+        { name: "GitHub Copilot", desc: "Aceleração de tarefas repetitivas no editor." }
+      ],
+
+      competencias: [
+        { area: "Product Owner", items: ["Roadmaps", "Backlog", "Sprint Planning", "Scrum", "Kanban", "Refinamento", "User Stories", "Priorização", "OKRs", "Métricas", "Discovery", "Stakeholders", "Decisão orientada a dados"] },
+        { area: "Desenvolvimento", items: ["SQL", "Python", "Power BI", "DAX", "APIs", "Automações", "React", "TypeScript", "Node.js"] },
+        { area: "Design", items: ["UX", "UI", "Protótipos", "Landing Pages", "Design Systems", "Interfaces modernas"] }
+      ],
+
+      carreira: [
+        { num: "01", year: "2022", role: "Analista de Processos", desc: "Mapeamento e otimização de fluxos operacionais." },
+        { num: "02", year: "2023", role: "Analista Power BI", desc: "Modelagem de dados, DAX e dashboards executivos." },
+        { num: "03", year: "2024", role: "Analista de Projetos", desc: "Condução de projetos e entrega orientada a resultado." },
+        { num: "04", year: "2025", role: "Product Owner", desc: "Estratégia, design, desenvolvimento e IA no ciclo do produto." }
+      ],
+
+      stats: [
+        [15, "+", "Projetos desenvolvidos"], [18, "+", "Clientes atendidos"], [30, "+", "Automações entregues"],
+        [35, "+", "Dashboards criados"], [3, "", "Sistemas em produção"], [15, "+", "Landing pages"]
+      ].map((st) => ({ display: Math.round(st[0] * p) + st[1], label: st[2] })),
+
+      depoimentos: [
+        { quote: "O Arthur entendeu exatamente o que eu precisava e entregou um resultado melhor do que eu imaginava. O projeto ficou bonito, rápido e muito bem organizado.", name: "Pedro", role: "Proprietário TecnoPallet", initials: "P" },
+        { quote: "O Orbi automatizou várias tarefas que eu fazia manualmente. Hoje consigo focar muito mais no que realmente importa.", name: "Felipe Sousa", role: "Usuário do Orbi", initials: "FS" },
+        { quote: "Trabalhar com o Arthur trouxe muito mais clareza para o projeto. Ele conecta estratégia, design e desenvolvimento de forma natural, entregando soluções modernas e bem estruturadas.", name: "Wellington Cunha Filho", role: "Proprietário VitaliTI", initials: "WF" }
+      ],
+
+      form: s.form,
+      setNome: this.field("nome"), setEmail: this.field("email"), setFone: this.field("fone"), setMsg: this.field("msg"),
+      onSubmit: this.submit, sentMsg: s.sentMsg,
+      btnLabel: s.sending ? "Enviando…" : "Enviar mensagem",
+
+      current: cur ? {
+        title: cur.title, meta: cur.meta, desc: cur.desc, cover: cur.cover, zoomCover: zoom(cur.cover),
+        hasLink: !!cur.linkUrl, linkUrl: cur.linkUrl || "#", linkLabel: cur.linkLabel || "",
+        restrito: !!cur.restrito,
+        problema: cur.problema, solucao: cur.solucao, resultado: cur.resultado, techs: cur.techs,
+        processo: cur.processo.map((t, i) => ({ n: String(i + 1).padStart(2, "0"), text: t })),
+        gallery: cur.gallery.map((g) => ({ src: g.src, caption: g.caption, zoom: zoom(g.src) }))
+      } : null,
+      nextProject: nxt ? { title: nxt.title, href: "#/projetos/" + nxt.slug, open: this.openProject(nxt.slug) } : null
+    };
+  }
+}
+
+</script>
+</body>
+</html>
