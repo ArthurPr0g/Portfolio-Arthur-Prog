@@ -1,17 +1,17 @@
 const P = "/assets/";
 
 const IMG = {
-  progCover: P + "prog-site-cover.png",
-  progSite: [P + "prog-site-1.png", P + "prog-site-2.png", P + "prog-site-3.png", P + "prog-site-4.png", P + "prog-site-5.png"],
-  progDash: P + "prog-dash.png",
-  progFin: P + "prog-financeiro.png",
-  orbiVisao: P + "orbi-visao.png",
-  orbiTreinos: P + "orbi-treinos.png",
-  vitalitiCover: P + "vitaliti-cover.png",
-  vitaliti: [P + "vitaliti-1.png", P + "vitaliti-2.png", P + "vitaliti-3.png", P + "vitaliti-4.png", P + "vitaliti-5.png"],
-  tecnoCover: P + "tecno-cover.png",
-  tecno: [P + "tecno-1.png", P + "tecno-2.png", P + "tecno-3.png", P + "tecno-4.png"],
-  consorcio: P + "consorcio.png",
+  progCover: P + "prog-site-cover.webp",
+  progSite: [P + "prog-site-1.webp", P + "prog-site-2.webp", P + "prog-site-3.webp", P + "prog-site-4.webp", P + "prog-site-5.webp"],
+  progDash: P + "prog-dash.webp",
+  progFin: P + "prog-financeiro.webp",
+  orbiVisao: P + "orbi-visao.webp",
+  orbiTreinos: P + "orbi-treinos.webp",
+  vitalitiCover: P + "vitaliti-cover.webp",
+  vitaliti: [P + "vitaliti-1.webp", P + "vitaliti-2.webp", P + "vitaliti-3.webp", P + "vitaliti-4.webp", P + "vitaliti-5.webp"],
+  tecnoCover: P + "tecno-cover.webp",
+  tecno: [P + "tecno-1.webp", P + "tecno-2.webp", P + "tecno-3.webp", P + "tecno-4.webp"],
+  consorcio: P + "consorcio.webp",
 };
 
 export const WHATSAPP_NUMBER = "5562982133188";

@@ -35,14 +35,19 @@
 .metodo-row__side:empty {
   display: none;
 }
+/* Colunas fixas: o lado vazio some com :empty, e sem posicionamento
+   explícito os irmãos escorregariam para as colunas anteriores. */
 .metodo-row__side--left {
+  grid-column: 1;
   justify-content: flex-end;
   text-align: right;
 }
 .metodo-row__side--right {
+  grid-column: 3;
   justify-content: flex-start;
 }
 .metodo-row__dot-col {
+  grid-column: 2;
   display: flex;
   justify-content: center;
 }
