@@ -41,10 +41,10 @@ const PROD = {
       f: ["Usuários ilimitados com permissões detalhadas", "Estoque por lote, validade ou unidade", "Mensalidades, contratos em PDF, trocas e DRE", "Até 3 módulos sob medida (OS, agenda, frota…)", "Relatórios do seu jeito e histórico completo", "Treinamento por equipe · 90 dias de suporte"] } ] },
 };
 const BRAND = [
-  { name: "Logo Essencial", price: 697, combo: 597, prazo: "5–7 dias úteis", m: [2, 2, 2, 2],
+  { name: "Logo Essencial", price: 497, combo: 497, prazo: "5–7 dias úteis", m: [2, 2, 2, 2],
     ideal: "Para quem não tem logo e precisa começar com o essencial bem feito.",
     f: ["2 propostas de logo criadas do zero", "2 rodadas de ajustes", "Versões horizontal, vertical e ícone", "Paleta de cores e fontes da marca", "Arquivos PNG, SVG e PDF (fundo claro e escuro)", "Favicon e foto de perfil para redes sociais"] },
-  { name: "Identidade Visual Completa", price: 1497, combo: 1297, prazo: "7–14 dias úteis", m: [5, 5, 5, 4], pop: true,
+  { name: "Identidade Visual Completa", price: 1297, combo: 1297, prazo: "7–14 dias úteis", m: [5, 5, 5, 4], pop: true,
     ideal: "Para quem quer uma marca completa, consistente no site, nas redes e no papel.",
     f: ["Tudo do Logo Essencial, com 3 propostas e 3 rodadas", "Manual da marca em PDF (uso correto, cores, fontes)", "Cartão de visita e assinatura de e-mail", "Kit redes sociais: perfil, capa e 5 modelos de post/story", "Elementos gráficos e padrões da marca", "Tudo aplicado no seu site ou loja"] },
 ];
@@ -126,7 +126,7 @@ root.getElementById("brandGrid").innerHTML = BRAND.map((x, i) => `
     <h3>${x.name}</h3>
     <p class="ideal">${x.ideal}</p>
     <div class="price">${brl(x.price)}</div>
-    <div class="pay">ou <b>${brl(x.combo)}</b> fechando junto com site ou loja · 2x sem juros</div>
+    <div class="pay">${x.combo < x.price ? `ou <b>${brl(x.combo)}</b> fechando junto com site ou loja · ` : ""}2x sem juros de ${brl(x.price / 2)}</div>
     <div class="facts"><span class="fact">⏱️ ${x.prazo}</span><span class="fact">🎨 sem mensalidade</span></div>
     <ul>${x.f.map(f => `<li>${f}</li>`).join("")}</ul>
     <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(`Olá! Preciso criar minha marca do zero: ${x.name}.`)}>Quero minha marca</a>
@@ -154,7 +154,7 @@ function renderSim() {
     const b = PROD.erp.p[S.el], c = combo(S.prod, S.l, S.el);
     lines.push([b.name, b.price]); disc = c.sum - c.price; total = c.price; mo = c.mo; moOld = ` <s style="color:var(--muted)">${brl(c.moSum)}</s>`;
   }
-  if (S.brand) { const b = BRAND[S.brand - 1]; lines.push([`${b.name} <s style="color:var(--muted)">${brl(b.price)}</s>`, b.combo]); total += b.combo; }
+  if (S.brand) { const b = BRAND[S.brand - 1]; lines.push([b.combo < b.price ? `${b.name} <s style="color:var(--muted)">${brl(b.price)}</s>` : b.name, b.combo]); total += b.combo; }
   const from = (S.prod === "erp" && S.l === 2) || (S.erp && S.prod !== "erp" && S.el === 2);
   const msg = `Olá! Simulei: ${lines.map(l => l[0].replace(/ <s.*<\/s>/, "")).join(" + ")} por ${brl(total)}. Quero uma proposta!`;
   const inst = n => `<span>${n}x de ${brl(parcela(total, n))}</span><span style="color:var(--muted);font-weight:600">total ${brl(parcela(total, n) * n)}</span>`;
@@ -222,8 +222,8 @@ function renderQuiz() {
   const fromTxt = l === 2 && (prod === "erp" || withErp);
   const bi = A.brand === 2 ? (A.budget === 0 ? 0 : 1) : -1, bp = bi >= 0 ? BRAND[bi] : null;
   const total = price + (bp ? bp.combo : 0);
-  const brandTip = bp ? `<div class="alt">🎨 Como você ainda não tem marca, incluímos o <b>${bp.name}</b> (${brl(bp.combo)} no pacote, em vez de ${brl(bp.price)}). Criamos a marca primeiro e depois o ${prod === "erp" ? "sistema" : "site"}, já com a sua cara.</div>`
-    : A.brand === 1 ? `<div class="alt">✏️ Já tem logo? Ótimo! Se quiser padronizar cores, fontes e redes sociais, a <b>Identidade Visual Completa</b> sai por ${brl(BRAND[1].combo)} junto com o pacote.</div>` : "";
+  const brandTip = bp ? `<div class="alt">🎨 Como você ainda não tem marca, incluímos o <b>${bp.name}</b> (${brl(bp.combo)}). Criamos a marca primeiro e depois o ${prod === "erp" ? "sistema" : "site"}, já com a sua cara.</div>`
+    : A.brand === 1 ? `<div class="alt">✏️ Já tem logo? Ótimo! Se quiser padronizar cores, fontes e redes sociais, a <b>Identidade Visual Completa</b> sai por ${brl(BRAND[1].combo)}.</div>` : "";
   box.innerHTML = bar + `<div class="result">
     <div>
       <span class="chip c-${COLORS[l]}">Recomendado para você · ${lvName}</span>
