@@ -64,11 +64,11 @@ const brl = v => "R$ " + Math.round(v).toLocaleString("pt-BR");
 const mdr = n => n === 1 ? .0299 : n <= 6 ? .0349 : .0399;
 const parcela = (P, n) => n <= 2 ? P / n : Math.ceil((P + .49) / (1 - mdr(n) - .0125 * (n + 1) / 2) / n);
 const x97 = v => Math.floor((v - 97) / 100) * 100 + 97;
-const x9 = v => Math.floor((v - 9) / 10) * 10 + 9;
+// No combo o cliente paga uma mensalidade só: a maior das duas.
 function combo(prod, l, el) {
   const a = PROD[prod].p[l], b = PROD.erp.p[el];
   const d = l === el ? [.10, .12, .15][l] : .10;
-  return { sum: a.price + b.price, price: x97((a.price + b.price) * (1 - d)), moSum: a.mo + b.mo, mo: x9((a.mo + b.mo) * .85) };
+  return { sum: a.price + b.price, price: x97((a.price + b.price) * (1 - d)), moSum: a.mo + b.mo, mo: Math.max(a.mo, b.mo) };
 }
 const waLink = msg => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
 const ctaAttrs = msg => WHATSAPP ? `href="${waLink(msg)}" target="_blank" rel="noopener"` : `href="#contato"`;
