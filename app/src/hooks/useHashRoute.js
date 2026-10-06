@@ -4,6 +4,7 @@ function parseHash() {
   const h = window.location.hash || "";
   const m = h.match(/^#\/projetos\/([a-z0-9-]+)/i);
   if (m) return { name: "project", slug: m[1] };
+  if (/^#\/planos\/?$/i.test(h)) return { name: "planos", slug: null };
   return { name: "home", slug: null };
 }
 
