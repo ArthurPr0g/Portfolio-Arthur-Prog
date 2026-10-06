@@ -44,11 +44,11 @@ const BRAND = [
   { name: "Logo Essencial", price: 497, combo: 497, prazo: "5–7 dias úteis", m: [2, 2, 2, 2],
     ideal: "Para quem não tem logo e precisa começar com o essencial bem feito.",
     f: ["2 propostas de logo criadas do zero", "2 rodadas de ajustes", "Versões horizontal, vertical e ícone", "Paleta de cores e fontes da marca", "Arquivos PNG, SVG e PDF (fundo claro e escuro)", "Favicon e foto de perfil para redes sociais"] },
-  { name: "Identidade a partir do Logo", price: 797, combo: 797, prazo: "5–10 dias úteis", m: [3, 3, 3, 3],
+  { name: "Identidade a partir do Logo", price: 597, combo: 597, prazo: "5–10 dias úteis", m: [3, 3, 3, 3],
     ideal: "Para quem já tem logo e precisa do resto da marca: cores, fontes, padrões e redes.",
     f: ["Seu logo atual revisado e vetorizado, se precisar", "Paleta de cores e fontes da marca", "Manual da marca em PDF (uso correto, cores, fontes)", "Cartão de visita e assinatura de e-mail", "Kit redes sociais: perfil, capa e 5 modelos de post/story", "Tudo aplicado no seu site ou loja"] },
-  { name: "Identidade Visual Completa", price: 1297, combo: 1297, prazo: "7–14 dias úteis", m: [5, 5, 5, 4], pop: true,
-    ideal: "Para quem quer uma marca completa, consistente no site, nas redes e no papel.",
+  { name: "Identidade Visual Completa", price: 997, combo: 997, prazo: "7–14 dias úteis", m: [5, 5, 5, 4], pop: true,
+    ideal: "Logo + identidade juntos, mais barato que separados (R$ 1.094): marca completa no site, nas redes e no papel.",
     f: ["Tudo do Logo Essencial, com 3 propostas e 3 rodadas", "Manual da marca em PDF (uso correto, cores, fontes)", "Cartão de visita e assinatura de e-mail", "Kit redes sociais: perfil, capa e 5 modelos de post/story", "Elementos gráficos e padrões da marca", "Tudo aplicado no seu site ou loja"] },
 ];
 const CMP = {
@@ -67,7 +67,7 @@ const x97 = v => Math.floor((v - 97) / 100) * 100 + 97;
 // No combo o cliente paga uma mensalidade só: a maior das duas.
 function combo(prod, l, el) {
   const a = PROD[prod].p[l], b = PROD.erp.p[el];
-  const d = l === el ? [.10, .12, .15][l] : .10;
+  const d = l === el ? [.15, .15, .20][l] : .15;
   return { sum: a.price + b.price, price: x97((a.price + b.price) * (1 - d)), moSum: a.mo + b.mo, mo: Math.max(a.mo, b.mo) };
 }
 const waLink = msg => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
