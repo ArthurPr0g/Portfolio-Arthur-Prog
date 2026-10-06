@@ -31,7 +31,7 @@ export default function Nav({ navRef, onSection }) {
               {label}
             </a>
           ))}
-          <a href="/planos/" className="nav__link nav__link--planos">
+          <a href="#/planos" onClick={() => setOpen(false)} className="nav__link nav__link--planos">
             Planos
           </a>
         </nav>
@@ -57,7 +57,7 @@ export default function Nav({ navRef, onSection }) {
             {label}
           </a>
         ))}
-        <a href="/planos/" className="nav__mobile-link nav__mobile-link--planos">
+        <a href="#/planos" onClick={() => setOpen(false)} className="nav__mobile-link nav__mobile-link--planos">
           Ver planos e preços
         </a>
       </div>

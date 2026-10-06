@@ -6,6 +6,7 @@ import WhatsAppButton from "./components/WhatsAppButton";
 import Lightbox from "./components/Lightbox";
 import Home from "./pages/Home";
 import ProjectPage from "./pages/ProjectPage";
+import PlanosPage from "./pages/PlanosPage";
 import { useHashRoute } from "./hooks/useHashRoute";
 import { useScrollFx } from "./hooks/useScrollFx";
 import { useCursorGlow } from "./hooks/useCursorGlow";
@@ -28,6 +29,8 @@ export default function App() {
 
   const project = route.name === "project" ? PROJECTS.find((p) => p.slug === route.slug) : null;
   const isProject = route.name === "project" && !!project;
+  const isPlanos = route.name === "planos";
+  const isSubpage = isProject || isPlanos;
   const projectIndex = project ? PROJECTS.indexOf(project) : -1;
   const nextProject = project ? PROJECTS[(projectIndex + 1) % PROJECTS.length] : null;
 
@@ -45,14 +48,14 @@ export default function App() {
           window.scrollTo({ top, behavior: "smooth" });
         }
       };
-      if (isProject) {
+      if (isSubpage) {
         clearRoute();
         setTimeout(go, 90);
       } else {
         go();
       }
     },
-    [isProject, clearRoute]
+    [isSubpage, clearRoute]
   );
 
   const onOpenProject = useCallback(
@@ -68,7 +71,9 @@ export default function App() {
       <GlobalFx auraRef={auraRef} glowRef={glowRef} barRef={barRef} />
       <Nav navRef={navRef} onSection={onSection} />
 
-      {isProject ? (
+      {isPlanos ? (
+        <PlanosPage />
+      ) : isProject ? (
         <ProjectPage
           project={project}
           nextProject={nextProject}
