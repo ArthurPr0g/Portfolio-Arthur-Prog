@@ -44,6 +44,9 @@ const BRAND = [
   { name: "Logo Essencial", price: 497, combo: 497, prazo: "5–7 dias úteis", m: [2, 2, 2, 2],
     ideal: "Para quem não tem logo e precisa começar com o essencial bem feito.",
     f: ["2 propostas de logo criadas do zero", "2 rodadas de ajustes", "Versões horizontal, vertical e ícone", "Paleta de cores e fontes da marca", "Arquivos PNG, SVG e PDF (fundo claro e escuro)", "Favicon e foto de perfil para redes sociais"] },
+  { name: "Identidade a partir do Logo", price: 797, combo: 797, prazo: "5–10 dias úteis", m: [3, 3, 3, 3],
+    ideal: "Para quem já tem logo e precisa do resto da marca: cores, fontes, padrões e redes.",
+    f: ["Seu logo atual revisado e vetorizado, se precisar", "Paleta de cores e fontes da marca", "Manual da marca em PDF (uso correto, cores, fontes)", "Cartão de visita e assinatura de e-mail", "Kit redes sociais: perfil, capa e 5 modelos de post/story", "Tudo aplicado no seu site ou loja"] },
   { name: "Identidade Visual Completa", price: 1297, combo: 1297, prazo: "7–14 dias úteis", m: [5, 5, 5, 4], pop: true,
     ideal: "Para quem quer uma marca completa, consistente no site, nas redes e no papel.",
     f: ["Tudo do Logo Essencial, com 3 propostas e 3 rodadas", "Manual da marca em PDF (uso correto, cores, fontes)", "Cartão de visita e assinatura de e-mail", "Kit redes sociais: perfil, capa e 5 modelos de post/story", "Elementos gráficos e padrões da marca", "Tudo aplicado no seu site ou loja"] },
@@ -122,14 +125,14 @@ root.getElementById("comboGrid").innerHTML = COMBOS.map(([n, p, l]) => {
 root.getElementById("brandGrid").innerHTML = BRAND.map((x, i) => `
   <article class="card${x.pop ? " pop" : ""}">
     ${x.pop ? '<span class="badge">🎨 Marca completa</span>' : ""}
-    <span class="chip c-${i ? "purple" : "green"}">${i ? "Completa" : "Essencial"}</span>
+    <span class="chip c-${COLORS[i]}">${["Só o logo", "Já tenho logo", "Completa"][i]}</span>
     <h3>${x.name}</h3>
     <p class="ideal">${x.ideal}</p>
     <div class="price">${brl(x.price)}</div>
     <div class="pay">${x.combo < x.price ? `ou <b>${brl(x.combo)}</b> fechando junto com site ou loja · ` : ""}2x sem juros de ${brl(x.price / 2)}</div>
     <div class="facts"><span class="fact">⏱️ ${x.prazo}</span><span class="fact">🎨 sem mensalidade</span></div>
     <ul>${x.f.map(f => `<li>${f}</li>`).join("")}</ul>
-    <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(`Olá! Preciso criar minha marca do zero: ${x.name}.`)}>Quero minha marca</a>
+    <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(i === 1 ? `Olá! Já tenho logo e quero a ${x.name}.` : `Olá! Preciso criar minha marca do zero: ${x.name}.`)}>Quero minha marca</a>
   </article>`).join("");
 
 /* ===== SIMULADOR ===== */
@@ -144,7 +147,7 @@ function renderSim() {
   seg("sProd", ["🌐 Site", "🛒 Loja virtual", "📊 Só gestão"], prods.indexOf(S.prod), i => { S.prod = prods[i]; if (S.prod === "erp") S.erp = false; });
   seg("sLvl", PROD[S.prod].lv, S.l, i => S.l = i);
   seg("sErpLvl", LV_ERP, S.el, i => S.el = i);
-  seg("sBrand", ["✅ Já tenho", "✏️ Logo Essencial", "🎨 Identidade Completa"], S.brand, i => S.brand = i);
+  seg("sBrand", ["✅ Já tenho", "✏️ Logo Essencial", "🖌️ Identidade a partir do logo", "🎨 Identidade Completa"], S.brand, i => S.brand = i);
   root.getElementById("sErpToggle").hidden = S.prod === "erp";
   root.getElementById("sErpOn").checked = S.erp;
   root.getElementById("sErpField").hidden = !S.erp || S.prod === "erp";
@@ -209,8 +212,9 @@ function renderQuiz() {
     return;
   }
   const prod = A.need.split("+")[0], withErp = A.need.includes("+erp");
-  // Sem marca nenhuma, o site precisa da identidade completa (ela já inclui o logo).
-  const bi = A.brand === 2 ? 1 : -1, bp = bi >= 0 ? BRAND[bi] : null;
+  // O site não sai sem identidade visual: sem marca nenhuma entra a completa (que
+  // já inclui o logo); com só o logo, a identidade a partir dele.
+  const bi = A.brand === 2 ? 2 : A.brand === 1 ? 1 : -1, bp = bi >= 0 ? BRAND[bi] : null;
   // O orçamento informado vale para o projeto inteiro, marca incluída.
   const priceAt = l => (withErp ? combo(prod, l, l).price : PROD[prod].p[l].price) + (bp ? bp.combo : 0);
   const cap = [2500, 7000, Infinity][A.budget];
@@ -224,8 +228,9 @@ function renderQuiz() {
   const alt = l < ideal ? `<div class="alt">💡 Pelo momento do seu negócio, o nível <b>${PROD[prod].lv[ideal]}</b> seria o ideal (${brl(priceAt(ideal))}). Dá para começar no ${lvName} e fazer upgrade depois, pagando só a diferença.</div>` : "";
   const fromTxt = l === 2 && (prod === "erp" || withErp);
   const total = price + (bp ? bp.combo : 0);
-  const brandTip = bp ? `<div class="alt">🎨 Como você ainda não tem marca, incluímos a <b>${bp.name}</b> (${brl(bp.combo)}): logo, cores, fontes, manual da marca e kit para redes sociais. Criamos a marca primeiro e depois o ${prod === "erp" ? "sistema" : "site"}, já com a sua cara.</div>`
-    : A.brand === 1 ? `<div class="alt">✏️ Já tem logo? Ótimo! Se quiser padronizar cores, fontes e redes sociais, a <b>Identidade Visual Completa</b> sai por ${brl(BRAND[1].combo)}.</div>` : "";
+  const sistema = prod === "erp" ? "sistema" : "site";
+  const brandTip = bi === 2 ? `<div class="alt">🎨 Como você ainda não tem marca, incluímos a <b>${bp.name}</b> (${brl(bp.combo)}): logo, cores, fontes, manual da marca e kit para redes sociais. Criamos a marca primeiro e depois o ${sistema}, já com a sua cara.</div>`
+    : bi === 1 ? `<div class="alt">✏️ Como você já tem o logo, incluímos a <b>${bp.name}</b> (${brl(bp.combo)}): a partir do seu logo definimos cores, fontes, manual da marca e kit para redes sociais, e o ${sistema} já nasce padronizado.</div>` : "";
   box.innerHTML = bar + `<div class="result">
     <div>
       <span class="chip c-${COLORS[l]}">Recomendado para você · ${lvName}</span>
