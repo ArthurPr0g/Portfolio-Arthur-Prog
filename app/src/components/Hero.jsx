@@ -32,6 +32,9 @@ export default function Hero({ heroRef, onSection }) {
           <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener" className="btn btn-outline">
             Falar no WhatsApp
           </a>
+          <a href="/planos/" className="btn btn-outline">
+            Ver planos e preços
+          </a>
         </div>
       </div>
 
