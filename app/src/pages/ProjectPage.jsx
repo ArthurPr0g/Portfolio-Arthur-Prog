@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Reveal from "../components/Reveal";
+import BeforeAfter from "../components/BeforeAfter";
 import { useTilt } from "../hooks/useTilt";
 import { WHATSAPP_NUMBER } from "../data/content";
 import "./ProjectPage.css";
@@ -44,9 +45,13 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
           </a>
         </div>
 
-        <button onClick={() => onZoom(project.cover)} className="project-page__cover">
-          <img src={project.cover} alt={project.title} />
-        </button>
+        {project.beforeAfter ? (
+          <BeforeAfter key={project.slug} pairs={project.beforeAfter} />
+        ) : (
+          <button onClick={() => onZoom(project.cover)} className="project-page__cover">
+            <img src={project.cover} alt={project.title} />
+          </button>
+        )}
 
         <div className="project-page__pair">
           <Reveal as="div" className="project-page__block">
