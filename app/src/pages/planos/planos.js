@@ -220,9 +220,10 @@ function renderQuiz() {
     + (withErp ? " Como também quer organizar a gestão, o combo sai mais barato e fica tudo integrado, com o mesmo login." : "");
   const alt = l < ideal ? `<div class="alt">💡 Pelo momento do seu negócio, o nível <b>${PROD[prod].lv[ideal]}</b> seria o ideal (${brl(priceAt(ideal))}). Dá para começar no ${lvName} e fazer upgrade depois, pagando só a diferença.</div>` : "";
   const fromTxt = l === 2 && (prod === "erp" || withErp);
-  const bi = A.brand === 2 ? (A.budget === 0 ? 0 : 1) : -1, bp = bi >= 0 ? BRAND[bi] : null;
+  // Sem marca nenhuma, o site precisa da identidade completa (ela já inclui o logo).
+  const bi = A.brand === 2 ? 1 : -1, bp = bi >= 0 ? BRAND[bi] : null;
   const total = price + (bp ? bp.combo : 0);
-  const brandTip = bp ? `<div class="alt">🎨 Como você ainda não tem marca, incluímos o <b>${bp.name}</b> (${brl(bp.combo)}). Criamos a marca primeiro e depois o ${prod === "erp" ? "sistema" : "site"}, já com a sua cara.</div>`
+  const brandTip = bp ? `<div class="alt">🎨 Como você ainda não tem marca, incluímos a <b>${bp.name}</b> (${brl(bp.combo)}): logo, cores, fontes, manual da marca e kit para redes sociais. Criamos a marca primeiro e depois o ${prod === "erp" ? "sistema" : "site"}, já com a sua cara.</div>`
     : A.brand === 1 ? `<div class="alt">✏️ Já tem logo? Ótimo! Se quiser padronizar cores, fontes e redes sociais, a <b>Identidade Visual Completa</b> sai por ${brl(BRAND[1].combo)}.</div>` : "";
   box.innerHTML = bar + `<div class="result">
     <div>
