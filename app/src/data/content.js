@@ -1,10 +1,6 @@
 const P = "/assets/";
 
 const IMG = {
-  progCover: P + "prog-site-cover.webp",
-  progSite: [P + "prog-site-1.webp", P + "prog-site-2.webp", P + "prog-site-3.webp", P + "prog-site-4.webp", P + "prog-site-5.webp"],
-  progDash: P + "prog-dash.webp",
-  progFin: P + "prog-financeiro.webp",
   orbiVisao: P + "orbi-visao.webp",
   orbiTreinos: P + "orbi-treinos.webp",
   consorcio: P + "consorcio.webp",
@@ -14,6 +10,7 @@ const tp = (n) => P + "tecnopallet-" + n + ".webp";
 const vt = (n) => P + "vitaliti-" + n + ".webp";
 const lm = (n) => P + "lumen-" + n + ".webp";
 const sl = (n) => P + "saloes-" + n + ".webp";
+const pi = (n) => P + "progimports-" + n + ".webp";
 
 export const WHATSAPP_NUMBER = "5562982133188";
 export const INSTAGRAM_URL = "https://instagram.com/prog.arthur";
@@ -27,7 +24,7 @@ export const PROJECTS = [
     desc: "Plataforma completa de importação: loja, gestão, estoque e financeiro em um só lugar.",
     linkUrl: "https://www.prog-imports.com",
     linkLabel: "prog-imports.com",
-    cover: IMG.progCover,
+    cover: pi("home-hero"),
     problema: "A operação dependia de planilhas soltas, conversas informais e controles manuais. Não havia visão única de estoque, vendas, orçamentos e financeiro — cada resposta exigia consolidar dados à mão.",
     solucao: "Um produto em duas frentes: o e-commerce voltado ao cliente final (catálogo, coleções, serviços técnicos, carrinho) e o sistema interno de gestão com dashboard, clientes, produtos, estoque, orçamentos, vendas, trocas e financeiro completo.",
     techs: ["React", "TypeScript", "Node.js", "PostgreSQL", "Tailwind", "Recharts"],
@@ -40,13 +37,18 @@ export const PROJECTS = [
       "Migração dos controles em planilha e treinamento de uso",
     ],
     gallery: [
-      { src: IMG.progSite[0], caption: "Loja — hero e coleções" },
-      { src: IMG.progSite[1], caption: "Loja — catálogo por categoria" },
-      { src: IMG.progSite[2], caption: "Loja — promoções e mais vendidos" },
-      { src: IMG.progSite[3], caption: "Loja — diferenciais e serviços técnicos" },
-      { src: IMG.progSite[4], caption: "Loja — depoimentos, newsletter e rodapé" },
-      { src: IMG.progDash, caption: "Painel — dashboard de indicadores" },
-      { src: IMG.progFin, caption: "Painel — financeiro e fluxo de caixa" },
+      { src: pi("home-hero"), caption: "Loja — hero e marcas" },
+      { src: pi("home-categorias"), caption: "Loja — categorias e vitrine" },
+      { src: pi("catalogo"), caption: "Loja — catálogo com filtros" },
+      { src: pi("promocoes"), caption: "Loja — coleção de promoções" },
+      { src: pi("home-diferenciais"), caption: "Loja — diferenciais da importação" },
+      { src: pi("home-servicos-depoimentos"), caption: "Loja — serviços técnicos e depoimentos" },
+      { src: pi("cadastro"), caption: "Loja — cadastro de cliente" },
+      { src: pi("painel-dashboard"), caption: "Gestão — dashboard da loja" },
+      { src: pi("painel-vendas"), caption: "Gestão — vendas" },
+      { src: pi("painel-financeiro"), caption: "Gestão — financeiro e fluxo de caixa" },
+      { src: pi("painel-orcamentos"), caption: "Gestão — orçamentos com cotação do dólar" },
+      { src: pi("painel-colecoes"), caption: "Gestão — coleções da loja" },
     ],
   },
   {
@@ -201,7 +203,7 @@ export const PROJECTS = [
     meta: "Módulo de gestão · 2024",
     desc: "Receitas, despesas, previsões e fluxo de caixa com leitura imediata.",
     restrito: true,
-    cover: IMG.progFin,
+    cover: pi("painel-financeiro"),
     problema: "O controle financeiro vivia em planilhas: sem previsto versus realizado, sem lucro por período e sem qualquer visão de fluxo de caixa ao longo do ano.",
     solucao: "Módulo com receitas e despesas lançadas por período, status de pago e previsto, filtros por data, ano e mês, e gráfico de fluxo de caixa mensal consolidado.",
     techs: ["React", "TypeScript", "Node.js", "PostgreSQL", "Recharts"],
@@ -213,8 +215,9 @@ export const PROJECTS = [
       "Validação dos números contra os controles antigos",
     ],
     gallery: [
-      { src: IMG.progFin, caption: "Financeiro — período, indicadores e fluxo de caixa" },
-      { src: IMG.progDash, caption: "Dashboard — indicadores gerais e comerciais" },
+      { src: pi("painel-financeiro"), caption: "Financeiro — período, indicadores e fluxo de caixa" },
+      { src: pi("painel-dashboard"), caption: "Dashboard — indicadores da loja" },
+      { src: pi("painel-vendas"), caption: "Vendas ligadas ao financeiro" },
     ],
   },
   {
@@ -267,7 +270,7 @@ export const PROJECTS = [
     desc: "Vitrine, catálogo e checkout pensados para vender.",
     linkUrl: "https://www.prog-imports.com",
     linkLabel: "Ver loja no ar",
-    cover: IMG.progSite[1],
+    cover: pi("catalogo"),
     problema: "Lojas online perdem venda em catálogo confuso, falta de informação de parcelamento e checkout longo demais.",
     solucao: "Estrutura de e-commerce com coleções navegáveis, cards de produto com preço, parcelamento e promoção, busca, favoritos, carrinho e área de gerenciamento integrada ao estoque.",
     techs: ["React", "TypeScript", "Node.js", "PostgreSQL", "Integrações de pagamento"],
@@ -279,9 +282,10 @@ export const PROJECTS = [
       "Instrumentação de métricas de conversão",
     ],
     gallery: [
-      { src: IMG.progSite[1], caption: "Catálogo por categoria" },
-      { src: IMG.progSite[2], caption: "Promoções e mais vendidos" },
-      { src: IMG.progSite[4], caption: "Depoimentos e newsletter" },
+      { src: pi("catalogo"), caption: "Catálogo com filtros" },
+      { src: pi("home-categorias"), caption: "Categorias e vitrine" },
+      { src: pi("promocoes"), caption: "Coleção de promoções" },
+      { src: pi("home-servicos-depoimentos"), caption: "Serviços e depoimentos" },
     ],
   },
 ];
