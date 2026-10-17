@@ -7,15 +7,15 @@ import Lightbox from "./components/Lightbox";
 import Home from "./pages/Home";
 import ProjectPage from "./pages/ProjectPage";
 import PlanosPage from "./pages/PlanosPage";
-import { useHashRoute } from "./hooks/useHashRoute";
 import { useScrollFx } from "./hooks/useScrollFx";
 import { useCursorGlow } from "./hooks/useCursorGlow";
 import { useLang } from "./i18n";
 
 export default function App() {
-  const { content } = useLang();
+  const { content, lang, route, navigate, link } = useLang();
   const PROJECTS = content.PROJECTS;
-  const { route, goToProject, clearRoute } = useHashRoute();
+  const goToProject = useCallback((slug) => navigate(link("project", slug)), [navigate, link]);
+  const clearRoute = useCallback(() => navigate(link("home")), [navigate, link]);
   const [lightboxSrc, setLightboxSrc] = useState(null);
 
   const barRef = useRef(null);
@@ -74,7 +74,7 @@ export default function App() {
       <Nav navRef={navRef} onSection={onSection} />
 
       {isPlanos ? (
-        <PlanosPage />
+        <PlanosPage key={lang} lang={lang} />
       ) : isProject ? (
         <ProjectPage
           project={project}

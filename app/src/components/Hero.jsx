@@ -3,7 +3,8 @@ import { useLang } from "../i18n";
 import "./Hero.css";
 
 export default function Hero({ heroRef, onSection }) {
-  const { lang, t } = useLang();
+  const { t, link, navigate } = useLang();
+  const planosHref = link("planos");
   return (
     <section id="top" className="hero">
       <div ref={heroRef} className="hero__inner">
@@ -41,11 +42,16 @@ export default function Hero({ heroRef, onSection }) {
           <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener" className="btn btn-outline">
             {t("Falar no WhatsApp", "Chat on WhatsApp")}
           </a>
-          {lang === "pt" && (
-            <a href="#/planos" className="btn btn-outline">
-              Ver planos e preços
-            </a>
-          )}
+          <a
+            href={planosHref}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(planosHref);
+            }}
+            className="btn btn-outline"
+          >
+            {t("Ver planos e preços", "See pricing")}
+          </a>
         </div>
       </div>
 

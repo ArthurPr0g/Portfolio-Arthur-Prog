@@ -37,9 +37,13 @@ function SeletorIdioma({ className = "" }) {
 
 export default function Nav({ navRef, onSection }) {
   const [open, setOpen] = useState(false);
-  const { lang, t } = useLang();
-  // Os planos têm preços em reais para clientes do Brasil; em inglês o link some.
-  const mostraPlanos = lang === "pt";
+  const { t, link, navigate } = useLang();
+  const planosHref = link("planos");
+  const abrirPlanos = (e) => {
+    e.preventDefault();
+    setOpen(false);
+    navigate(planosHref);
+  };
 
   const wrap = (id) => (e) => {
     setOpen(false);
@@ -49,7 +53,7 @@ export default function Nav({ navRef, onSection }) {
   return (
     <header ref={navRef} className="nav">
       <div className="nav__inner container">
-        <a href="#top" onClick={wrap("top")} className="nav__brand" translate="no">
+        <a href={link("home")} onClick={wrap("top")} className="nav__brand" translate="no">
           <span className="nav__badge">AP</span>
           <span>Arthur Prog</span>
         </a>
@@ -59,11 +63,9 @@ export default function Nav({ navRef, onSection }) {
               {t(pt, en)}
             </a>
           ))}
-          {mostraPlanos && (
-            <a href="#/planos" onClick={() => setOpen(false)} className="nav__link nav__link--planos">
-              Planos
-            </a>
-          )}
+          <a href={planosHref} onClick={abrirPlanos} className="nav__link nav__link--planos">
+            {t("Planos", "Pricing")}
+          </a>
         </nav>
         <SeletorIdioma />
         <a href="#contato" onClick={wrap("contato")} className="btn btn-solid nav__cta">
@@ -88,11 +90,9 @@ export default function Nav({ navRef, onSection }) {
             {t(pt, en)}
           </a>
         ))}
-        {mostraPlanos && (
-          <a href="#/planos" onClick={() => setOpen(false)} className="nav__mobile-link nav__mobile-link--planos">
-            Ver planos e preços
-          </a>
-        )}
+        <a href={planosHref} onClick={abrirPlanos} className="nav__mobile-link nav__mobile-link--planos">
+          {t("Ver planos e preços", "See pricing")}
+        </a>
       </div>
     </header>
   );

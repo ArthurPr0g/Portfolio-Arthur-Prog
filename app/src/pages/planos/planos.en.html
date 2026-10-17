@@ -1,0 +1,175 @@
+<div class="pl-root">
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Pricing · Websites · Online Stores · Business Software</span>
+      <h1>Your business online and <span>organized</span>, the right way.</h1>
+      <p class="sub">Clear packages with fixed prices for small businesses. Pick just the website, just the system, or both together and save. Built in Brazil for clients in the US, by the same developer behind every project in this portfolio.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#quiz">Find my ideal package →</a>
+        <a class="btn btn-ghost" href="#pacotes">See all packages</a>
+      </div>
+      <div class="perks">
+        <span class="perk">🤝 50% to start, 50% on delivery</span>
+        <span class="perk">🌐 Free domain for the 1st year</span>
+        <span class="perk">⚡ Delivery from 5 business days</span>
+      </div>
+    </div>
+    <div class="stack" aria-hidden="true">
+      <div class="tile"><span class="ic c-green">🌐</span><div><b>Business website</b><small>Get found on Google</small></div><span class="from">from<strong data-from="site"></strong></span></div>
+      <div class="tile"><span class="ic c-blue">🛒</span><div><b>Online store</b><small>Sell 24 hours a day</small></div><span class="from">from<strong data-from="loja"></strong></span></div>
+      <div class="tile"><span class="ic c-purple">📊</span><div><b>Business software</b><small>Inventory, sales and finances</small></div><span class="from">from<strong data-from="erp"></strong></span></div>
+    </div>
+  </div>
+</header>
+
+<section id="quiz" style="padding-top:24px">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">4 questions · 30 seconds</span>
+      <h2>Which package makes the most sense for you?</h2>
+      <p class="lead">Answer a few quick questions and see my recommendation, with price and monthly plan.</p>
+    </div>
+    <div class="quiz" id="quizBox"></div>
+  </div>
+</section>
+
+<section id="pacotes" style="background:var(--bg2)">
+  <div class="wrap center">
+    <span class="eyebrow">Packages</span>
+    <h2>Three tiers for every need</h2>
+    <p class="lead">From the essentials to get started to the complete package to stand out. Each tier includes everything in the previous one, and more.</p>
+    <div class="tabs" role="tablist" id="tabs">
+      <button role="tab" aria-selected="true" data-tab="site">🌐 Website</button>
+      <button role="tab" aria-selected="false" data-tab="loja">🛒 Online store</button>
+      <button role="tab" aria-selected="false" data-tab="erp">📊 Business software</button>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="grid3" id="cards"></div>
+    <div class="cmp-toggle"><button class="btn btn-ghost" id="cmpBtn">📋 Compare the 3 tiers side by side</button></div>
+    <div class="table-wrap" id="cmpWrap" hidden><table id="cmpTable"></table></div>
+  </div>
+</section>
+
+<section id="combos">
+  <div class="wrap center">
+    <span class="eyebrow">Bundles</span>
+    <h2>Website or store + business software, together and for less</h2>
+    <p class="lead">The system lives inside your own website, with a single login. Only you and your team see the management button; your customers only see the website.</p>
+  </div>
+  <div class="wrap">
+    <div class="combo-diagram" aria-hidden="true">
+      <div class="dbox"><div class="ic">🌐</div><b>Website / Store</b><small>what your customers see</small></div>
+      <div class="switch"><div class="pill"></div>1 button, admins<br>only</div>
+      <div class="dbox"><div class="ic">📊</div><b>Management</b><small>inventory, sales, finances</small></div>
+    </div>
+    <div class="flow"><span>🛍️ Customer buys in the store</span><em>→</em><span>🧾 Becomes a sale in the system</span><em>→</em><span>📦 Updates inventory</span><em>→</em><span>💰 Posts to finances</span></div>
+    <div class="combo-grid" id="comboGrid"></div>
+    <p class="center" style="color:var(--muted);margin-top:18px;font-size:.92rem">Want to mix tiers (e.g., Starter website + Intermediate management)? You can: 15% off the total. Use the calculator below.</p>
+  </div>
+</section>
+
+<section id="marca">
+  <div class="wrap center">
+    <span class="eyebrow">Starting from scratch?</span>
+    <h2>No logo or brand identity? I'll create your brand</h2>
+    <p class="lead">If you don't have a logo or visual identity yet, I create everything before the website. If you already have a logo, I build the identity from it. Your business launches looking professional. Fixed price, no monthly fee.</p>
+  </div>
+  <div class="wrap"><div class="grid3" id="brandGrid" style="margin-top:32px"></div></div>
+</section>
+
+<section id="simulador" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Calculator</span>
+      <h2>Build your package and see the price</h2>
+      <p class="lead">Choose what you need and see the total, the payment split and the monthly plan.</p>
+    </div>
+    <div class="sim">
+      <div class="panel">
+        <div class="field"><label>1. What do you need?</label><div class="seg" id="sProd"></div></div>
+        <div class="field"><label>2. Which tier?</label><div class="seg" id="sLvl"></div></div>
+        <div class="field" id="sErpToggle"><label class="check"><input type="checkbox" id="sErpOn"> Add connected business software (bundle discount)</label></div>
+        <div class="field" id="sErpField" hidden><label>Business software tier</label><div class="seg" id="sErpLvl"></div></div>
+        <div class="field"><label>3. Logo and brand identity</label><div class="seg" id="sBrand"></div></div>
+      </div>
+      <div class="panel" id="sOut" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section id="pagamento">
+  <div class="wrap center">
+    <span class="eyebrow">Payment</span>
+    <h2>Simple, safe and no surprises</h2>
+    <p class="lead">You pay half to start and the other half only after you approve the finished project.</p>
+    <div class="timeline">
+      <div class="tl"><div class="n">🤝</div><b>Kickoff</b><small>50% of the price</small></div>
+      <div class="tl"><div class="n">🛠️</div><b>Build</b><small>you follow along and request changes</small></div>
+      <div class="tl"><div class="n">🚀</div><b>Delivery</b><small>remaining 50%</small></div>
+      <div class="tl"><div class="n">🔁</div><b>Monthly plan</b><small>hosting, support and security</small></div>
+    </div>
+    <div class="ways">
+      <div class="way"><div class="ic">📄</div><b>Written proposal</b><small>Scope, timeline and price agreed before any payment.</small></div>
+      <div class="way"><div class="ic">💳</div><b>Card or bank transfer</b><small>Secure international payment, invoiced in US dollars.</small></div>
+      <div class="way"><div class="ic">✅</div><b>Pay the rest on approval</b><small>The second half is due only when you approve the delivery.</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="confianca" style="background:var(--bg2)">
+  <div class="wrap center">
+    <span class="eyebrow">Working together from Brazil</span>
+    <h2>Same tools and quality, without agency overhead</h2>
+    <p class="lead">I'm an independent developer based in Brazil. My prices are lower than US agencies because of a lower cost of living and no agency overhead, not lower quality. You can see the live projects in this portfolio.</p>
+  </div>
+  <div class="wrap">
+    <div class="inc">
+      <div><span class="ic">🕐</span><span><b>Overlapping hours</b><small>Brazil is 1–2 hours ahead of US Eastern Time</small></span></div>
+      <div><span class="ic">💬</span><span><b>Direct communication</b><small>video calls, WhatsApp and email, in English</small></span></div>
+      <div><span class="ic">🧑‍💻</span><span><b>Modern stack</b><small>React, Next.js, Node.js, PostgreSQL</small></span></div>
+      <div><span class="ic">🌐</span><span><b>Your domain, your name</b><small>registered to you, not to me</small></span></div>
+      <div><span class="ic">🔒</span><span><b>Secure by default</b><small>SSL, backups and security updates</small></span></div>
+      <div><span class="ic">📁</span><span><b>Real portfolio</b><small>live websites and systems you can open</small></span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap center">
+    <span class="eyebrow">Included in every package</span>
+    <h2>The essentials, done right</h2>
+  </div>
+  <div class="wrap">
+    <div class="inc">
+      <div><span class="ic">🌐</span><span><b>Free domain for the 1st year</b><small>.com registered in your name</small></span></div>
+      <div><span class="ic">🔒</span><span><b>Security padlock</b><small>SSL certificate (https)</small></span></div>
+      <div><span class="ic">📱</span><span><b>Works on any screen</b><small>phone, tablet and desktop</small></span></div>
+      <div><span class="ic">☁️</span><span><b>Hosting and backups</b><small>included in the monthly plan</small></span></div>
+      <div><span class="ic">🛡️</span><span><b>Security updates</b><small>and continuous monitoring</small></span></div>
+      <div><span class="ic">💬</span><span><b>Direct support</b><small>from the person who built your project</small></span></div>
+    </div>
+    <div class="faq">
+      <details><summary>Why are your prices lower than US agencies?</summary><p>I'm an independent developer based in Brazil. A lower cost of living and no agency overhead (offices, account managers, sales teams) let me charge less, using the same modern tools US teams use. Every project in this portfolio was built by me, and many are live for you to check.</p></details>
+      <details><summary>How do I know this is safe?</summary><p>You get a written proposal with scope, timeline and price before paying anything. You pay 50% to start and the other 50% only after you approve the finished project. Your domain is always registered in your name.</p></details>
+      <details><summary>How do we work across countries?</summary><p>Everything is remote: video calls, WhatsApp and email, in English. Brazil is 1–2 hours ahead of US Eastern Time, so we share most of the business day.</p></details>
+      <details><summary>What is the monthly plan and why does it exist?</summary><p>It covers hosting, database, backups, security updates, monitoring and small monthly tweaks. Your website or system stays online, fast and secure, without you worrying about anything technical.</p></details>
+      <details><summary>Can I start with Starter and upgrade later?</summary><p>Yes. You can upgrade within 6 months, paying only the difference between the packages.</p></details>
+      <details><summary>What's not included?</summary><p>Business email, payment processor fees (such as Stripe), sales tax setup and paid third-party apps. You provide the texts and photos; on Premium packages I review the copy to help it sell more.</p></details>
+      <details><summary>How long does it take?</summary><p>From 5–10 business days for the Starter website to 28–52 business days for the Advanced system. The timeline starts once I receive all the materials: texts, photos and access.</p></details>
+      <details><summary>I already use QuickBooks, Shopify or spreadsheets. Is a custom system worth it?</summary><p>If off-the-shelf software doesn't fit the way you work, yes. A custom system is built around your process, doesn't charge per extra user and lives inside your own website.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap">
+    <div class="final">
+      <h2>Ready to get your project off the ground?</h2>
+      <p>Tell me what you need and get a proposal with the right package for your business.</p>
+      <a class="btn" data-wa href="#contato">💬 Chat on WhatsApp</a>
+    </div>
+  </div>
+</section>
+</div>

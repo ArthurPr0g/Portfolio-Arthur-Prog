@@ -19,7 +19,7 @@ function GalleryItem({ item, index, onZoom }) {
 }
 
 export default function ProjectPage({ project, nextProject, onSection, onOpenProject, onZoom }) {
-  const { t } = useLang();
+  const { t, link } = useLang();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [project.slug]);
@@ -27,7 +27,7 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
   return (
     <main className="project-page">
       <article className="project-page__inner container">
-        <a href="#projetos" onClick={onSection("projetos")} className="project-page__back">
+        <a href={link("home") + "#projetos"} onClick={onSection("projetos")} className="project-page__back">
           <span>←</span> {t("Todos os projetos", "All projects")}
         </a>
 
@@ -115,7 +115,7 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
         {nextProject && (
           <Reveal
             as="a"
-            href={"#/projetos/" + nextProject.slug}
+            href={link("project", nextProject.slug)}
             onClick={onOpenProject(nextProject.slug)}
             className="project-page__next"
           >

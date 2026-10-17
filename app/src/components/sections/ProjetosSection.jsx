@@ -3,7 +3,7 @@ import { useLang } from "../../i18n";
 import "./ProjetosSection.css";
 
 export default function ProjetosSection({ onOpenProject }) {
-  const { t, content } = useLang();
+  const { t, content, link } = useLang();
   const { PROJECTS } = content;
   return (
     <section id="projetos" className="section section--bordered">
@@ -26,7 +26,7 @@ export default function ProjetosSection({ onOpenProject }) {
             <Reveal
               key={p.slug}
               as="a"
-              href={"#/projetos/" + p.slug}
+              href={link("project", p.slug)}
               onClick={onOpenProject(p.slug)}
               tilt
               delay={Math.min(i, 7) * 70}

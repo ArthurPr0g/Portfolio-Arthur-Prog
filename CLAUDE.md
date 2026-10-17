@@ -12,11 +12,19 @@ Portfólio estático em React + Vite. Sem banco de dados nem variáveis de ambie
 - `app/` — o site de produção (React + Vite). Tudo que é código fica aqui.
 - `project/` e `chats/` — handoff original do Claude Design (referência de design, não editar).
 
-## Idiomas (português e inglês)
+## Idiomas e endereços (português e inglês)
+- Cada idioma tem seus endereços (`app/src/rotas.js`): `/pt`, `/pt/planos`, `/pt/projetos/<slug>` e `/en`, `/en/pricing`, `/en/projects/<slug>`.
+- A raiz `/` só redireciona (`app/vercel.json`): `?lang=` > cookie `idioma` (escolha no seletor PT/EN) > país (Brasil → `/pt`, EUA → `/en`) > idioma do navegador > `/en`.
+- Links antigos com `#/planos` e `#/projetos/<slug>` são convertidos para os novos no navegador.
 - Textos em `app/src/data/content.js` (PT) e `app/src/data/content.en.js` (EN). Mudou um texto, mude os dois.
 - Textos fixos dos componentes usam `t("português", "english")` de `app/src/i18n.jsx`.
-- Idioma: `?lang=en`/`?lang=pt` no link > escolha no seletor PT/EN > país pelo IP (`app/api/pais.js`: EUA → EN, Brasil → PT) > idioma do navegador.
-- A página de planos (preços em reais) só aparece em português.
+- Planos: `planos.html` + dados em reais (`DADOS_PT` em `planos.js`); `planos.en.html` + `planos.en.js` com a tabela em dólar para os EUA (preços no piso do freelancer americano; só existe no portfólio, fora da regra de preços abaixo).
+
+## SEO
+- `app/src/seo.js` define título, descrição, canonical, hreflang, imagem e JSON-LD de cada página.
+- No build, `scripts/prerender.mjs` grava um HTML por página com esses dados + `sitemap.xml` e `robots.txt`.
+- Imagens de compartilhamento: `public/og/og-pt.png` e `og-en.png` (1200×630).
+- Endereço do site em um lugar só: `SITE` em `app/src/rotas.js` (trocar se houver domínio próprio).
 
 ## Comandos (dentro de `app/`)
 - `npm install` — instala dependências
