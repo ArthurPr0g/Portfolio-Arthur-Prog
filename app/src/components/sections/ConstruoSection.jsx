@@ -1,13 +1,15 @@
 import Reveal from "../Reveal";
-import { PIPELINE } from "../../data/content";
+import { useLang } from "../../i18n";
 import "./ConstruoSection.css";
 
 export default function ConstruoSection() {
+  const { lang, t, content } = useLang();
+  const { PIPELINE } = content;
   return (
     <section id="construo" className="section section--bordered">
       <div className="container">
         <Reveal as="p" className="eyebrow">
-          O que eu construo
+          {t("O que eu construo", "What I build")}
         </Reveal>
         <div className="pipeline-grid">
           {PIPELINE.map((p, i) => (
@@ -17,10 +19,17 @@ export default function ConstruoSection() {
             </Reveal>
           ))}
         </div>
-        <Reveal as="p" className="construo-tagline">
-          Eu não entrego apenas código ou documentos. Eu construo{" "}
-          <span className="shine-text">produtos digitais completos</span>, do conceito ao lançamento.
-        </Reveal>
+        {lang === "en" ? (
+          <Reveal as="p" className="construo-tagline">
+            I don't just deliver code or documents. I build{" "}
+            <span className="shine-text">complete digital products</span>, from concept to launch.
+          </Reveal>
+        ) : (
+          <Reveal as="p" className="construo-tagline">
+            Eu não entrego apenas código ou documentos. Eu construo{" "}
+            <span className="shine-text">produtos digitais completos</span>, do conceito ao lançamento.
+          </Reveal>
+        )}
       </div>
     </section>
   );

@@ -1,7 +1,8 @@
-import { TICKER } from "../data/content";
+import { useLang } from "../i18n";
 import "./Marquee.css";
 
 function Group() {
+  const { TICKER } = useLang().content;
   return (
     <div className="marquee__group">
       {TICKER.map((t, i) => (

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useLang } from "../i18n";
 import "./BeforeAfter.css";
 
 const clamp = (v) => Math.min(100, Math.max(0, v));
@@ -9,6 +10,7 @@ const prefersReducedMotion = () => window.matchMedia("(prefers-reduced-motion: r
 // atrasar o dedo. A posição é aplicada direto no DOM (variável CSS), sem
 // re-render do React a cada frame.
 export default function BeforeAfter({ pairs }) {
+  const { t } = useLang();
   const [active, setActive] = useState(0);
   const [dragging, setDragging] = useState(false);
   const frameRef = useRef(null);
@@ -127,7 +129,7 @@ export default function BeforeAfter({ pairs }) {
   return (
     <div className="ba">
       {pairs.length > 1 && (
-        <div className="ba__tabs" role="tablist" aria-label="Escolha a seção para comparar">
+        <div className="ba__tabs" role="tablist" aria-label={t("Escolha a seção para comparar", "Choose the section to compare")}>
           {pairs.map((p, i) => (
             <button
               key={p.label}
@@ -156,7 +158,7 @@ export default function BeforeAfter({ pairs }) {
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={50}
-        aria-valuetext="Arraste para comparar o site antigo com o novo"
+        aria-valuetext={t("Arraste para comparar o site antigo com o novo", "Drag to compare the old website with the new one")}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
@@ -165,15 +167,15 @@ export default function BeforeAfter({ pairs }) {
       >
         {pairs.map((p, i) => (
           <div key={p.label} className={"ba__pair" + (i === active ? " is-active" : "")} aria-hidden={i !== active}>
-            <img className="ba__img" src={p.after} alt={`Depois: ${p.label}`} draggable="false" decoding="async" />
+            <img className="ba__img" src={p.after} alt={`${t("Depois", "After")}: ${p.label}`} draggable="false" decoding="async" />
             <div className="ba__before">
-              <img className="ba__img" src={p.before} alt={`Antes: ${p.label}`} draggable="false" decoding="async" />
+              <img className="ba__img" src={p.before} alt={`${t("Antes", "Before")}: ${p.label}`} draggable="false" decoding="async" />
             </div>
           </div>
         ))}
 
-        <span className="ba__label ba__label--before">Antes</span>
-        <span className="ba__label ba__label--after">Depois</span>
+        <span className="ba__label ba__label--before">{t("Antes", "Before")}</span>
+        <span className="ba__label ba__label--after">{t("Depois", "After")}</span>
 
         <div className="ba__handle" aria-hidden="true">
           <span className="ba__line" />
@@ -186,7 +188,8 @@ export default function BeforeAfter({ pairs }) {
       </div>
 
       <p className="ba__hint">
-        <span className="ba__hint-icon">⟷</span> Arraste a barra para comparar o site antigo com o novo
+        <span className="ba__hint-icon">⟷</span>{" "}
+        {t("Arraste a barra para comparar o site antigo com o novo", "Drag the bar to compare the old website with the new one")}
       </p>
     </div>
   );

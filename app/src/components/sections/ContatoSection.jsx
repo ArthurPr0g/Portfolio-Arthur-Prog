@@ -1,11 +1,13 @@
 import { useState } from "react";
 import Reveal from "../Reveal";
 import { WHATSAPP_NUMBER, INSTAGRAM_URL, LINKEDIN_URL } from "../../data/content";
+import { useLang } from "../../i18n";
 import "./ContatoSection.css";
 
 const EMPTY_FORM = { nome: "", email: "", fone: "", msg: "" };
 
 export default function ContatoSection() {
+  const { lang, t } = useLang();
   const [form, setForm] = useState(EMPTY_FORM);
   const [sentMsg, setSentMsg] = useState("");
 
@@ -18,65 +20,67 @@ export default function ContatoSection() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.nome || (!form.email && !form.fone)) {
-      setSentMsg("Preencha seu nome e ao menos um contato.");
+      setSentMsg(t("Preencha seu nome e ao menos um contato.", "Please enter your name and at least one way to reach you."));
       return;
     }
     const linhas =
-      "Nome: " + form.nome +
+      t("Nome: ", "Name: ") + form.nome +
       "\nEmail: " + (form.email || "—") +
       "\nWhatsApp: " + (form.fone || "—") +
-      "\nMensagem: " + (form.msg || "—");
-    const texto = "Olá Arthur! Vim pelo seu portfólio.\n\n" + linhas;
+      t("\nMensagem: ", "\nMessage: ") + (form.msg || "—");
+    const texto = t("Olá Arthur! Vim pelo seu portfólio.", "Hi Arthur! I found you through your portfolio.") + "\n\n" + linhas;
     window.open("https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(texto), "_blank", "noopener");
     setForm(EMPTY_FORM);
-    setSentMsg("Mensagem pronta no WhatsApp — respondo em menos de 24h.");
+    setSentMsg(t("Mensagem pronta no WhatsApp — respondo em menos de 24h.", "Your message is ready on WhatsApp — I reply within 24 hours."));
   };
 
   return (
     <section id="contato" className="section section--bordered contato-section">
       <div className="container">
         <Reveal as="p" className="eyebrow">
-          Contato
+          {t("Contato", "Contact")}
         </Reveal>
         <Reveal as="h2" className="heading-lg" style={{ maxWidth: 580 }}>
-          Tem uma ideia? Vamos transformar em produto.
+          {t("Tem uma ideia? Vamos transformar em produto.", "Have an idea? Let's turn it into a product.")}
         </Reveal>
         <Reveal as="p" delay={40} className="section-intro">
-          Respondo pessoalmente, geralmente em menos de 24 horas.
+          {t("Respondo pessoalmente, geralmente em menos de 24 horas.", "I reply personally, usually within 24 hours.")}
         </Reveal>
 
         <div className="contato-grid">
           <Reveal as="form" onSubmit={handleSubmit} className="contato-form">
             <label className="contato-field">
-              <span className="contato-label">Nome</span>
-              <input type="text" value={form.nome} onChange={field("nome")} placeholder="Seu nome" />
+              <span className="contato-label">{t("Nome", "Name")}</span>
+              <input type="text" value={form.nome} onChange={field("nome")} placeholder={t("Seu nome", "Your name")} />
             </label>
             <label className="contato-field">
               <span className="contato-label">Email</span>
-              <input type="email" value={form.email} onChange={field("email")} placeholder="voce@email.com" />
+              <input type="email" value={form.email} onChange={field("email")} placeholder={t("voce@email.com", "you@email.com")} />
             </label>
             <label className="contato-field">
               <span className="contato-label">WhatsApp</span>
-              <input type="tel" value={form.fone} onChange={field("fone")} placeholder="(62) 90000-0000" />
+              <input type="tel" value={form.fone} onChange={field("fone")} placeholder={t("(62) 90000-0000", "+1 (555) 000-0000")} />
             </label>
             <label className="contato-field">
-              <span className="contato-label">Mensagem</span>
-              <textarea rows={4} value={form.msg} onChange={field("msg")} placeholder="Conte sobre sua ideia ou projeto" />
+              <span className="contato-label">{t("Mensagem", "Message")}</span>
+              <textarea rows={4} value={form.msg} onChange={field("msg")} placeholder={t("Conte sobre sua ideia ou projeto", "Tell me about your idea or project")} />
             </label>
             <button type="submit" className="btn btn-solid contato-submit">
-              Enviar mensagem <span>→</span>
+              {t("Enviar mensagem", "Send message")} <span>→</span>
             </button>
             <p className="contato-feedback">{sentMsg}</p>
           </Reveal>
 
           <Reveal as="div" className="contato-direct">
-            <h3 className="contato-direct__title">Prefere direto?</h3>
-            <p className="contato-direct__desc">Escolha o canal mais confortável — respondo em todos.</p>
+            <h3 className="contato-direct__title">{t("Prefere direto?", "Prefer to reach out directly?")}</h3>
+            <p className="contato-direct__desc">
+              {t("Escolha o canal mais confortável — respondo em todos.", "Pick whichever channel you like — I answer on all of them.")}
+            </p>
             <div className="contato-direct__list">
               <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener" className="contato-direct__link contato-direct__link--wa">
                 <span className="contato-direct__link-meta">
                   <span className="contato-direct__link-label">WhatsApp</span>
-                  <span className="contato-direct__link-value">(62) 98213-3188</span>
+                  <span className="contato-direct__link-value">{lang === "en" ? "+55 62 98213-3188" : "(62) 98213-3188"}</span>
                 </span>
                 <span className="contato-direct__arrow">→</span>
               </a>

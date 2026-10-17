@@ -1,19 +1,24 @@
 import Reveal from "../Reveal";
-import { PROJECTS } from "../../data/content";
+import { useLang } from "../../i18n";
 import "./ProjetosSection.css";
 
 export default function ProjetosSection({ onOpenProject }) {
+  const { t, content } = useLang();
+  const { PROJECTS } = content;
   return (
     <section id="projetos" className="section section--bordered">
       <div className="container">
         <Reveal as="p" className="eyebrow">
-          Projetos
+          {t("Projetos", "Projects")}
         </Reveal>
         <Reveal as="h2" className="heading-lg" style={{ maxWidth: 680 }}>
-          Produtos, sistemas e sites que já saíram do papel.
+          {t("Produtos, sistemas e sites que já saíram do papel.", "Products, systems and websites that made it off the drawing board.")}
         </Reveal>
         <Reveal as="p" delay={40} className="section-intro">
-          Clique em qualquer projeto para ver o case completo, com galeria e detalhes.
+          {t(
+            "Clique em qualquer projeto para ver o case completo, com galeria e detalhes.",
+            "Click any project to see the full case study, with gallery and details."
+          )}
         </Reveal>
 
         <div className="projetos-grid">
@@ -35,7 +40,7 @@ export default function ProjetosSection({ onOpenProject }) {
                 <span className="project-card__title">{p.title}</span>
                 <span className="project-card__desc">{p.desc}</span>
                 <span className="project-card__cta">
-                  Ver case completo <span>→</span>
+                  {t("Ver case completo", "View full case study")} <span>→</span>
                 </span>
               </span>
             </Reveal>

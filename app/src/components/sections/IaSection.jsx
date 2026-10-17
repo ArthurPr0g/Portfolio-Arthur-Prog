@@ -1,20 +1,24 @@
 import Reveal from "../Reveal";
-import { FERRAMENTAS } from "../../data/content";
+import { useLang } from "../../i18n";
 import "./IaSection.css";
 
 export default function IaSection() {
+  const { t, content } = useLang();
+  const { FERRAMENTAS } = content;
   return (
     <section id="ia" className="section section--bordered">
       <div className="container">
         <Reveal as="p" className="eyebrow">
-          Inteligência Artificial
+          {t("Inteligência Artificial", "Artificial Intelligence")}
         </Reveal>
         <Reveal as="h2" className="heading-lg" style={{ maxWidth: 660 }}>
-          IA como multiplicador de produtividade — não como substituto.
+          {t("IA como multiplicador de produtividade — não como substituto.", "AI as a productivity multiplier — not a replacement.")}
         </Reveal>
         <Reveal as="p" delay={40} className="ia-desc">
-          Uso IA em desenvolvimento, documentação, design, brainstorming, arquitetura e automações. Continuo sendo o
-          responsável pelas decisões, pela qualidade e pela entrega.
+          {t(
+            "Uso IA em desenvolvimento, documentação, design, brainstorming, arquitetura e automações. Continuo sendo o responsável pelas decisões, pela qualidade e pela entrega.",
+            "I use AI for development, documentation, design, brainstorming, architecture and automation. I'm still the one responsible for the decisions, the quality and the delivery."
+          )}
         </Reveal>
         <div className="ia-grid">
           {FERRAMENTAS.map((f, i) => (

@@ -10,9 +10,11 @@ import PlanosPage from "./pages/PlanosPage";
 import { useHashRoute } from "./hooks/useHashRoute";
 import { useScrollFx } from "./hooks/useScrollFx";
 import { useCursorGlow } from "./hooks/useCursorGlow";
-import { PROJECTS } from "./data/content";
+import { useLang } from "./i18n";
 
 export default function App() {
+  const { content } = useLang();
+  const PROJECTS = content.PROJECTS;
   const { route, goToProject, clearRoute } = useHashRoute();
   const [lightboxSrc, setLightboxSrc] = useState(null);
 

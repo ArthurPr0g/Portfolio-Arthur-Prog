@@ -1,16 +1,18 @@
 import Reveal from "../Reveal";
-import { DEPOIMENTOS } from "../../data/content";
+import { useLang } from "../../i18n";
 import "./DepoimentosSection.css";
 
 export default function DepoimentosSection() {
+  const { t, content } = useLang();
+  const { DEPOIMENTOS } = content;
   return (
     <section className="section section--bordered">
       <div className="container">
         <Reveal as="p" className="eyebrow">
-          Depoimentos
+          {t("Depoimentos", "Testimonials")}
         </Reveal>
         <Reveal as="h2" className="heading-lg" style={{ maxWidth: 540 }}>
-          O que dizem quem trabalhou comigo.
+          {t("O que dizem quem trabalhou comigo.", "What people who worked with me say.")}
         </Reveal>
         <div className="depo-grid">
           {DEPOIMENTOS.map((d, i) => (

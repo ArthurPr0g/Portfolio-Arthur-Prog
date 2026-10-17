@@ -1,16 +1,18 @@
 import Reveal from "../Reveal";
-import { COMPETENCIAS } from "../../data/content";
+import { useLang } from "../../i18n";
 import "./CompetenciasSection.css";
 
 export default function CompetenciasSection() {
+  const { t, content } = useLang();
+  const { COMPETENCIAS } = content;
   return (
     <section className="section section--bordered">
       <div className="container">
         <Reveal as="p" className="eyebrow">
-          Competências
+          {t("Competências", "Skills")}
         </Reveal>
         <Reveal as="h2" className="heading-lg" style={{ maxWidth: 580 }}>
-          Produto, desenvolvimento e design em um só profissional.
+          {t("Produto, desenvolvimento e design em um só profissional.", "Product, development and design in one professional.")}
         </Reveal>
         <div className="comp-grid">
           {COMPETENCIAS.map((c, i) => (

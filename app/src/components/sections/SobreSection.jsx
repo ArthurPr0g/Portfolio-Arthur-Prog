@@ -1,27 +1,31 @@
 import Reveal from "../Reveal";
-import { PILARES } from "../../data/content";
+import { useLang } from "../../i18n";
 import "./SobreSection.css";
 
 export default function SobreSection() {
+  const { t, content } = useLang();
+  const { PILARES } = content;
   return (
     <section id="sobre" className="section section--bordered">
       <div className="container">
         <Reveal as="p" className="eyebrow">
-          Quem sou
+          {t("Quem sou", "About me")}
         </Reveal>
         <Reveal as="h2" className="heading-lg sobre-heading">
-          Product Owner com perfil técnico. Construo, não só coordeno.
+          {t("Product Owner com perfil técnico. Construo, não só coordeno.", "A Product Owner with a technical background. I build, not just coordinate.")}
         </Reveal>
         <div className="sobre-grid">
           <Reveal as="p" className="sobre-text">
-            Atuei como Product Owner porque adoro traduzir problemas em produtos. Mas minha maior característica é
-            unir gestão de produto, UX/UI, desenvolvimento e IA em uma única entrega — participo de toda a
-            construção, do primeiro insight ao deploy.
+            {t(
+              "Atuei como Product Owner porque adoro traduzir problemas em produtos. Mas minha maior característica é unir gestão de produto, UX/UI, desenvolvimento e IA em uma única entrega — participo de toda a construção, do primeiro insight ao deploy.",
+              "I've worked as a Product Owner because I love turning problems into products. But what sets me apart is bringing product management, UX/UI, development and AI together in a single delivery — I'm involved in the whole build, from the first insight to deploy."
+            )}
           </Reveal>
           <Reveal as="p" delay={70} className="sobre-text">
-            Isso significa que a estratégia que desenho é executável, o design que proponho é implementável e o
-            código que escrevo serve ao produto. Nada se perde na tradução entre áreas — porque não há tradução: sou
-            o mesmo profissional em todas elas.
+            {t(
+              "Isso significa que a estratégia que desenho é executável, o design que proponho é implementável e o código que escrevo serve ao produto. Nada se perde na tradução entre áreas — porque não há tradução: sou o mesmo profissional em todas elas.",
+              "That means the strategy I design is executable, the design I propose is buildable and the code I write serves the product. Nothing gets lost in translation between teams — because there is no translation: I'm the same person in all of them."
+            )}
           </Reveal>
         </div>
         <Reveal as="div" className="sobre-tags">

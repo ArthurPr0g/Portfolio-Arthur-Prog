@@ -3,6 +3,7 @@ import Reveal from "../components/Reveal";
 import BeforeAfter from "../components/BeforeAfter";
 import { useTilt } from "../hooks/useTilt";
 import { WHATSAPP_NUMBER } from "../data/content";
+import { useLang } from "../i18n";
 import "./ProjectPage.css";
 
 function GalleryItem({ item, index, onZoom }) {
@@ -18,6 +19,7 @@ function GalleryItem({ item, index, onZoom }) {
 }
 
 export default function ProjectPage({ project, nextProject, onSection, onOpenProject, onZoom }) {
+  const { t } = useLang();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [project.slug]);
@@ -26,7 +28,7 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
     <main className="project-page">
       <article className="project-page__inner container">
         <a href="#projetos" onClick={onSection("projetos")} className="project-page__back">
-          <span>←</span> Todos os projetos
+          <span>←</span> {t("Todos os projetos", "All projects")}
         </a>
 
         <p className="project-page__meta">{project.meta}</p>
@@ -39,9 +41,11 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
               {project.linkLabel} <span>↗</span>
             </a>
           )}
-          {project.restrito && <span className="project-page__restrito">Sistema interno — acesso restrito</span>}
+          {project.restrito && (
+            <span className="project-page__restrito">{t("Sistema interno — acesso restrito", "Internal system — restricted access")}</span>
+          )}
           <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener" className="btn btn-outline">
-            Quero algo assim
+            {t("Quero algo assim", "I want something like this")}
           </a>
         </div>
 
@@ -55,17 +59,17 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
 
         <div className="project-page__pair">
           <Reveal as="div" className="project-page__block">
-            <h2>Problema</h2>
+            <h2>{t("Problema", "Problem")}</h2>
             <p>{project.problema}</p>
           </Reveal>
           <Reveal as="div" delay={70} className="project-page__block">
-            <h2>Solução</h2>
+            <h2>{t("Solução", "Solution")}</h2>
             <p>{project.solucao}</p>
           </Reveal>
         </div>
 
         <Reveal as="div" className="project-page__block">
-          <h2>Tecnologias</h2>
+          <h2>{t("Tecnologias", "Technologies")}</h2>
           <div className="project-page__techs">
             {project.techs.map((t) => (
               <span key={t} className="tag">
@@ -76,13 +80,13 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
         </Reveal>
 
         <Reveal as="div" className="project-page__block project-page__block--result">
-          <h2>Resultado</h2>
+          <h2>{t("Resultado", "Result")}</h2>
           <p>{project.resultado}</p>
         </Reveal>
 
         <div className="project-page__section">
           <Reveal as="h2" className="project-page__section-title">
-            Processo de desenvolvimento
+            {t("Processo de desenvolvimento", "Development process")}
           </Reveal>
           <div className="project-page__process">
             {project.processo.map((step, i) => (
@@ -96,10 +100,10 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
 
         <div className="project-page__section">
           <Reveal as="h2" className="project-page__section-title">
-            Galeria
+            {t("Galeria", "Gallery")}
           </Reveal>
           <Reveal as="p" className="project-page__gallery-hint">
-            Clique em qualquer imagem para ampliar.
+            {t("Clique em qualquer imagem para ampliar.", "Click any image to enlarge it.")}
           </Reveal>
           <div className="project-page__gallery">
             {project.gallery.map((g, i) => (
@@ -116,7 +120,7 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
             className="project-page__next"
           >
             <span className="project-page__next-meta">
-              <span className="project-page__next-label">Próximo projeto</span>
+              <span className="project-page__next-label">{t("Próximo projeto", "Next project")}</span>
               <span className="project-page__next-title">{nextProject.title}</span>
             </span>
             <span className="project-page__next-arrow">→</span>

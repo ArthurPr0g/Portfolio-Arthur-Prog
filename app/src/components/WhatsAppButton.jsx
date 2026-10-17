@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { WHATSAPP_NUMBER } from "../data/content";
+import { useLang } from "../i18n";
 import "./WhatsAppButton.css";
 
 export default function WhatsAppButton() {
+  const { t } = useLang();
   // O botão é fixo no canto inferior direito e cobriria os links do rodapé,
   // então some enquanto o rodapé estiver visível.
   const [overFooter, setOverFooter] = useState(false);
@@ -22,7 +24,7 @@ export default function WhatsAppButton() {
       target="_blank"
       rel="noopener"
       className={overFooter ? "wa-fab wa-fab--hidden" : "wa-fab"}
-      aria-label="Falar no WhatsApp"
+      aria-label={t("Falar no WhatsApp", "Chat on WhatsApp")}
       aria-hidden={overFooter}
       tabIndex={overFooter ? -1 : undefined}
     >

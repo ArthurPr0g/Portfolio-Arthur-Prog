@@ -1,16 +1,18 @@
 import Reveal from "../Reveal";
-import { CARREIRA } from "../../data/content";
+import { useLang } from "../../i18n";
 import "./CarreiraSection.css";
 
 export default function CarreiraSection() {
+  const { t, content } = useLang();
+  const { CARREIRA } = content;
   return (
     <section className="section section--bordered">
       <div className="container">
         <Reveal as="p" className="eyebrow">
-          Carreira
+          {t("Carreira", "Career")}
         </Reveal>
         <Reveal as="h2" className="heading-lg" style={{ maxWidth: 620 }}>
-          Uma trajetória construída em cima de dados, processo e produto.
+          {t("Uma trajetória construída em cima de dados, processo e produto.", "A career built on data, process and product.")}
         </Reveal>
         <div className="carreira-grid">
           {CARREIRA.map((c, i) => (

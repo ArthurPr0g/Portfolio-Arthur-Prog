@@ -60,6 +60,32 @@
   color: var(--accent-strong);
   font-weight: 600;
 }
+.nav__lang {
+  display: flex;
+  padding: 3px;
+  gap: 2px;
+  border: 1px solid oklch(0.7 0 0 / 0.16);
+  border-radius: 999px;
+}
+.nav__lang-btn {
+  font: 600 11px/1 "Sora", sans-serif;
+  letter-spacing: 0.04em;
+  color: var(--muted-5);
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  padding: 6px 9px;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: color 0.25s ease, background 0.25s ease;
+}
+.nav__lang-btn:hover {
+  color: #fff;
+}
+.nav__lang-btn.is-active {
+  color: var(--accent-strong);
+  background: oklch(0.72 0.1 262 / 0.18);
+}
 .nav__cta {
   font-size: 12.5px;
   padding: 9px 18px;
@@ -134,6 +160,9 @@
   }
   .nav__toggle {
     display: flex;
+  }
+  .nav__lang {
+    margin-left: auto;
   }
   .nav__mobile {
     display: flex;
