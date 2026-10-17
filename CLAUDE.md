@@ -12,6 +12,12 @@ Portfólio estático em React + Vite. Sem banco de dados nem variáveis de ambie
 - `app/` — o site de produção (React + Vite). Tudo que é código fica aqui.
 - `project/` e `chats/` — handoff original do Claude Design (referência de design, não editar).
 
+## Idiomas (português e inglês)
+- Textos em `app/src/data/content.js` (PT) e `app/src/data/content.en.js` (EN). Mudou um texto, mude os dois.
+- Textos fixos dos componentes usam `t("português", "english")` de `app/src/i18n.jsx`.
+- Idioma: `?lang=en`/`?lang=pt` no link > escolha no seletor PT/EN > país pelo IP (`app/api/pais.js`: EUA → EN, Brasil → PT) > idioma do navegador.
+- A página de planos (preços em reais) só aparece em português.
+
 ## Comandos (dentro de `app/`)
 - `npm install` — instala dependências
 - `npm run dev` — servidor local
