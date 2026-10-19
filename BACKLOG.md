@@ -17,8 +17,13 @@ Alternativa à tradução automática para reuniões importantes (fechamento,
 apresentação de proposta).
 - Anotado em 17/10/2026.
 
-### Ideia esquecida
-Havia uma segunda ideia relacionada que ficou para quando eu lembrar.
+### Agenda para clientes marcarem reunião (era a "ideia esquecida")
+Calendário no portfólio mostrando meus horários livres das 2 contas Google (pessoal + LM),
+para o cliente agendar sozinho. Escolhido: **Cal.com** (grátis, conecta as 2 contas Google
+e checa conflitos antes de mostrar os horários).
+- Falta o Arthur: criar a conta no Cal.com, conectar as 2 agendas e criar "Conversa de 20 min".
+- Depois: seção de agendamento no portfólio (PT-BR, PT-PT, EN) + botão no contato.
+- Lembrado em 19/10/2026.
 
 ## Vídeos e criativos para anúncios
 Gerar vídeos e peças para anúncios (Instagram, Meta Ads, LinkedIn etc.) com
