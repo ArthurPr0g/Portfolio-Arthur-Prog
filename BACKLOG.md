@@ -20,6 +20,39 @@ apresentação de proposta).
 ### Ideia esquecida
 Havia uma segunda ideia relacionada que ficou para quando eu lembrar.
 
+## Vídeos e criativos para anúncios
+Gerar vídeos e peças para anúncios (Instagram, Meta Ads, LinkedIn etc.) com
+qualidade de estúdio: motion design, edição tipo Photoshop/Illustrator e 3D no
+Blender quando fizer sentido. Objetivo: resultado "surreal de ótimo".
+- Ao começar: definir para qual oferta (portfólio, Prog Imports, planos EUA/Europa),
+  formato (Reels/Stories/feed) e roteiro; usar as skills de motion/áudio/arte do
+  repo da Prog Imports como referência de padrão.
+- Lembrar das vozes de IA permitidas (VoxCPM2, ver memória do Claude).
+- Anotado em 19/10/2026.
+
+## Portfólio: plano para deixar profissional (análise de 19/10/2026)
+Fase 1 — rápido e de alto impacto:
+- Domínio próprio + e-mail profissional (o endereço .vercel.app é o maior sinal de amador).
+- Foto real, nome completo e cidade na seção "Quem sou" (precisa do Arthur).
+- Cortar projetos repetidos: "Sites Institucionais", "E-commerce" e "Sistema Financeiro"
+  reaproveitam telas de outros cases; ficar com 5–6 cases fortes.
+- Depoimentos com foto ou logo, cargo, link (LinkedIn/site) e um resultado concreto.
+- Botão "Agendar conversa de 20 min" (Cal.com/Calendly) e e-mail, além do WhatsApp
+  — essencial para clientes dos EUA e da Europa.
+- Trocar os emojis usados como ícones por ícones/ilustrações próprios.
+Fase 2 — depende de dados do Arthur:
+- Reescrever os cases com números (antes/depois, tempo economizado, vendas,
+  acessos), papel do Arthur, prazo e desafios.
+- Topo do site mostrando trabalho (mockups dos projetos), não só o nome.
+- Mockups em aparelhos e vídeos curtos de cada sistema funcionando (liga com o item de vídeos).
+- Logos dos clientes numa faixa "Clientes".
+- Reordenar: trabalho → serviços/preços → depoimentos → sobre → contato; enxugar
+  Método (10 etapas), IA e Competências.
+Fase 3:
+- Medir visitas (Vercel Web Analytics).
+- Política de privacidade (exigida para clientes da Europa).
+- Números da seção "Números" só com o que der para provar.
+
 ## Pendências da conversa de 17/10/2026
 - **Portfólio:** confirmar como vou receber dos EUA (a página em inglês diz
   "card or international bank transfer, invoiced in US dollars").
