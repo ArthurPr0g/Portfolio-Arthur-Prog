@@ -117,5 +117,25 @@
   }
   .metodo-card {
     max-width: none;
+    padding: 13px 16px;
+    border-radius: 14px;
+  }
+  .metodo-timeline {
+    margin-top: 36px;
+  }
+  .metodo-row {
+    margin-bottom: 10px;
+  }
+  .metodo-card__num {
+    margin-bottom: 3px;
+    font-size: 9px;
+  }
+  .metodo-card__title {
+    font-size: 16px;
+    margin-bottom: 3px;
+  }
+  .metodo-card__desc {
+    font-size: 12.5px;
+    line-height: 1.5;
   }
 }

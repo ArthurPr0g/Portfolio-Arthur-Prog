@@ -3,7 +3,7 @@
 }
 .sobre-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
   gap: 40px;
   margin-top: 46px;
 }
@@ -110,9 +110,21 @@
 .sobre-fato .sobre-fatos__txt {
   font-size: 13.5px;
 }
+/* Celular: continua 2×2, só mais compacto */
 @media (max-width: 440px) {
   .sobre-fatos-grid {
-    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .sobre-fato {
+    padding: 16px 14px;
+    gap: 6px;
+    border-radius: 16px;
+  }
+  .sobre-fato .sobre-fatos__n {
+    font-size: 19px;
+  }
+  .sobre-fato .sobre-fatos__txt {
+    font-size: 12px;
   }
 }
 .sobre-fatos {

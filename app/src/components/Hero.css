@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 130px 0 70px;
+  padding: 130px 28px 70px; /* margem lateral igual à das outras seções */
 }
 .hero__inner {
   display: grid;
@@ -316,7 +316,7 @@
 }
 @media (max-width: 480px) {
   .hero {
-    padding-top: 96px;
+    padding: 96px 20px 56px;
   }
   .hero__inner {
     gap: 34px;

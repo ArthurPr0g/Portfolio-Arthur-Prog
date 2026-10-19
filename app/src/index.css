@@ -132,6 +132,11 @@ button {
 .section {
   padding: 120px 28px;
 }
+@media (max-width: 640px) {
+  .section {
+    padding: 72px 20px;
+  }
+}
 .section--bordered {
   border-top: 1px solid var(--line-soft);
 }

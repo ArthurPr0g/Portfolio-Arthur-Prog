@@ -8,7 +8,7 @@
 }
 .ia-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(290px, 100%), 1fr));
   gap: 16px;
   margin-top: 46px;
 }
@@ -49,4 +49,27 @@
   font-size: 14px;
   line-height: 1.62;
   color: var(--muted-6);
+}
+/* Celular: 2 colunas compactas */
+@media (max-width: 640px) {
+  .ia-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  .ia-card {
+    padding: 15px 14px;
+    border-radius: 16px;
+  }
+  .ia-card__head {
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+  .ia-card__title {
+    font-size: 14px;
+  }
+  .ia-card__desc {
+    font-size: 12px;
+    line-height: 1.5;
+  }
 }

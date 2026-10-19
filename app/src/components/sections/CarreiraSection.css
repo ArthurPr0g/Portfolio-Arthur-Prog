@@ -1,6 +1,6 @@
 .carreira-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
   gap: 16px;
   margin-top: 46px;
 }
@@ -44,4 +44,30 @@
   font-size: 13.5px;
   line-height: 1.62;
   color: var(--muted-6);
+}
+/* Celular: 2 colunas compactas */
+@media (max-width: 640px) {
+  .carreira-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 30px;
+  }
+  .carreira-card {
+    padding: 15px 14px;
+    border-radius: 16px;
+  }
+  .carreira-card__head {
+    margin-bottom: 8px;
+  }
+  .carreira-card__num {
+    font-size: 24px;
+  }
+  .carreira-card__role {
+    font-size: 14.5px;
+    margin-bottom: 5px;
+  }
+  .carreira-card__desc {
+    font-size: 12px;
+    line-height: 1.5;
+  }
 }

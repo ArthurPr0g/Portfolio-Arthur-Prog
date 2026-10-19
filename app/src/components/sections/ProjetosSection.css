@@ -1,6 +1,6 @@
 .projetos-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(330px, 100%), 1fr));
   gap: 22px;
   margin-top: 52px;
 }
@@ -73,4 +73,62 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
+}
+
+/* Celular: 2 colunas para a seção não ficar comprida. O 1º projeto fica em
+   destaque na largura toda e os outros 6 formam 3 fileiras de 2. */
+@media (max-width: 640px) {
+  .projetos-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 34px;
+  }
+  .project-card {
+    border-radius: 16px;
+  }
+  .project-card:first-child {
+    grid-column: 1 / -1;
+  }
+  .project-card__body {
+    gap: 5px;
+    padding: 12px 12px 14px;
+  }
+  .project-card__meta {
+    font-size: 8.5px;
+    letter-spacing: 0.1em;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .project-card__title {
+    font-size: 15px;
+    line-height: 1.25;
+  }
+  .project-card__desc {
+    font-size: 12px;
+    line-height: 1.45;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .project-card__cta {
+    margin-top: auto;
+    padding-top: 4px;
+    font-size: 11px;
+  }
+  .project-card:first-child .project-card__body {
+    padding: 16px 16px 18px;
+  }
+  .project-card:first-child .project-card__title {
+    font-size: 18px;
+  }
+  .project-card:first-child .project-card__desc {
+    font-size: 13px;
+    -webkit-line-clamp: 2;
+  }
+  .project-card__body {
+    flex: 1;
+  }
 }
