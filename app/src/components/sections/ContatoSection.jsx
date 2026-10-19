@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Reveal from "../Reveal";
-import { WHATSAPP_NUMBER, INSTAGRAM_URL, LINKEDIN_URL, EMAIL, AGENDA_URL } from "../../data/content";
+import { WHATSAPP_NUMBER, INSTAGRAM_URL, LINKEDIN_URL, EMAIL, AGENDA_URL, AVATAR } from "../../data/content";
 import { useLang } from "../../i18n";
 import "./ContatoSection.css";
 
@@ -72,7 +72,13 @@ export default function ContatoSection() {
           </Reveal>
 
           <Reveal as="div" className="contato-direct">
-            <h3 className="contato-direct__title">{t("Prefere direto?", "Prefer to reach out directly?")}</h3>
+            <div className="contato-direct__head">
+              {AVATAR && <img className="contato-direct__avatar" src={AVATAR} alt="Arthur Prog" width="64" height="64" loading="lazy" />}
+              <div>
+                <h3 className="contato-direct__title">{t("Prefere direto?", "Prefer to reach out directly?")}</h3>
+                {AVATAR && <p className="contato-direct__quem">{t("Você fala comigo, sem intermediários.", "You talk to me — no middlemen.")}</p>}
+              </div>
+            </div>
             <p className="contato-direct__desc">
               {t("Escolha o canal mais confortável — respondo em todos.", "Pick whichever channel you like — I answer on all of them.")}
             </p>

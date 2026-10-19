@@ -1,20 +1,24 @@
 import Reveal from "../Reveal";
-import { FOTO } from "../../data/content";
+import { FOTO, FOTO_ASSENTO, FOTO_PROPORCAO, PROJECTS } from "../../data/content";
 import { useLang } from "../../i18n";
 import "./SobreSection.css";
 
+// "Quem sou": texto à esquerda e, à direita, o Arthur sentado na borda de um
+// card de fatos rápidos (recorte transparente; o assento encosta na borda).
 export default function SobreSection() {
   const { t, content } = useLang();
   const { PILARES } = content;
+
+  const fatos = [
+    [t("Desde 2022", "Since 2022"), t("em processos, dados e produto", "in processes, data and product")],
+    [String(PROJECTS.length), t("projetos publicados neste portfólio", "projects published in this portfolio")],
+    ["BR · PT · US · EU", t("atendimento para Brasil, Portugal, EUA e Europa", "serving Brazil, Portugal, the US and Europe")],
+    ["< 24 h", t("para responder, pessoalmente", "to reply, personally")],
+  ];
+
   return (
     <section id="sobre" className="section section--bordered">
       <div className={"container" + (FOTO ? " sobre-com-foto" : "")}>
-        {/* Foto só aparece quando FOTO estiver preenchida em data/content.js. */}
-        {FOTO && (
-          <Reveal as="figure" className="sobre-foto">
-            <img src={FOTO} alt="Arthur Prog" width="560" height="700" loading="lazy" />
-          </Reveal>
-        )}
         <div className="sobre-conteudo">
           <Reveal as="p" className="eyebrow">
             {t("Quem sou", "About me")}
@@ -44,6 +48,26 @@ export default function SobreSection() {
             ))}
           </Reveal>
         </div>
+
+        {FOTO && (
+          <Reveal
+            as="div"
+            className="sobre-palco"
+            style={{ "--assento": FOTO_ASSENTO, "--proporcao": FOTO_PROPORCAO }}
+          >
+            <div className="sobre-card">
+              <ul className="sobre-fatos">
+                {fatos.map(([n, txt]) => (
+                  <li key={txt}>
+                    <span className="sobre-fatos__n">{n}</span>
+                    <span className="sobre-fatos__txt">{txt}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <img className="sobre-sentado" src={FOTO} alt="Arthur Prog" width="547" height="1100" loading="lazy" decoding="async" />
+          </Reveal>
+        )}
       </div>
     </section>
   );

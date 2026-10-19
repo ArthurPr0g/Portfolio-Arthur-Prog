@@ -220,10 +220,16 @@ export const PROJECTS = [
 // Preencher quando existirem (o site só mostra o que estiver preenchido):
 // EMAIL: e-mail profissional do domínio próprio (ex.: "contato@arthurprog.com").
 // AGENDA_URL: link de agendamento (Cal.com ou Calendly) para "Agendar conversa de 20 min".
-// FOTO: caminho da foto tratada em public/ (ex.: "/eu/arthur.webp").
+// FOTO: recorte de corpo inteiro, sentado (fundo transparente), usado em "Quem sou".
+// FOTO_ASSENTO: altura do assento na foto (0–1, de cima para baixo) — é onde
+//   a borda do card encosta. Vem do script app/scripts/fotos/tratar-fotos.py.
+// AVATAR: foto redonda do contato.
 export const EMAIL = "";
 export const AGENDA_URL = "";
-export const FOTO = null;
+export const FOTO = "/eu/arthur-sentado.webp";
+export const FOTO_ASSENTO = 0.5989;
+export const FOTO_PROPORCAO = 547 / 1100;
+export const AVATAR = "/eu/arthur-avatar.webp";
 
 export const TICKER = [
   "Product Owner", "React", "TypeScript", "UX / UI", "Node.js", "Power BI",

@@ -82,6 +82,31 @@
   line-height: 1.6;
   color: var(--muted-6);
 }
+.contato-direct__head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.contato-direct__head .contato-direct__title {
+  margin: 0;
+}
+.contato-direct__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid oklch(0.74 0.12 262 / 0.45);
+  box-shadow: 0 0 0 4px oklch(0.74 0.12 262 / 0.08), 0 10px 26px oklch(0 0 0 / 0.4);
+}
+.contato-direct__head + .contato-direct__desc {
+  margin-top: 16px;
+}
+.contato-direct__quem {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--accent-soft);
+}
 .contato-agenda {
   display: inline-flex;
   margin: 4px 0 18px;

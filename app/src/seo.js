@@ -33,6 +33,7 @@ function pessoa(lang) {
     "@id": SITE + "/#arthur",
     name: "Arthur Prog",
     url: SITE + caminho(lang),
+    image: SITE + PT.AVATAR,
     jobTitle: T(lang, "Product Owner, Desenvolvedor e Designer", "Product Owner, Programador e Designer", "Product Owner, Developer and Designer"),
     sameAs: PERFIS,
     knowsAbout: ["Product Management", "UX/UI Design", "React", "TypeScript", "Node.js", "PostgreSQL", "Next.js", "Power BI", "Artificial Intelligence"],

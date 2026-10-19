@@ -14,38 +14,134 @@
   color: var(--muted-5);
   text-wrap: pretty;
 }
+/* Com foto: texto à esquerda, "palco" à direita com o Arthur sentado no card. */
 .sobre-com-foto {
   display: grid;
-  grid-template-columns: minmax(240px, 380px) 1fr;
-  gap: 56px;
+  grid-template-columns: 1.08fr 1fr;
+  gap: 64px;
   align-items: center;
 }
 .sobre-com-foto .sobre-grid {
   grid-template-columns: 1fr;
   gap: 18px;
+  margin-top: 34px;
 }
-.sobre-foto {
-  margin: 0;
-  border-radius: 28px;
-  overflow: hidden;
-  border: 1px solid oklch(0.74 0.12 262 / 0.25);
-  background: radial-gradient(circle at 50% 30%, oklch(0.45 0.12 262 / 0.55), #0b0c10 70%);
-  box-shadow: 0 30px 80px oklch(0 0 0 / 0.5);
-}
-.sobre-foto img {
-  display: block;
+
+.sobre-palco {
+  --h: 440px; /* altura da foto; o assento fica em --h × --assento */
+  position: relative;
+  /* o card começa na altura do assento e cresce com o conteúdo */
+  padding-top: calc(var(--h) * var(--assento));
+  max-width: 560px;
   width: 100%;
-  height: auto;
-  aspect-ratio: 4 / 5;
-  object-fit: cover;
+  justify-self: end;
 }
-@media (max-width: 820px) {
+/* Luz azul atrás do Arthur, para a roupa preta não sumir no fundo escuro */
+.sobre-palco::before {
+  content: "";
+  position: absolute;
+  left: -6%;
+  top: 2%;
+  width: 72%;
+  height: 72%;
+  background: radial-gradient(closest-side, oklch(0.6 0.15 262 / 0.32), transparent);
+  filter: blur(10px);
+  pointer-events: none;
+}
+.sobre-card {
+  position: relative;
+  min-height: calc(var(--h) * (1 - var(--assento)) + 84px);
+  z-index: 1;
+  border: 1px solid oklch(0.74 0.12 262 / 0.22);
+  border-radius: 24px;
+  background:
+    linear-gradient(180deg, oklch(0.74 0.12 262 / 0.1), oklch(0.7 0 0 / 0.02)),
+    #0d0e13;
+  box-shadow: 0 30px 70px oklch(0 0 0 / 0.45);
+  padding: 22px 22px 22px calc(var(--h) * var(--proporcao) + 9%);
+  display: flex;
+  align-items: center;
+}
+/* Sombra de contato logo abaixo de onde ele senta */
+.sobre-card::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 3%;
+  width: calc(var(--h) * var(--proporcao) * 1.05);
+  height: 34px;
+  background: radial-gradient(closest-side, oklch(0 0 0 / 0.75), transparent);
+  filter: blur(4px);
+  pointer-events: none;
+}
+.sobre-sentado {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 4%;
+  height: var(--h);
+  width: calc(var(--h) * var(--proporcao));
+  object-fit: contain;
+  /* contorno de luz discreto para separar do fundo */
+  filter: drop-shadow(0 0 1px oklch(0.88 0.06 262 / 0.5)) drop-shadow(0 0 20px oklch(0.62 0.15 262 / 0.3));
+  pointer-events: none;
+  user-select: none;
+}
+.sobre-fatos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+}
+.sobre-fatos li {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.sobre-fatos__n {
+  font-family: "Sora", sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, var(--accent-strong), var(--accent-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.sobre-fatos__txt {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--muted-5);
+}
+
+@media (max-width: 900px) {
   .sobre-com-foto {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 40px;
   }
-  .sobre-foto {
-    max-width: 320px;
+  .sobre-palco {
+    --h: 380px;
+    justify-self: center;
+  }
+}
+@media (max-width: 440px) {
+  .sobre-palco {
+    --h: 320px;
+  }
+  .sobre-card {
+    padding: 16px 14px 16px calc(var(--h) * var(--proporcao) + 7%);
+  }
+  .sobre-fatos {
+    gap: 10px;
+  }
+  .sobre-fatos__n {
+    font-size: 15px;
+  }
+  .sobre-fatos__txt {
+    font-size: 11.5px;
   }
 }
 .sobre-tags {

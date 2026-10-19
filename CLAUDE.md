@@ -22,6 +22,11 @@ Portfólio estático em React + Vite. Sem banco de dados nem variáveis de ambie
 
 - Portugal (`/pt-pt`): textos gerais saem do pt-BR pelo conversor `app/src/ptpt.js` (frases revistas + termos + artigo antes do possessivo); conteúdo em `content.ptpt.js`; planos escritos à mão em `planos.ptpt.html`/`planos.ptpt.js` (euros, MB WAY/Multibanco, faturação certificada). Texto novo em português: confira como sai no conversor. Depoimentos ficam com as palavras originais.
 
+## Fotos do Arthur
+- `app/public/eu/arthur-sentado.webp` (Brasília, recorte de corpo inteiro, sentado na borda do card de "Quem sou") e `arthur-avatar.webp` (pista, foto redonda do contato).
+- Feitas com `app/scripts/fotos/tratar-fotos.py` (rembg/isnet + limpeza de borda + retoque). Originais e masters em `_originais-fotos/` (só local, fora do Git).
+- Trocar a foto sentada: refazer o recorte e atualizar `FOTO_ASSENTO` (altura do assento, 0–1) e `FOTO_PROPORCAO` em `content.js`.
+
 ## Conteúdo que depende do Arthur
 - `app/src/data/content.js`: `EMAIL`, `AGENDA_URL` (Cal.com/Calendly) e `FOTO` — vazios = não aparecem.
 - Depoimentos aceitam `foto`, `link` e `projeto` (slug do case).
