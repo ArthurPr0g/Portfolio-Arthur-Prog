@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import htmlPt from "./planos/planos.html?raw";
 import htmlEn from "./planos/planos.en.html?raw";
+import htmlPtPt from "./planos/planos.ptpt.html?raw";
 import css from "./planos/planos.css?raw";
 import { initPlanos } from "./planos/planos.js";
 
@@ -63,7 +64,8 @@ export default function PlanosPage({ lang = "pt" }) {
   useEffect(() => {
     const host = hostRef.current;
     const root = host.shadowRoot ?? host.attachShadow({ mode: "open" });
-    root.innerHTML = `<style>${css}</style>${lang === "en" ? htmlEn : htmlPt}`;
+    const html = lang === "en" ? htmlEn : lang === "pt-pt" ? htmlPtPt : htmlPt;
+    root.innerHTML = `<style>${css}</style>${html}`;
     initPlanos(root, lang, { moeda, aoTrocarMoeda: trocarMoeda });
   }, [lang, moeda, trocarMoeda]);
 

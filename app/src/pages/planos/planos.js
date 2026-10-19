@@ -7,6 +7,8 @@
 // - "en": preços em dólar para clientes dos EUA, só neste portfólio.
 import { DADOS_EN } from "./planos.en.js";
 import { DADOS_EU } from "./planos.eu.js";
+import { DADOS_PTPT } from "./planos.ptpt.js";
+import { paraPtPt } from "../../ptpt.js";
 
 // Textos da página em inglês que mudam por região (elementos com data-r="...").
 const REGIAO = {
@@ -89,9 +91,11 @@ export const DADOS_PT = {
 // aoTrocarMoeda: chamado pelo seletor de moeda da página em inglês.
 export function initPlanos(root, lang = "pt", { moeda = "usd", aoTrocarMoeda } = {}) {
 const en = lang === "en";
+const pp = lang === "pt-pt"; // Portugal: português de Portugal e euros
 const eur = en && moeda === "eur";
-const t = (pt, ing) => (en ? ing : pt);
-const D = en ? (eur ? DADOS_EU : DADOS_EN) : DADOS_PT;
+// t(pt-BR, inglês, pt-PT opcional — sem ele, sai do conversor ptpt.js)
+const t = (pt, ing, ptpt) => (en ? ing : pp ? (ptpt ?? paraPtPt(pt)) : pt);
+const D = en ? (eur ? DADOS_EU : DADOS_EN) : pp ? DADOS_PTPT : DADOS_PT;
 
 /* ===== CONFIG ===== */
 const WHATSAPP = "5562982133188";
@@ -115,11 +119,12 @@ const CMP = D.CMP;
 const brl = v => "R$ " + Math.round(v).toLocaleString("pt-BR");
 const usd = v => "$" + Math.round(v).toLocaleString("en-US");
 const euro = v => "€" + Math.round(v).toLocaleString("en-IE");
-const money = en ? (eur ? euro : usd) : brl;
+const euroPt = v => Math.round(v).toLocaleString("pt-PT") + " €";
+const money = en ? (eur ? euro : usd) : pp ? euroPt : brl;
 const mdr = n => n === 1 ? .0299 : n <= 6 ? .0349 : .0399;
 const parcela = (P, n) => n <= 2 ? P / n : Math.ceil((P + .49) / (1 - mdr(n) - .0125 * (n + 1) / 2) / n);
-// Arredonda para baixo terminando em 97 (reais) ou 90 (dólar).
-const fim = en ? 90 : 97;
+// Arredonda para baixo terminando em 97 (reais) ou 90 (dólar e euro).
+const fim = en || pp ? 90 : 97;
 const xFim = v => Math.floor((v - fim) / 100) * 100 + fim;
 // No combo o cliente paga uma mensalidade só: a maior das duas.
 function combo(prod, l, el) {
@@ -129,7 +134,9 @@ function combo(prod, l, el) {
 }
 const mes = v => money(v) + t("/mês", "/mo");
 // Linha de pagamento abaixo do preço.
-const payLine = P => en ? `50% to start · 50% on delivery (${money(P / 2)} each)` : `2x sem juros de ${brl(P / 2)} · ou 12x de ${brl(parcela(P, 12))}`;
+const payLine = P => en ? `50% to start · 50% on delivery (${money(P / 2)} each)`
+  : pp ? `50% no início · 50% na entrega (${money(P / 2)} cada)`
+  : `2x sem juros de ${brl(P / 2)} · ou 12x de ${brl(parcela(P, 12))}`;
 const waLink = msg => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
 const ctaAttrs = msg => WHATSAPP ? `href="${waLink(msg)}" target="_blank" rel="noopener"` : `href="#contato"`;
 const aPartir = t("a partir de", "from");
@@ -149,7 +156,7 @@ function renderCards(highlight) {
       <div class="facts"><span class="fact">⏱️ ${x.prazo}</span><span class="fact">🔁 ${t("depois", "then")} ${mes(x.mo)}</span><span class="fact">🌐 ${t("domínio grátis", "free domain")}</span></div>
       <div class="meters">${P.meters.map((m, k) => `<div class="meter">${m}<span class="dots">${[1, 2, 3, 4, 5].map(d => `<i class="${d <= x.m[k] ? "on" : ""}"></i>`).join("")}</span></div>`).join("")}</div>
       <ul>${x.f.map(f => `<li>${f}</li>`).join("")}</ul>
-      <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(t(`Olá! Tenho interesse no pacote ${x.name} (${brl(x.price)}).`, `Hi Arthur! I'm interested in the ${x.name} package (${money(x.price)}).`))}>${t("Quero este", "I want this")}</a>
+      <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(t(`Olá! Tenho interesse no pacote ${x.name} (${money(x.price)}).`, `Hi Arthur! I'm interested in the ${x.name} package (${money(x.price)}).`))}>${t("Quero este", "I want this")}</a>
     </article>`).join("");
   root.getElementById("cmpTable").innerHTML =
     `<thead><tr><th></th>${P.p.map((x, i) => `<th><span class="chip c-${COLORS[i]}">${P.lv[i]}</span><div style="margin-top:6px">${x.from ? aPartir + " " : ""}${money(x.price)}</div></th>`).join("")}</tr></thead><tbody>` +
@@ -185,20 +192,22 @@ if (en) {
 const COMBOS = D.COMBOS;
 root.getElementById("comboGrid").innerHTML = COMBOS.map(([n, p, l]) => {
   const c = combo(p, l, l), from = l === 2 ? `<small style='font-size:.8rem;font-weight:600;color:var(--muted)'>${aPartir} </small>` : "";
-  const pagamento = en ? `then ${mes(c.mo)} <s>${mes(c.moSum)}</s>` : `ou 12x de ${brl(parcela(c.price, 12))} · depois ${brl(c.mo)}/mês <s>${brl(c.moSum)}</s>`;
+  const pagamento = en ? `then ${mes(c.mo)} <s>${mes(c.moSum)}</s>`
+    : pp ? `depois ${mes(c.mo)} <s>${mes(c.moSum)}</s>`
+    : `ou 12x de ${brl(parcela(c.price, 12))} · depois ${brl(c.mo)}/mês <s>${brl(c.moSum)}</s>`;
   return `<div class="combo">
     <span class="chip c-${COLORS[l]}">${PROD[p].icon} + 📊</span>
-    <span class="save">${t("economize", "save")} ${money(c.sum - c.price)}</span>
+    <span class="save">${t("economize", "save", "poupe")} ${money(c.sum - c.price)}</span>
     <h4>${n}</h4>
     <div class="parts">${PROD[p].p[l].name} + ${PROD.erp.p[l].name}</div>
-    <div class="old">${money(c.sum)} ${t("separado", "separately")}</div>
+    <div class="old">${money(c.sum)} ${t("separado", "separately", "em separado")}</div>
     <div class="now">${from}${money(c.price)}</div>
     <div class="mo">${pagamento}</div>
   </div>`;
 }).join("");
 
 /* ===== MARCA ===== */
-const brandChips = en ? ["Logo only", "I have a logo", "Complete"] : ["Só o logo", "Já tenho logo", "Completa"];
+const brandChips = en ? ["Logo only", "I have a logo", "Complete"] : pp ? ["Só o logótipo", "Já tenho logótipo", "Completa"] : ["Só o logo", "Já tenho logo", "Completa"];
 root.getElementById("brandGrid").innerHTML = BRAND.map((x, i) => `
   <article class="card${x.pop ? " pop" : ""}">
     ${x.pop ? `<span class="badge">🎨 ${t("Marca completa", "Full brand")}</span>` : ""}
@@ -206,11 +215,12 @@ root.getElementById("brandGrid").innerHTML = BRAND.map((x, i) => `
     <h3>${x.name}</h3>
     <p class="ideal">${x.ideal}</p>
     <div class="price">${money(x.price)}</div>
-    <div class="pay">${en ? "50% to start · 50% on delivery" : `${x.combo < x.price ? `ou <b>${brl(x.combo)}</b> fechando junto com site ou loja · ` : ""}2x sem juros de ${brl(x.price / 2)}`}</div>
+    <div class="pay">${en ? "50% to start · 50% on delivery" : pp ? "50% no início · 50% na entrega" : `${x.combo < x.price ? `ou <b>${brl(x.combo)}</b> fechando junto com site ou loja · ` : ""}2x sem juros de ${brl(x.price / 2)}`}</div>
     <div class="facts"><span class="fact">⏱️ ${x.prazo}</span><span class="fact">🎨 ${t("sem mensalidade", "no monthly fee")}</span></div>
     <ul>${x.f.map(f => `<li>${f}</li>`).join("")}</ul>
     <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(en
       ? (i === 1 ? `Hi Arthur! I already have a logo and I'd like the ${x.name}.` : `Hi Arthur! I need to create my brand: ${x.name}.`)
+      : pp ? (i === 1 ? `Olá! Já tenho logótipo e quero a ${x.name}.` : `Olá! Preciso de criar a minha marca de raiz: ${x.name}.`)
       : (i === 1 ? `Olá! Já tenho logo e quero a ${x.name}.` : `Olá! Preciso criar minha marca do zero: ${x.name}.`))}>${t("Quero minha marca", "Build my brand")}</a>
   </article>`).join("");
 
@@ -223,10 +233,10 @@ function seg(id, items, val, set) {
 }
 function renderSim() {
   const prods = ["site", "loja", "erp"];
-  seg("sProd", en ? ["🌐 Website", "🛒 Online store", "📊 Management only"] : ["🌐 Site", "🛒 Loja virtual", "📊 Só gestão"], prods.indexOf(S.prod), i => { S.prod = prods[i]; if (S.prod === "erp") S.erp = false; });
+  seg("sProd", en ? ["🌐 Website", "🛒 Online store", "📊 Management only"] : pp ? ["🌐 Site", "🛒 Loja online", "📊 Só gestão"] : ["🌐 Site", "🛒 Loja virtual", "📊 Só gestão"], prods.indexOf(S.prod), i => { S.prod = prods[i]; if (S.prod === "erp") S.erp = false; });
   seg("sLvl", PROD[S.prod].lv, S.l, i => S.l = i);
   seg("sErpLvl", LV_ERP, S.el, i => S.el = i);
-  seg("sBrand", en ? ["✅ I have it", "✏️ Logo Design", "🖌️ Brand kit from my logo", "🎨 Full Brand Identity"] : ["✅ Já tenho", "✏️ Logo Essencial", "🖌️ Identidade a partir do logo", "🎨 Identidade Completa"], S.brand, i => S.brand = i);
+  seg("sBrand", en ? ["✅ I have it", "✏️ Logo Design", "🖌️ Brand kit from my logo", "🎨 Full Brand Identity"] : pp ? ["✅ Já tenho", "✏️ Logótipo Essencial", "🖌️ Identidade a partir do logótipo", "🎨 Identidade Completa"] : ["✅ Já tenho", "✏️ Logo Essencial", "🖌️ Identidade a partir do logo", "🎨 Identidade Completa"], S.brand, i => S.brand = i);
   root.getElementById("sErpToggle").hidden = S.prod === "erp";
   root.getElementById("sErpOn").checked = S.erp;
   root.getElementById("sErpField").hidden = !S.erp || S.prod === "erp";
@@ -239,14 +249,19 @@ function renderSim() {
   if (S.brand) { const b = BRAND[S.brand - 1]; lines.push([b.combo < b.price ? `${b.name} <s style="color:var(--muted)">${money(b.price)}</s>` : b.name, b.combo]); total += b.combo; }
   const from = (S.prod === "erp" && S.l === 2) || (S.erp && S.prod !== "erp" && S.el === 2);
   const nomes = lines.map(l => l[0].replace(/ <s.*<\/s>/, "")).join(" + ");
-  const msg = en ? `Hi Arthur! I built: ${nomes} for ${money(total)}. I'd like a proposal!` : `Olá! Simulei: ${nomes} por ${brl(total)}. Quero uma proposta!`;
+  const msg = en ? `Hi Arthur! I built: ${nomes} for ${money(total)}. I'd like a proposal!` : `Olá! Simulei: ${nomes} por ${money(total)}. Quero uma proposta!`;
   const inst = n => `<span>${n}x de ${brl(parcela(total, n))}</span><span style="color:var(--muted);font-weight:600">total ${brl(parcela(total, n) * n)}</span>`;
   const pagamento = en ? `
     <div class="payopts">
       <div class="po feat"><small>🤝 To start</small><b>${money(total / 2)}</b> (50%)</div>
       <div class="po"><small>🚀 On delivery</small><b>${money(total / 2)}</b> (50%)</div>
     </div>
-    <div style="color:var(--muted);font-size:.88rem;margin-top:10px">Pay by card or international bank transfer. You only pay the second half after you approve the finished project.</div>` : `
+    <div style="color:var(--muted);font-size:.88rem;margin-top:10px">Pay by card or international bank transfer. You only pay the second half after you approve the finished project.</div>` : pp ? `
+    <div class="payopts">
+      <div class="po feat"><small>🤝 No início</small><b>${money(total / 2)}</b> (50%)</div>
+      <div class="po"><small>🚀 Na entrega</small><b>${money(total / 2)}</b> (50%)</div>
+    </div>
+    <div style="color:var(--muted);font-size:.88rem;margin-top:10px">Pagamento por transferência bancária internacional ou cartão. A segunda metade só é paga depois de aprovar o projeto final.</div>` : `
     <div class="payopts">
       <div class="po"><small>⚡ Pix ou boleto</small><b>${brl(total / 2)}</b> no fechamento<br><b>${brl(total / 2)}</b> na entrega</div>
       <div class="po feat"><small>💳 Cartão 2x sem juros</small><b>2x de ${brl(total / 2)}</b></div>
@@ -261,9 +276,9 @@ function renderSim() {
     ${lines.map(l => `<div class="sum-line"><span>${l[0]}</span><span>${money(l[1])}</span></div>`).join("")}
     ${disc ? `<div class="sum-line disc"><span>🎉 ${t("Desconto do combo", "Bundle discount")}</span><span>− ${money(disc)}</span></div>` : ""}
     <div class="sum-total"><span>Total${from ? t(" (a partir de)", " (from)") : ""}</span><b>${money(total)}</b></div>
-    <div style="color:var(--muted);font-size:.9rem">${t("Depois, mensalidade de", "Then a monthly plan of")} <b style="color:var(--text)">${mes(mo)}</b>${moOld} · ${t("domínio grátis no 1º ano", "free domain for the 1st year")}</div>
+    <div style="color:var(--muted);font-size:.9rem">${t("Depois, mensalidade de", "Then a monthly plan of")} <b style="color:var(--text)">${mes(mo)}</b>${moOld} · ${t("domínio grátis no 1º ano", "free domain for the 1st year", "domínio grátis no 1.º ano")}</div>
     ${pagamento}
-    <a class="btn btn-primary" style="width:100%;justify-content:center;margin-top:18px" ${ctaAttrs(msg)}>💬 ${t("Quero essa proposta", "Get this proposal")}</a>`;
+    <a class="btn btn-primary" style="width:100%;justify-content:center;margin-top:18px" ${ctaAttrs(msg)}>💬 ${t("Quero essa proposta", "Get this proposal", "Quero esta proposta")}</a>`;
   const sN = root.getElementById("sN");
   if (sN) sN.oninput = e => { S.n = +e.target.value; root.getElementById("sInst").innerHTML = inst(S.n); };
 }
@@ -287,6 +302,22 @@ const Q = en ? [
     ["✏️", "Only a logo", "but no colors, fonts or social media standard", 1],
     ["🎨", "Nothing yet", "I need to create the brand from scratch", 2] ] },
   { t: "What's your budget for the project?", k: "budget", o: ORC.rotulos.map((r, i) => [["💵", "💰", "💎"][i], r, "", i]) },
+] : pp ? [
+  { t: "Do que mais precisa agora?", k: "need", o: [
+    ["🌐", "Mostrar a minha empresa", "ser encontrado no Google e receber contactos", "site"],
+    ["🛒", "Vender pela internet", "catálogo, carrinho e encomendas", "loja"],
+    ["📊", "Organizar a gestão", "stock, vendas e financeiro", "erp"],
+    ["🔗", "Site + organizar a gestão", "tudo num só lugar", "site+erp"],
+    ["🚀", "Vender online + organizar", "loja integrada na gestão", "loja+erp"] ] },
+  { t: "Em que fase está o seu negócio?", k: "stage", o: [
+    ["🌱", "A começar", "quero o essencial, bem feito", 0],
+    ["📈", "A crescer", "já tenho clientes e quero mais", 1],
+    ["🏢", "Estabelecido", "tenho equipa e processos próprios", 2] ] },
+  { t: "Já tem logótipo e identidade visual?", k: "brand", o: [
+    ["✅", "Sim, tenho tudo", "logótipo, cores e tipos de letra definidos", 0],
+    ["✏️", "Só tenho o logótipo", "mas sem padrão de cores, tipos de letra e redes", 1],
+    ["🎨", "Não tenho nada", "preciso de criar a marca de raiz", 2] ] },
+  { t: "Quanto pretende investir no projeto?", k: "budget", o: ORC.rotulos.map((r, i) => [["💵", "💰", "💎"][i], r, "", i]) },
 ] : [
   { t: "O que você mais precisa agora?", k: "need", o: [
     ["🌐", "Mostrar minha empresa", "ser encontrado no Google e receber contatos", "site"],
@@ -329,10 +360,12 @@ function renderQuiz() {
   else { const x = PROD[prod].p[l]; title = x.name; price = x.price; mo = x.mo; parts = ""; }
   const why = (en
     ? { site: "You need a professional presence to be found and to earn trust.", loja: "You want to sell online with a cart, shipping and organized orders.", erp: "You need to move off spreadsheets and keep inventory, sales and finances in one place." }
+    : pp ? { site: "Precisa de uma presença profissional para ser encontrado e transmitir confiança.", loja: "Quer vender online com carrinho, portes e encomendas organizados.", erp: "Precisa de sair das folhas de cálculo e ter stock, vendas e financeiro num só lugar." }
     : { site: "Você precisa de presença profissional para ser encontrado e transmitir confiança.", loja: "Você quer vender online com carrinho, frete e pedidos organizados.", erp: "Você precisa sair da planilha e ter estoque, vendas e financeiro num lugar só." })[prod]
-    + (withErp ? t(" Como também quer organizar a gestão, o combo sai mais barato e fica tudo integrado, com o mesmo login.", " Since you also want to organize your operations, the bundle costs less and everything is connected, with a single login.") : "");
+    + (withErp ? t(" Como também quer organizar a gestão, o combo sai mais barato e fica tudo integrado, com o mesmo login.", " Since you also want to organize your operations, the bundle costs less and everything is connected, with a single login.", " Como também quer organizar a gestão, o combo fica mais barato e tudo fica integrado, com o mesmo login.") : "");
   const alt = l < ideal ? (en
     ? `<div class="alt">💡 For where your business is, the <b>${PROD[prod].lv[ideal]}</b> tier would be ideal (${money(priceAt(ideal))}). You can start with ${lvName} and upgrade later, paying only the difference.</div>`
+    : pp ? `<div class="alt">💡 Pela fase do seu negócio, o nível <b>${PROD[prod].lv[ideal]}</b> seria o ideal (${money(priceAt(ideal))}). Pode começar no ${lvName} e subir de nível mais tarde: paga apenas a diferença.</div>`
     : `<div class="alt">💡 Pelo momento do seu negócio, o nível <b>${PROD[prod].lv[ideal]}</b> seria o ideal (${brl(priceAt(ideal))}). Dá para começar no ${lvName} e fazer upgrade depois, pagando só a diferença.</div>`) : "";
   const fromTxt = l === 2 && (prod === "erp" || withErp);
   const total = price + (bp ? bp.combo : 0);
@@ -341,12 +374,15 @@ function renderQuiz() {
     ? (bi === 2
       ? `<div class="alt">🎨 Since you don't have a brand yet, we included the <b>${bp.name}</b> (${money(bp.combo)}): logo, colors, fonts, brand guide and a social media kit. We create the brand first, then the ${sistema}, already in your style.</div>`
       : `<div class="alt">✏️ Since you already have a logo, we included the <b>${bp.name}</b> (${money(bp.combo)}): from your logo we define colors, fonts, a brand guide and a social media kit, so the ${sistema} launches consistent from day one.</div>`)
+    : pp ? (bi === 2
+      ? `<div class="alt">🎨 Como ainda não tem marca, incluímos a <b>${bp.name}</b> (${money(bp.combo)}): logótipo, cores, tipos de letra, manual de marca e kit para redes sociais. Criamos primeiro a marca e depois o ${sistema}, já com a sua imagem.</div>`
+      : `<div class="alt">✏️ Como já tem logótipo, incluímos a <b>${bp.name}</b> (${money(bp.combo)}): a partir do seu logótipo definimos cores, tipos de letra, manual de marca e kit para redes sociais, e o ${sistema} já nasce coerente com a marca.</div>`)
     : (bi === 2
       ? `<div class="alt">🎨 Como você ainda não tem marca, incluímos a <b>${bp.name}</b> (${brl(bp.combo)}): logo, cores, fontes, manual da marca e kit para redes sociais. Criamos a marca primeiro e depois o ${sistema}, já com a sua cara.</div>`
       : `<div class="alt">✏️ Como você já tem o logo, incluímos a <b>${bp.name}</b> (${brl(bp.combo)}): a partir do seu logo definimos cores, fontes, manual da marca e kit para redes sociais, e o ${sistema} já nasce padronizado.</div>`);
   box.innerHTML = bar + `<div class="result">
     <div>
-      <span class="chip c-${COLORS[l]}">${t("Recomendado para você", "Recommended for you")} · ${lvName}</span>
+      <span class="chip c-${COLORS[l]}">${t("Recomendado para você", "Recommended for you", "Recomendado para si")} · ${lvName}</span>
       <h3>${title}</h3>
       <p class="why">${parts ? `<b>${parts}</b> ` : ""}${why}</p>${alt}${brandTip}
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
@@ -360,7 +396,7 @@ function renderQuiz() {
       ${bp ? `<small>${title} ${money(price)} + ${bp.name} ${money(bp.combo)}</small>` : ""}
       <small>${payLine(total)}</small>
       <div style="margin-top:12px;font-weight:700">${t("depois", "then")} ${mes(mo)}</div>
-      <small>🌐 ${t("domínio grátis no 1º ano", "free domain for the 1st year")}</small>
+      <small>🌐 ${t("domínio grátis no 1º ano", "free domain for the 1st year", "domínio grátis no 1.º ano")}</small>
     </div></div>`;
   root.getElementById("qAgain").onclick = () => { qStep = 0; renderQuiz(); };
   root.getElementById("qSee").onclick = () => { setTab(prod, l); Object.assign(S, { prod, l, erp: withErp, el: l, brand: bi + 1 }); renderSim(); };

@@ -1,0 +1,177 @@
+<div class="pl-root">
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">Planos · Sites · Lojas online · Gestão</span>
+      <h1>O seu negócio online e <span>organizado</span>, como deve ser.</h1>
+      <p class="sub">Pacotes claros, com preço fechado, para pequenas empresas. Escolha só o site, só o sistema, ou os dois juntos e poupe. Feito no Brasil para clientes em Portugal, pelo mesmo programador de todos os projetos deste portefólio — e na mesma língua.</p>
+      <div class="ctas">
+        <a class="btn btn-primary" href="#quiz">Descobrir o meu pacote ideal →</a>
+        <a class="btn btn-ghost" href="#pacotes">Ver todos os pacotes</a>
+      </div>
+      <div class="perks">
+        <span class="perk">🤝 50% no início, 50% na entrega</span>
+        <span class="perk">🌐 Domínio grátis no 1.º ano</span>
+        <span class="perk">⚡ Entrega a partir de 5 dias úteis</span>
+      </div>
+    </div>
+    <div class="stack" aria-hidden="true">
+      <div class="tile"><span class="ic c-green">🌐</span><div><b>Site institucional</b><small>Apareça no Google e no WhatsApp</small></div><span class="from">a partir de<strong data-from="site"></strong></span></div>
+      <div class="tile"><span class="ic c-blue">🛒</span><div><b>Loja online</b><small>Venda 24 horas por dia</small></div><span class="from">a partir de<strong data-from="loja"></strong></span></div>
+      <div class="tile"><span class="ic c-purple">📊</span><div><b>Sistema de gestão</b><small>Stock, vendas e financeiro</small></div><span class="from">a partir de<strong data-from="erp"></strong></span></div>
+    </div>
+  </div>
+</header>
+
+<section id="quiz" style="padding-top:24px">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">4 perguntas · 30 segundos</span>
+      <h2>Que pacote faz mais sentido para si?</h2>
+      <p class="lead">Responda rapidamente e veja a minha recomendação, com preço e mensalidade.</p>
+    </div>
+    <div class="quiz" id="quizBox"></div>
+  </div>
+</section>
+
+<section id="pacotes" style="background:var(--bg2)">
+  <div class="wrap center">
+    <span class="eyebrow">Pacotes</span>
+    <h2>Três níveis para cada necessidade</h2>
+    <p class="lead">Do essencial para começar ao completo para se destacar. Cada nível inclui o que o anterior tem e vai mais longe.</p>
+    <div class="tabs" role="tablist" id="tabs">
+      <button role="tab" aria-selected="true" data-tab="site">🌐 Site</button>
+      <button role="tab" aria-selected="false" data-tab="loja">🛒 Loja online</button>
+      <button role="tab" aria-selected="false" data-tab="erp">📊 Sistema de gestão</button>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="grid3" id="cards"></div>
+    <div class="cmp-toggle"><button class="btn btn-ghost" id="cmpBtn">📋 Comparar os 3 níveis lado a lado</button></div>
+    <div class="table-wrap" id="cmpWrap" hidden><table id="cmpTable"></table></div>
+    <p class="center" style="color:var(--muted);margin-top:18px;font-size:.88rem">* Pagamentos por MB WAY, Multibanco e cartão através de um gateway de pagamento português (por exemplo, Eupago ou Ifthenpay), com conta em nome da sua empresa. A faturação certificada liga-se ao programa que a sua empresa já usa.</p>
+  </div>
+</section>
+
+<section id="combos">
+  <div class="wrap center">
+    <span class="eyebrow">Combos</span>
+    <h2>Site ou loja + sistema de gestão, juntos e mais baratos</h2>
+    <p class="lead">O sistema fica dentro do seu próprio site, com o mesmo login. Só a sua equipa vê o botão de gestão; os seus clientes veem apenas o site.</p>
+  </div>
+  <div class="wrap">
+    <div class="combo-diagram" aria-hidden="true">
+      <div class="dbox"><div class="ic">🌐</div><b>Site / Loja</b><small>o que os seus clientes veem</small></div>
+      <div class="switch"><div class="pill"></div>1 botão, só para<br>administradores</div>
+      <div class="dbox"><div class="ic">📊</div><b>Gestão</b><small>stock, vendas, financeiro</small></div>
+    </div>
+    <div class="flow"><span>🛍️ O cliente compra na loja</span><em>→</em><span>🧾 Passa a venda no sistema</span><em>→</em><span>📦 Atualiza o stock</span><em>→</em><span>💰 Entra no financeiro</span></div>
+    <div class="combo-grid" id="comboGrid"></div>
+    <p class="center" style="color:var(--muted);margin-top:18px;font-size:.92rem">Quer combinar níveis diferentes (por exemplo, site Essencial + gestão Intermédia)? Também é possível: 15% de desconto sobre o total. Use o simulador abaixo.</p>
+  </div>
+</section>
+
+<section id="marca">
+  <div class="wrap center">
+    <span class="eyebrow">A começar do zero?</span>
+    <h2>Sem logótipo ou sem identidade? Eu crio a sua marca</h2>
+    <p class="lead">Se ainda não tem logótipo nem identidade visual, crio tudo antes do site. Se já tem o logótipo, construo a identidade a partir dele. A sua empresa já nasce com imagem profissional. Preço fechado, sem mensalidade.</p>
+  </div>
+  <div class="wrap"><div class="grid3" id="brandGrid" style="margin-top:32px"></div></div>
+</section>
+
+<section id="simulador" style="background:var(--bg2)">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow">Simulador</span>
+      <h2>Monte o seu pacote e veja quanto fica</h2>
+      <p class="lead">Escolha o que precisa e veja o total, a divisão do pagamento e a mensalidade.</p>
+    </div>
+    <div class="sim">
+      <div class="panel">
+        <div class="field"><label>1. O que procura?</label><div class="seg" id="sProd"></div></div>
+        <div class="field"><label>2. Que nível?</label><div class="seg" id="sLvl"></div></div>
+        <div class="field" id="sErpToggle"><label class="check"><input type="checkbox" id="sErpOn"> Incluir sistema de gestão integrado (combo com desconto)</label></div>
+        <div class="field" id="sErpField" hidden><label>Nível do sistema de gestão</label><div class="seg" id="sErpLvl"></div></div>
+        <div class="field"><label>3. Logótipo e identidade visual</label><div class="seg" id="sBrand"></div></div>
+      </div>
+      <div class="panel" id="sOut" aria-live="polite"></div>
+    </div>
+  </div>
+</section>
+
+<section id="pagamento">
+  <div class="wrap center">
+    <span class="eyebrow">Pagamento</span>
+    <h2>Simples, seguro e sem surpresas</h2>
+    <p class="lead">Paga metade para começar e a outra metade só depois de aprovar o projeto final.</p>
+    <div class="timeline">
+      <div class="tl"><div class="n">🤝</div><b>Arranque</b><small>50% do valor</small></div>
+      <div class="tl"><div class="n">🛠️</div><b>Criação</b><small>acompanha e pede alterações</small></div>
+      <div class="tl"><div class="n">🚀</div><b>Entrega</b><small>50% restantes</small></div>
+      <div class="tl"><div class="n">🔁</div><b>Mensalidade</b><small>alojamento, suporte e segurança</small></div>
+    </div>
+    <div class="ways">
+      <div class="way"><div class="ic">📄</div><b>Proposta por escrito</b><small>Âmbito, prazo e preço acordados antes de qualquer pagamento.</small></div>
+      <div class="way"><div class="ic">🏦</div><b>Transferência ou cartão</b><small>Pagamento internacional seguro, em euros.</small></div>
+      <div class="way"><div class="ic">✅</div><b>O resto só na aprovação</b><small>A segunda metade só é paga quando aprovar a entrega.</small></div>
+    </div>
+  </div>
+</section>
+
+<section id="confianca" style="background:var(--bg2)">
+  <div class="wrap center">
+    <span class="eyebrow">Do Brasil para Portugal</span>
+    <h2>As mesmas ferramentas e qualidade, sem os custos de uma agência</h2>
+    <p class="lead">Sou um programador independente a trabalhar a partir do Brasil. Os meus preços são mais baixos do que os de uma agência por causa do custo de vida e de não ter estrutura de agência — não por ter menos qualidade. Pode ver os projetos reais neste portefólio.</p>
+  </div>
+  <div class="wrap">
+    <div class="inc">
+      <div><span class="ic">🗣️</span><span><b>A mesma língua</b><small>reuniões e mensagens em português, sem intermediários</small></span></div>
+      <div><span class="ic">🕐</span><span><b>Horários compatíveis</b><small>Portugal está 3 a 4 horas à frente do Brasil</small></span></div>
+      <div><span class="ic">🧑‍💻</span><span><b>Tecnologia moderna</b><small>React, Next.js, Node.js, PostgreSQL</small></span></div>
+      <div><span class="ic">🌐</span><span><b>O domínio é seu</b><small>registado em nome da sua empresa</small></span></div>
+      <div><span class="ic">🔒</span><span><b>Segurança de raiz</b><small>SSL, cópias de segurança e atualizações</small></span></div>
+      <div><span class="ic">📁</span><span><b>Portefólio real</b><small>sites e sistemas no ar que pode abrir</small></span></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap center">
+    <span class="eyebrow">Incluído em todos os pacotes</span>
+    <h2>O essencial bem feito já vem incluído</h2>
+  </div>
+  <div class="wrap">
+    <div class="inc">
+      <div><span class="ic">🌐</span><span><b>Domínio grátis no 1.º ano</b><small>.pt ou .com registado em seu nome</small></span></div>
+      <div><span class="ic">🔒</span><span><b>Cadeado de segurança</b><small>certificado SSL (https)</small></span></div>
+      <div><span class="ic">📱</span><span><b>Funciona em qualquer ecrã</b><small>telemóvel, tablet e computador</small></span></div>
+      <div><span class="ic">☁️</span><span><b>Alojamento e cópias de segurança</b><small>incluídos na mensalidade</small></span></div>
+      <div><span class="ic">🛡️</span><span><b>Atualizações de segurança</b><small>e monitorização contínua</small></span></div>
+      <div><span class="ic">💬</span><span><b>Suporte direto</b><small>com quem fez o seu projeto</small></span></div>
+    </div>
+    <div class="faq">
+      <details><summary>Porque é que os preços são mais baixos do que os de uma agência?</summary><p>Sou um programador independente a trabalhar a partir do Brasil. Um custo de vida mais baixo e não ter estrutura de agência (escritório, gestores de conta, equipa comercial) permitem-me cobrar menos, com as mesmas ferramentas modernas que as equipas europeias usam. Todos os projetos deste portefólio foram feitos por mim e muitos estão no ar para os poder ver.</p></details>
+      <details><summary>Como sei que é seguro?</summary><p>Recebe uma proposta por escrito, com âmbito, prazo e preço, antes de pagar o que quer que seja. Paga 50% para começar e os outros 50% só depois de aprovar o projeto final. O domínio fica sempre registado em nome da sua empresa.</p></details>
+      <details><summary>Como trabalhamos à distância?</summary><p>Tudo é remoto: videochamadas, WhatsApp e e-mail, em português. Portugal está 3 a 4 horas à frente do Brasil, por isso as suas tardes coincidem com as minhas manhãs.</p></details>
+      <details><summary>O que é a mensalidade e porque existe?</summary><p>Cobre alojamento, base de dados, cópias de segurança, atualizações de segurança, monitorização e pequenos ajustes todos os meses. O seu site ou sistema fica sempre no ar, rápido e seguro, sem se preocupar com nada técnico.</p></details>
+      <details><summary>Posso começar no Essencial e mudar depois?</summary><p>Sim. Pode subir de nível nos 6 meses seguintes, pagando apenas a diferença entre os pacotes.</p></details>
+      <details><summary>O domínio fica em meu nome?</summary><p>Sim, sempre registado em nome da sua empresa. O 1.º ano fica por minha conta; depois, a renovação de um .pt ou .com custa normalmente entre 10 e 20 € por ano.</p></details>
+      <details><summary>O que não está incluído?</summary><p>E-mail profissional, as comissões do gateway de pagamento (MB WAY, Multibanco, cartão), o programa de faturação certificado e aplicações pagas de terceiros. Os textos e as fotografias são enviados por si; no Premium, revejo os textos para venderem mais.</p></details>
+      <details><summary>Quanto tempo demora?</summary><p>De 5 a 10 dias úteis no site Essencial até 28 a 52 dias úteis no sistema Avançado. O prazo começa quando recebo todo o material: textos, fotografias e acessos.</p></details>
+      <details><summary>Já uso um programa de faturação ou folhas de cálculo. Vale a pena um sistema próprio?</summary><p>Se os programas prontos não se adaptam à sua forma de trabalhar, sim. O sistema próprio é feito para o seu processo, não cobra por utilizador extra, fica dentro do seu site e liga-se ao programa de faturação que já usa.</p></details>
+    </div>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="wrap">
+    <div class="final">
+      <h2>Vamos tirar o seu projeto do papel?</h2>
+      <p>Diga-me do que precisa e receba uma proposta com o pacote ideal para o seu negócio.</p>
+      <a class="btn" data-wa href="#contato">💬 Falar por WhatsApp</a>
+    </div>
+  </div>
+</section>
+</div>

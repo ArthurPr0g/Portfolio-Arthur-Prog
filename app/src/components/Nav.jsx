@@ -11,14 +11,15 @@ const LINKS = [
   ["contato", "Contato", "Contact"],
 ];
 
-/** Seletor PT / EN. A escolha fica salva e vale por cima da detecção pelo país. */
+/** Seletor BR / PT / EN. A escolha fica salva e vale por cima da detecção pelo país. */
 function SeletorIdioma({ className = "" }) {
   const { lang, setLang } = useLang();
   return (
     <div className={"nav__lang " + className} role="group" aria-label="Idioma / Language">
       {[
-        ["pt", "PT", "Ver em português"],
-        ["en", "EN", "View in English"],
+        ["pt", "BR", "Português do Brasil (preços em reais)"],
+        ["pt-pt", "PT", "Português de Portugal (preços em euros)"],
+        ["en", "EN", "English (USD / EUR)"],
       ].map(([id, rotulo, titulo]) => (
         <button
           key={id}

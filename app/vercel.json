@@ -2,19 +2,23 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": false,
   "redirects": [
+    { "source": "/", "has": [{ "type": "query", "key": "lang", "value": "pt-pt" }], "destination": "/pt-pt", "permanent": false },
     { "source": "/", "has": [{ "type": "query", "key": "lang", "value": "en" }], "destination": "/en", "permanent": false },
     { "source": "/", "has": [{ "type": "query", "key": "lang", "value": "pt" }], "destination": "/pt", "permanent": false },
+    { "source": "/", "has": [{ "type": "cookie", "key": "idioma", "value": "pt-pt" }], "destination": "/pt-pt", "permanent": false },
     { "source": "/", "has": [{ "type": "cookie", "key": "idioma", "value": "en" }], "destination": "/en", "permanent": false },
     { "source": "/", "has": [{ "type": "cookie", "key": "idioma", "value": "pt" }], "destination": "/pt", "permanent": false },
     { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "BR" }], "destination": "/pt", "permanent": false },
     { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "US" }], "destination": "/en", "permanent": false },
-    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "PT" }], "destination": "/en", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "PT" }], "destination": "/pt-pt", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "accept-language", "value": { "pre": "pt-PT" } }], "destination": "/pt-pt", "permanent": false },
     { "source": "/", "has": [{ "type": "header", "key": "accept-language", "value": { "pre": "pt" } }], "destination": "/pt", "permanent": false },
     { "source": "/", "destination": "/en", "permanent": false },
     { "source": "/planos", "destination": "/pt/planos", "permanent": true },
     { "source": "/pricing", "destination": "/en/pricing", "permanent": true }
   ],
   "rewrites": [
+    { "source": "/pt-pt/:path*", "destination": "/pt-pt" },
     { "source": "/pt/:path*", "destination": "/pt" },
     { "source": "/en/:path*", "destination": "/en" }
   ]

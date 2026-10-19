@@ -6,7 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { metaDaRota, todasAsRotas, headHtml } from "../src/seo.js";
+import { metaDaRota, todasAsRotas, headHtml, HREFLANG } from "../src/seo.js";
 import { SITE, caminho } from "../src/rotas.js";
 
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
@@ -34,7 +34,7 @@ fs.writeFileSync(path.join(dist, "index.html"), pagina(metaDaRota("pt", "home"))
 
 // Sitemap com as duas versões de cada página ligadas entre si.
 const hoje = new Date().toISOString().slice(0, 10);
-const hreflang = { pt: "pt-BR", en: "en" };
+const hreflang = HREFLANG;
 const urls = rotas.map((r) => {
   const m = metaDaRota(r.lang, r.name, r.slug);
   const alt = Object.entries(m.alternates)

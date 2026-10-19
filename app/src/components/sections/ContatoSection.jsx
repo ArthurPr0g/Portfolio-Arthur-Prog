@@ -54,7 +54,7 @@ export default function ContatoSection() {
               <input type="text" value={form.nome} onChange={field("nome")} placeholder={t("Seu nome", "Your name")} />
             </label>
             <label className="contato-field">
-              <span className="contato-label">Email</span>
+              <span className="contato-label">{lang === "pt-pt" ? "E-mail" : "Email"}</span>
               <input type="email" value={form.email} onChange={field("email")} placeholder={t("voce@email.com", "you@email.com")} />
             </label>
             <label className="contato-field">
@@ -80,7 +80,7 @@ export default function ContatoSection() {
               <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener" className="contato-direct__link contato-direct__link--wa">
                 <span className="contato-direct__link-meta">
                   <span className="contato-direct__link-label">WhatsApp</span>
-                  <span className="contato-direct__link-value">{lang === "en" ? "+55 62 98213-3188" : "(62) 98213-3188"}</span>
+                  <span className="contato-direct__link-value">{lang === "pt" ? "(62) 98213-3188" : "+55 62 98213-3188"}</span>
                 </span>
                 <span className="contato-direct__arrow">→</span>
               </a>

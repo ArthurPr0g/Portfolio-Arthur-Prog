@@ -1,20 +1,25 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import * as PT from "./data/content";
 import { traduzir } from "./data/content.en";
-import { caminho, lerRota, rotaDoHash } from "./rotas";
+import { adaptarPtPt } from "./data/content.ptpt";
+import { paraPtPt } from "./ptpt";
+import { caminho, lerRota, rotaDoHash, IDIOMAS } from "./rotas";
 import { metaDaRota } from "./seo";
 
 // Idioma e página atual.
 //
-// O idioma vem do endereço (/pt ou /en), para o Google indexar as duas versões.
-// Quem abre a raiz "/" é mandado para o idioma certo pela Vercel (vercel.json):
-// link com ?lang= > escolha salva no seletor (cookie) > país (EUA → inglês,
-// Brasil → português) > idioma do navegador.
+// O idioma vem do endereço (/pt, /pt-pt ou /en), para o Google indexar todas as
+// versões. Quem abre a raiz "/" é mandado para o idioma certo pela Vercel
+// (vercel.json): link com ?lang= > escolha salva no seletor (cookie) > país
+// (Brasil → /pt, Portugal → /pt-pt, EUA → /en) > idioma do navegador.
+//
+// t(pt, en): o português de Portugal sai do texto brasileiro pelo conversor ptpt.js.
 
 const CHAVE = "portfolio.idioma";
 const LangContext = createContext(null);
 
-const valido = (v) => (v === "pt" || v === "en" ? v : null);
+const valido = (v) => (IDIOMAS.includes(v) ? v : null);
+const CONTEUDO = { pt: PT, en: traduzir(PT), "pt-pt": adaptarPtPt(PT) };
 
 function preferido() {
   try {
@@ -29,7 +34,9 @@ function preferido() {
   } catch {
     /* segue */
   }
-  return /^pt\b/i.test(navigator.language || "") ? "pt" : "en";
+  const nav = navigator.language || "";
+  if (/^pt-PT/i.test(nav)) return "pt-pt";
+  return /^pt\b/i.test(nav) ? "pt" : "en";
 }
 
 /** Rota inicial. Endereços sem idioma (ou com o #/ antigo) viram o endereço novo. */
@@ -108,8 +115,8 @@ export function LangProvider({ children }) {
   );
 
   const valor = useMemo(() => {
-    const content = lang === "en" ? traduzir(PT) : PT;
-    const t = (pt, en) => (lang === "en" ? en : pt);
+    const content = CONTEUDO[lang];
+    const t = (pt, en) => (lang === "en" ? en : lang === "pt-pt" ? paraPtPt(pt) : pt);
     const link = (name = "home", slug = null) => caminho(lang, name, slug);
     return { lang, setLang, t, content, route, navigate, link };
   }, [lang, setLang, route, navigate]);
