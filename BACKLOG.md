@@ -67,8 +67,11 @@ Fase 3:
 - Números da seção "Números" só com o que der para provar.
 
 ## Pendências da conversa de 17/10/2026
-- **Portfólio:** confirmar como vou receber dos EUA (a página em inglês diz
-  "card or international bank transfer, invoiced in US dollars").
+- ~~Portfólio: confirmar como vou receber dos EUA~~ → **Asaas** (decidido 19/10/2026): cartão
+  estrangeiro, cobrado em reais ao câmbio do dia (sem link de pagamento, sem parcelar, sem Pix/boleto).
+  Páginas EN e PT-PT ajustadas. Falta: pedir na Asaas a liberação de clientes estrangeiros
+  (análise de até 4 dias úteis; cadastrar o cliente antes). Se um dia quiser cobrar em dólar:
+  comparar Stripe, PayPal, Wise e Payoneer.
 - **Portfólio:** cadastrar o site no Google Search Console e mandar o código da
   "Tag HTML" para colocar no site e enviar o sitemap.
 - **Portfólio:** avaliar domínio próprio (ex.: arthurprog.com). Trocar `SITE` em

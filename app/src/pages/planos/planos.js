@@ -16,7 +16,8 @@ const REGIAO = {
     sub: "Clear packages with fixed prices for small businesses. Pick just the website, just the system, or both together and save. Built in Brazil for clients in the US, by the same developer behind every project in this portfolio.",
     confianca: "I'm an independent developer based in Brazil. My prices are lower than US agencies because of a lower cost of living and no agency overhead, not lower quality. You can see the live projects in this portfolio.",
     fuso: "Brazil is 1–2 hours ahead of US Eastern Time",
-    faturado: "Secure international payment, invoiced in US dollars.",
+    // Recebimento pela Asaas: cartão estrangeiro, cobrado em reais (decisão do Arthur em 19/10/2026)
+    faturado: "Secure card payment. Prices are in US dollars; the charge is processed in Brazilian reais at the day's exchange rate, so your statement shows the equivalent amount (your bank may add its usual foreign transaction fee).",
     porque: "Why are your prices lower than US agencies?",
     fusoFaq: "Everything is remote: video calls, WhatsApp and email, in English. Brazil is 1–2 hours ahead of US Eastern Time, so we share most of the business day.",
     naoIncluso: "Business email, payment processor fees (such as Stripe), sales tax setup and paid third-party apps. You provide the texts and photos; on Premium packages I review the copy to help it sell more.",
@@ -25,7 +26,7 @@ const REGIAO = {
     sub: "Clear packages with fixed prices for small businesses. Pick just the website, just the system, or both together and save. Built in Brazil for clients in Europe, by the same developer behind every project in this portfolio.",
     confianca: "I'm an independent developer based in Brazil. My prices are lower than European agencies because of a lower cost of living and no agency overhead, not lower quality. You can see the live projects in this portfolio.",
     fuso: "Brazil is 3–5 hours behind most of Europe: your afternoon is my morning",
-    faturado: "Secure international payment, invoiced in euros.",
+    faturado: "Secure card payment. Prices are in euros; the charge is processed in Brazilian reais at the day's exchange rate, so your statement shows the equivalent amount (your bank may add its usual foreign transaction fee).",
     porque: "Why are your prices lower than European agencies?",
     fusoFaq: "Everything is remote: video calls, WhatsApp and email, in English. Brazil is 3–5 hours behind most of Europe, so my mornings overlap with your afternoons every working day.",
     naoIncluso: "Business email, payment processor fees (such as Stripe), VAT registration or tax setup and paid third-party apps. You provide the texts and photos; on Premium packages I review the copy to help it sell more.",
@@ -256,12 +257,12 @@ function renderSim() {
       <div class="po feat"><small>🤝 To start</small><b>${money(total / 2)}</b> (50%)</div>
       <div class="po"><small>🚀 On delivery</small><b>${money(total / 2)}</b> (50%)</div>
     </div>
-    <div style="color:var(--muted);font-size:.88rem;margin-top:10px">Pay by card or international bank transfer. You only pay the second half after you approve the finished project.</div>` : pp ? `
+    <div style="color:var(--muted);font-size:.88rem;margin-top:10px">Pay by credit card (processed in Brazilian reais at the day's exchange rate). You only pay the second half after you approve the finished project.</div>` : pp ? `
     <div class="payopts">
       <div class="po feat"><small>🤝 No início</small><b>${money(total / 2)}</b> (50%)</div>
       <div class="po"><small>🚀 Na entrega</small><b>${money(total / 2)}</b> (50%)</div>
     </div>
-    <div style="color:var(--muted);font-size:.88rem;margin-top:10px">Pagamento por transferência bancária internacional ou cartão. A segunda metade só é paga depois de aprovar o projeto final.</div>` : `
+    <div style="color:var(--muted);font-size:.88rem;margin-top:10px">Pagamento com cartão de crédito (processado em reais, a moeda brasileira, ao câmbio do dia). A segunda metade só é paga depois de aprovar o projeto final.</div>` : `
     <div class="payopts">
       <div class="po"><small>⚡ Pix ou boleto</small><b>${brl(total / 2)}</b> no fechamento<br><b>${brl(total / 2)}</b> na entrega</div>
       <div class="po feat"><small>💳 Cartão 2x sem juros</small><b>2x de ${brl(total / 2)}</b></div>
