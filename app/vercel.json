@@ -8,6 +8,7 @@
     { "source": "/", "has": [{ "type": "cookie", "key": "idioma", "value": "pt" }], "destination": "/pt", "permanent": false },
     { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "BR" }], "destination": "/pt", "permanent": false },
     { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "US" }], "destination": "/en", "permanent": false },
+    { "source": "/", "has": [{ "type": "header", "key": "x-vercel-ip-country", "value": "PT" }], "destination": "/en", "permanent": false },
     { "source": "/", "has": [{ "type": "header", "key": "accept-language", "value": { "pre": "pt" } }], "destination": "/pt", "permanent": false },
     { "source": "/", "destination": "/en", "permanent": false },
     { "source": "/planos", "destination": "/pt/planos", "permanent": true },

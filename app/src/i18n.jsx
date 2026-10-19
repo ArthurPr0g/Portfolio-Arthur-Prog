@@ -40,8 +40,13 @@ function rotaInicial() {
   const rota = doHash ? { lang, ...doHash } : doEndereco || { lang, name: "home", slug: null };
   const certo = caminho(rota.lang, rota.name, rota.slug);
   const secao = !doHash && window.location.hash ? window.location.hash : "";
-  if (window.location.pathname !== certo || doHash || window.location.search) {
-    history.replaceState(null, "", certo + secao);
+  // Tira só o ?lang= (já usado); outros parâmetros, como ?currency=, ficam.
+  const params = new URLSearchParams(window.location.search);
+  const tinhaLang = params.has("lang");
+  params.delete("lang");
+  const busca = params.toString() ? "?" + params.toString() : "";
+  if (window.location.pathname !== certo || doHash || tinhaLang) {
+    history.replaceState(null, "", certo + busca + secao);
   }
   return rota;
 }

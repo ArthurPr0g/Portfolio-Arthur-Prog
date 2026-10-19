@@ -6,6 +6,29 @@
 //   na página avulsa — ver CLAUDE.md).
 // - "en": preços em dólar para clientes dos EUA, só neste portfólio.
 import { DADOS_EN } from "./planos.en.js";
+import { DADOS_EU } from "./planos.eu.js";
+
+// Textos da página em inglês que mudam por região (elementos com data-r="...").
+const REGIAO = {
+  usd: {
+    sub: "Clear packages with fixed prices for small businesses. Pick just the website, just the system, or both together and save. Built in Brazil for clients in the US, by the same developer behind every project in this portfolio.",
+    confianca: "I'm an independent developer based in Brazil. My prices are lower than US agencies because of a lower cost of living and no agency overhead, not lower quality. You can see the live projects in this portfolio.",
+    fuso: "Brazil is 1–2 hours ahead of US Eastern Time",
+    faturado: "Secure international payment, invoiced in US dollars.",
+    porque: "Why are your prices lower than US agencies?",
+    fusoFaq: "Everything is remote: video calls, WhatsApp and email, in English. Brazil is 1–2 hours ahead of US Eastern Time, so we share most of the business day.",
+    naoIncluso: "Business email, payment processor fees (such as Stripe), sales tax setup and paid third-party apps. You provide the texts and photos; on Premium packages I review the copy to help it sell more.",
+  },
+  eur: {
+    sub: "Clear packages with fixed prices for small businesses. Pick just the website, just the system, or both together and save. Built in Brazil for clients in Europe, by the same developer behind every project in this portfolio.",
+    confianca: "I'm an independent developer based in Brazil. My prices are lower than European agencies because of a lower cost of living and no agency overhead, not lower quality. You can see the live projects in this portfolio.",
+    fuso: "Brazil is 3–5 hours behind most of Europe: your afternoon is my morning",
+    faturado: "Secure international payment, invoiced in euros.",
+    porque: "Why are your prices lower than European agencies?",
+    fusoFaq: "Everything is remote: video calls, WhatsApp and email, in English. Brazil is 3–5 hours behind most of Europe, so my mornings overlap with your afternoons every working day.",
+    naoIncluso: "Business email, payment processor fees (such as Stripe), VAT registration or tax setup and paid third-party apps. You provide the texts and photos; on Premium packages I review the copy to help it sell more.",
+  },
+};
 
 export const DADOS_PT = {
   LV: ["Essencial", "Profissional", "Premium"],
@@ -62,10 +85,13 @@ export const DADOS_PT = {
   ORCAMENTO: { caps: [2500, 7000, Infinity], rotulos: ["Até R$ 2.500", "Entre R$ 2.500 e R$ 7.000", "Acima de R$ 7.000"] },
 };
 
-export function initPlanos(root, lang = "pt") {
+// moeda: só vale em inglês — "usd" (EUA) ou "eur" (Europa).
+// aoTrocarMoeda: chamado pelo seletor de moeda da página em inglês.
+export function initPlanos(root, lang = "pt", { moeda = "usd", aoTrocarMoeda } = {}) {
 const en = lang === "en";
+const eur = en && moeda === "eur";
 const t = (pt, ing) => (en ? ing : pt);
-const D = en ? DADOS_EN : DADOS_PT;
+const D = en ? (eur ? DADOS_EU : DADOS_EN) : DADOS_PT;
 
 /* ===== CONFIG ===== */
 const WHATSAPP = "5562982133188";
@@ -88,7 +114,8 @@ const CMP = D.CMP;
    EUA — sem parcelamento: 50% para começar e 50% na entrega. */
 const brl = v => "R$ " + Math.round(v).toLocaleString("pt-BR");
 const usd = v => "$" + Math.round(v).toLocaleString("en-US");
-const money = en ? usd : brl;
+const euro = v => "€" + Math.round(v).toLocaleString("en-IE");
+const money = en ? (eur ? euro : usd) : brl;
 const mdr = n => n === 1 ? .0299 : n <= 6 ? .0349 : .0399;
 const parcela = (P, n) => n <= 2 ? P / n : Math.ceil((P + .49) / (1 - mdr(n) - .0125 * (n + 1) / 2) / n);
 // Arredonda para baixo terminando em 97 (reais) ou 90 (dólar).
@@ -102,7 +129,7 @@ function combo(prod, l, el) {
 }
 const mes = v => money(v) + t("/mês", "/mo");
 // Linha de pagamento abaixo do preço.
-const payLine = P => en ? `50% to start · 50% on delivery (${usd(P / 2)} each)` : `2x sem juros de ${brl(P / 2)} · ou 12x de ${brl(parcela(P, 12))}`;
+const payLine = P => en ? `50% to start · 50% on delivery (${money(P / 2)} each)` : `2x sem juros de ${brl(P / 2)} · ou 12x de ${brl(parcela(P, 12))}`;
 const waLink = msg => `https://wa.me/${WHATSAPP}?text=${encodeURIComponent(msg)}`;
 const ctaAttrs = msg => WHATSAPP ? `href="${waLink(msg)}" target="_blank" rel="noopener"` : `href="#contato"`;
 const aPartir = t("a partir de", "from");
@@ -122,7 +149,7 @@ function renderCards(highlight) {
       <div class="facts"><span class="fact">⏱️ ${x.prazo}</span><span class="fact">🔁 ${t("depois", "then")} ${mes(x.mo)}</span><span class="fact">🌐 ${t("domínio grátis", "free domain")}</span></div>
       <div class="meters">${P.meters.map((m, k) => `<div class="meter">${m}<span class="dots">${[1, 2, 3, 4, 5].map(d => `<i class="${d <= x.m[k] ? "on" : ""}"></i>`).join("")}</span></div>`).join("")}</div>
       <ul>${x.f.map(f => `<li>${f}</li>`).join("")}</ul>
-      <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(t(`Olá! Tenho interesse no pacote ${x.name} (${brl(x.price)}).`, `Hi Arthur! I'm interested in the ${x.name} package (${usd(x.price)}).`))}>${t("Quero este", "I want this")}</a>
+      <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(t(`Olá! Tenho interesse no pacote ${x.name} (${brl(x.price)}).`, `Hi Arthur! I'm interested in the ${x.name} package (${money(x.price)}).`))}>${t("Quero este", "I want this")}</a>
     </article>`).join("");
   root.getElementById("cmpTable").innerHTML =
     `<thead><tr><th></th>${P.p.map((x, i) => `<th><span class="chip c-${COLORS[i]}">${P.lv[i]}</span><div style="margin-top:6px">${x.from ? aPartir + " " : ""}${money(x.price)}</div></th>`).join("")}</tr></thead><tbody>` +
@@ -143,6 +170,16 @@ root.getElementById("cmpBtn").addEventListener("click", e => {
 
 /* ===== PREÇOS DO TOPO ===== */
 root.querySelectorAll("[data-from]").forEach(el => { el.textContent = money(PROD[el.dataset.from].p[0].price); });
+
+/* ===== REGIÃO (só em inglês): textos e seletor de moeda ===== */
+if (en) {
+  const R = REGIAO[eur ? "eur" : "usd"];
+  root.querySelectorAll("[data-r]").forEach(el => { el.textContent = R[el.dataset.r]; });
+  root.querySelectorAll("#moedaSel button").forEach(b => {
+    b.setAttribute("aria-pressed", String(b.dataset.moeda === (eur ? "eur" : "usd")));
+    b.addEventListener("click", () => { if (aoTrocarMoeda && b.dataset.moeda !== (eur ? "eur" : "usd")) aoTrocarMoeda(b.dataset.moeda); });
+  });
+}
 
 /* ===== COMBOS ===== */
 const COMBOS = D.COMBOS;
@@ -202,12 +239,12 @@ function renderSim() {
   if (S.brand) { const b = BRAND[S.brand - 1]; lines.push([b.combo < b.price ? `${b.name} <s style="color:var(--muted)">${money(b.price)}</s>` : b.name, b.combo]); total += b.combo; }
   const from = (S.prod === "erp" && S.l === 2) || (S.erp && S.prod !== "erp" && S.el === 2);
   const nomes = lines.map(l => l[0].replace(/ <s.*<\/s>/, "")).join(" + ");
-  const msg = en ? `Hi Arthur! I built: ${nomes} for ${usd(total)}. I'd like a proposal!` : `Olá! Simulei: ${nomes} por ${brl(total)}. Quero uma proposta!`;
+  const msg = en ? `Hi Arthur! I built: ${nomes} for ${money(total)}. I'd like a proposal!` : `Olá! Simulei: ${nomes} por ${brl(total)}. Quero uma proposta!`;
   const inst = n => `<span>${n}x de ${brl(parcela(total, n))}</span><span style="color:var(--muted);font-weight:600">total ${brl(parcela(total, n) * n)}</span>`;
   const pagamento = en ? `
     <div class="payopts">
-      <div class="po feat"><small>🤝 To start</small><b>${usd(total / 2)}</b> (50%)</div>
-      <div class="po"><small>🚀 On delivery</small><b>${usd(total / 2)}</b> (50%)</div>
+      <div class="po feat"><small>🤝 To start</small><b>${money(total / 2)}</b> (50%)</div>
+      <div class="po"><small>🚀 On delivery</small><b>${money(total / 2)}</b> (50%)</div>
     </div>
     <div style="color:var(--muted);font-size:.88rem;margin-top:10px">Pay by card or international bank transfer. You only pay the second half after you approve the finished project.</div>` : `
     <div class="payopts">
@@ -295,15 +332,15 @@ function renderQuiz() {
     : { site: "Você precisa de presença profissional para ser encontrado e transmitir confiança.", loja: "Você quer vender online com carrinho, frete e pedidos organizados.", erp: "Você precisa sair da planilha e ter estoque, vendas e financeiro num lugar só." })[prod]
     + (withErp ? t(" Como também quer organizar a gestão, o combo sai mais barato e fica tudo integrado, com o mesmo login.", " Since you also want to organize your operations, the bundle costs less and everything is connected, with a single login.") : "");
   const alt = l < ideal ? (en
-    ? `<div class="alt">💡 For where your business is, the <b>${PROD[prod].lv[ideal]}</b> tier would be ideal (${usd(priceAt(ideal))}). You can start with ${lvName} and upgrade later, paying only the difference.</div>`
+    ? `<div class="alt">💡 For where your business is, the <b>${PROD[prod].lv[ideal]}</b> tier would be ideal (${money(priceAt(ideal))}). You can start with ${lvName} and upgrade later, paying only the difference.</div>`
     : `<div class="alt">💡 Pelo momento do seu negócio, o nível <b>${PROD[prod].lv[ideal]}</b> seria o ideal (${brl(priceAt(ideal))}). Dá para começar no ${lvName} e fazer upgrade depois, pagando só a diferença.</div>`) : "";
   const fromTxt = l === 2 && (prod === "erp" || withErp);
   const total = price + (bp ? bp.combo : 0);
   const sistema = prod === "erp" ? t("sistema", "system") : t("site", "website");
   const brandTip = !bp ? "" : en
     ? (bi === 2
-      ? `<div class="alt">🎨 Since you don't have a brand yet, we included the <b>${bp.name}</b> (${usd(bp.combo)}): logo, colors, fonts, brand guide and a social media kit. We create the brand first, then the ${sistema}, already in your style.</div>`
-      : `<div class="alt">✏️ Since you already have a logo, we included the <b>${bp.name}</b> (${usd(bp.combo)}): from your logo we define colors, fonts, a brand guide and a social media kit, so the ${sistema} launches consistent from day one.</div>`)
+      ? `<div class="alt">🎨 Since you don't have a brand yet, we included the <b>${bp.name}</b> (${money(bp.combo)}): logo, colors, fonts, brand guide and a social media kit. We create the brand first, then the ${sistema}, already in your style.</div>`
+      : `<div class="alt">✏️ Since you already have a logo, we included the <b>${bp.name}</b> (${money(bp.combo)}): from your logo we define colors, fonts, a brand guide and a social media kit, so the ${sistema} launches consistent from day one.</div>`)
     : (bi === 2
       ? `<div class="alt">🎨 Como você ainda não tem marca, incluímos a <b>${bp.name}</b> (${brl(bp.combo)}): logo, cores, fontes, manual da marca e kit para redes sociais. Criamos a marca primeiro e depois o ${sistema}, já com a sua cara.</div>`
       : `<div class="alt">✏️ Como você já tem o logo, incluímos a <b>${bp.name}</b> (${brl(bp.combo)}): a partir do seu logo definimos cores, fontes, manual da marca e kit para redes sociais, e o ${sistema} já nasce padronizado.</div>`);
