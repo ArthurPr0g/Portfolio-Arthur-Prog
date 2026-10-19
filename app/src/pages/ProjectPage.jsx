@@ -3,8 +3,37 @@ import Reveal from "../components/Reveal";
 import BeforeAfter from "../components/BeforeAfter";
 import { useTilt } from "../hooks/useTilt";
 import { WHATSAPP_NUMBER } from "../data/content";
+import { RESULTADOS } from "../data/resultados";
+import { paraPtPt } from "../ptpt";
 import { useLang } from "../i18n";
 import "./ProjectPage.css";
+
+// Números de exemplo só aparecem com ?rascunho=1 no endereço (ver data/resultados.js).
+const rascunho = () => {
+  try {
+    return new URLSearchParams(window.location.search).has("rascunho");
+  } catch {
+    return false;
+  }
+};
+
+function Numeros({ slug, lang }) {
+  const mostrarExemplos = rascunho();
+  const itens = (RESULTADOS[slug] || []).filter((r) => mostrarExemplos || !r.exemplo);
+  if (!itens.length) return null;
+  const txt = (o) => (lang === "en" ? o.en : lang === "pt-pt" ? paraPtPt(o.pt) : o.pt);
+  return (
+    <div className="project-page__numbers">
+      {itens.map((r, i) => (
+        <Reveal as="div" key={i} delay={i * 70} className={"project-page__number" + (r.exemplo ? " is-exemplo" : "")}>
+          <span className="project-page__number-value">{txt(r.valor)}</span>
+          <span className="project-page__number-label">{txt(r.rotulo)}</span>
+          {r.exemplo && <span className="project-page__number-tag">exemplo</span>}
+        </Reveal>
+      ))}
+    </div>
+  );
+}
 
 function GalleryItem({ item, index, onZoom }) {
   const tiltRef = useTilt();
@@ -19,7 +48,7 @@ function GalleryItem({ item, index, onZoom }) {
 }
 
 export default function ProjectPage({ project, nextProject, onSection, onOpenProject, onZoom }) {
-  const { t, link } = useLang();
+  const { t, link, lang } = useLang();
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [project.slug]);
@@ -48,6 +77,8 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
             {t("Quero algo assim", "I want something like this")}
           </a>
         </div>
+
+        <Numeros slug={project.slug} lang={lang} />
 
         {project.beforeAfter ? (
           <BeforeAfter key={project.slug} pairs={project.beforeAfter} />

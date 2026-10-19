@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Reveal from "../Reveal";
-import { WHATSAPP_NUMBER, INSTAGRAM_URL, LINKEDIN_URL } from "../../data/content";
+import { WHATSAPP_NUMBER, INSTAGRAM_URL, LINKEDIN_URL, EMAIL, AGENDA_URL } from "../../data/content";
 import { useLang } from "../../i18n";
 import "./ContatoSection.css";
 
@@ -76,7 +76,21 @@ export default function ContatoSection() {
             <p className="contato-direct__desc">
               {t("Escolha o canal mais confortável — respondo em todos.", "Pick whichever channel you like — I answer on all of them.")}
             </p>
+            {AGENDA_URL && (
+              <a href={AGENDA_URL} target="_blank" rel="noopener" className="btn btn-solid contato-agenda">
+                {t("Agendar conversa de 20 min", "Book a 20-minute call")} <span>→</span>
+              </a>
+            )}
             <div className="contato-direct__list">
+              {EMAIL && (
+                <a href={"mailto:" + EMAIL} className="contato-direct__link contato-direct__link--mail">
+                  <span className="contato-direct__link-meta">
+                    <span className="contato-direct__link-label">{lang === "pt-pt" ? "E-mail" : "Email"}</span>
+                    <span className="contato-direct__link-value">{EMAIL}</span>
+                  </span>
+                  <span className="contato-direct__arrow">→</span>
+                </a>
+              )}
               <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener" className="contato-direct__link contato-direct__link--wa">
                 <span className="contato-direct__link-meta">
                   <span className="contato-direct__link-label">WhatsApp</span>

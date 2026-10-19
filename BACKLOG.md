@@ -31,6 +31,13 @@ Blender quando fizer sentido. Objetivo: resultado "surreal de ótimo".
 - Anotado em 19/10/2026.
 
 ## Portfólio: plano para deixar profissional (análise de 19/10/2026)
+Feito em 19/10/2026: 3 projetos repetidos removidos; projetos, números e depoimentos
+logo depois do topo; menu reordenado; ícones no lugar dos emojis em "O que construo";
+números por case (fatos publicados, exemplos só com ?rascunho=1); depoimentos ligados
+ao case; lugares prontos para foto, e-mail e agenda; versão de Portugal (/pt-pt).
+Falta: foto (Instagram, quando a extensão do Chrome voltar), domínio + e-mail, link de
+agenda, números reais, fotos/links dos depoimentos, emojis da página de planos, vídeos.
+
 Fase 1 — rápido e de alto impacto:
 - Domínio próprio + e-mail profissional (o endereço .vercel.app é o maior sinal de amador).
 - Foto real, nome completo e cidade na seção "Quem sou" (precisa do Arthur).

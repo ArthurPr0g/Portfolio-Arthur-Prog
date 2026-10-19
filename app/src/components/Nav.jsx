@@ -3,11 +3,10 @@ import { useLang } from "../i18n";
 import "./Nav.css";
 
 const LINKS = [
-  ["construo", "O que construo", "What I build"],
-  ["sobre", "Sobre", "About"],
-  ["metodo", "Método", "Process"],
   ["projetos", "Projetos", "Projects"],
-  ["ia", "IA", "AI"],
+  ["sobre", "Sobre", "About"],
+  ["construo", "O que construo", "What I build"],
+  ["metodo", "Método", "Process"],
   ["contato", "Contato", "Contact"],
 ];
 

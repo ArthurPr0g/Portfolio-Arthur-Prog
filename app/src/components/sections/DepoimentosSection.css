@@ -49,6 +49,20 @@
   font-weight: 600;
   flex-shrink: 0;
 }
+.depo-card__avatar--foto {
+  object-fit: cover;
+  padding: 0;
+}
+.depo-card__case {
+  margin-left: auto;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--accent-soft);
+  white-space: nowrap;
+}
+.depo-card__case:hover {
+  color: #fff;
+}
 .depo-card__meta {
   display: flex;
   flex-direction: column;

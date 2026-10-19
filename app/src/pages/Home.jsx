@@ -14,17 +14,18 @@ import ContatoSection from "../components/sections/ContatoSection";
 export default function Home({ heroRef, timelineRef, trackRef, onSection, onOpenProject }) {
   return (
     <main style={{ position: "relative", zIndex: 2 }}>
+      {/* Trabalho primeiro: projetos, números e depoimentos logo depois do topo. */}
       <Hero heroRef={heroRef} onSection={onSection} />
       <Marquee />
-      <ConstruoSection />
-      <SobreSection />
-      <MetodoSection timelineRef={timelineRef} trackRef={trackRef} />
       <ProjetosSection onOpenProject={onOpenProject} />
+      <StatsSection />
+      <DepoimentosSection />
+      <SobreSection />
+      <ConstruoSection />
+      <MetodoSection timelineRef={timelineRef} trackRef={trackRef} />
       <IaSection />
       <CompetenciasSection />
       <CarreiraSection />
-      <StatsSection />
-      <DepoimentosSection />
       <ContatoSection />
     </main>
   );

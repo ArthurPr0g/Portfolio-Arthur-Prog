@@ -74,6 +74,54 @@
   padding: 12px 20px;
   border-radius: 999px;
 }
+.project-page__numbers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 14px;
+  margin-top: 40px;
+}
+.project-page__number {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px 22px 20px;
+  border: 1px solid oklch(0.74 0.13 262 / 0.22);
+  border-radius: 18px;
+  background: oklch(0.74 0.13 262 / 0.06);
+}
+.project-page__number-value {
+  font-family: "Sora", sans-serif;
+  font-size: clamp(30px, 4vw, 40px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--accent-strong), var(--accent-cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.project-page__number-label {
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--muted-4);
+  text-wrap: pretty;
+}
+.project-page__number.is-exemplo {
+  border-style: dashed;
+  border-color: oklch(0.8 0.15 80 / 0.55);
+}
+.project-page__number-tag {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: oklch(0.85 0.14 80);
+}
+
 .project-page__cover {
   margin-top: 46px;
   padding: 0;

@@ -1,5 +1,6 @@
 import Reveal from "../Reveal";
 import { useLang } from "../../i18n";
+import { Icone, ICONES_PIPELINE } from "../Icones";
 import "./ConstruoSection.css";
 
 export default function ConstruoSection() {
@@ -14,7 +15,7 @@ export default function ConstruoSection() {
         <div className="pipeline-grid">
           {PIPELINE.map((p, i) => (
             <Reveal as="div" key={p.label} tilt delay={Math.min(i, 7) * 70} className="pipeline-card">
-              <span className="pipeline-card__icon">{p.icon}</span>
+              <span className="pipeline-card__icon"><Icone nome={ICONES_PIPELINE[i]} /></span>
               <span className="pipeline-card__label">{p.label}</span>
             </Reveal>
           ))}

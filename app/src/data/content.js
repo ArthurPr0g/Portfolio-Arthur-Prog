@@ -198,29 +198,6 @@ export const PROJECTS = [
     ],
   },
   {
-    slug: "sistema-financeiro",
-    title: "Sistema Financeiro",
-    meta: "Módulo de gestão · 2024",
-    desc: "Receitas, despesas, previsões e fluxo de caixa com leitura imediata.",
-    restrito: true,
-    cover: pi("painel-financeiro"),
-    problema: "O controle financeiro vivia em planilhas: sem previsto versus realizado, sem lucro por período e sem qualquer visão de fluxo de caixa ao longo do ano.",
-    solucao: "Módulo com receitas e despesas lançadas por período, status de pago e previsto, filtros por data, ano e mês, e gráfico de fluxo de caixa mensal consolidado.",
-    techs: ["React", "TypeScript", "Node.js", "PostgreSQL", "Recharts"],
-    resultado: "Receita, despesa, lucro líquido e valores previstos do período à vista, com fechamento que deixou de levar dias para levar minutos.",
-    processo: [
-      "Levantamento dos indicadores que a gestão realmente usa",
-      "Modelagem de lançamentos, parcelas e status",
-      "Design das telas de listagem, filtros e gráficos",
-      "Validação dos números contra os controles antigos",
-    ],
-    gallery: [
-      { src: pi("painel-financeiro"), caption: "Financeiro — período, indicadores e fluxo de caixa" },
-      { src: pi("painel-dashboard"), caption: "Dashboard — indicadores da loja" },
-      { src: pi("painel-vendas"), caption: "Vendas ligadas ao financeiro" },
-    ],
-  },
-  {
     slug: "sistema-consorcio",
     title: "Sistema de Consórcio",
     meta: "Sistema web · 2024",
@@ -238,57 +215,15 @@ export const PROJECTS = [
     ],
     gallery: [{ src: IMG.consorcio, caption: "Dashboard consolidado com farol de participantes" }],
   },
-  {
-    slug: "sites-institucionais",
-    title: "Sites Institucionais",
-    meta: "Coleção · 2023 — 2025",
-    desc: "Identidades diferentes, mesmo padrão de qualidade e performance.",
-    cover: tp("hero"),
-    problema: "Cada empresa precisa de uma identidade própria, mas com o mesmo rigor de performance, SEO, acessibilidade e conversão.",
-    solucao: "Sites institucionais sob medida, cada um com seu sistema visual — como a TecnoPallet (logística) e a VitaliTI (tecnologia) — sempre com serviços claros, prova social, localização e contato direto.",
-    techs: ["React", "Next.js", "Tailwind", "Framer Motion", "SEO"],
-    resultado: "Sites rápidos, bem ranqueados e que comunicam a proposta de valor de cada cliente sem ruído.",
-    processo: [
-      "Discovery de marca, público e posicionamento",
-      "Design visual alinhado ao copywriting",
-      "Implementação performática e acessível",
-      "Acompanhamento pós-lançamento",
-    ],
-    gallery: [
-      { src: tp("hero"), caption: "TecnoPallet — hero e indicadores" },
-      { src: tp("solucoes"), caption: "TecnoPallet — soluções logísticas" },
-      { src: tp("quem-somos"), caption: "TecnoPallet — quem somos" },
-      { src: tp("distribuicao"), caption: "TecnoPallet — área de cobertura" },
-      { src: vt("site-01-topo"), caption: "VitaliTI Soluções — home" },
-      { src: vt("site-03-servicos"), caption: "VitaliTI Soluções — serviços" },
-    ],
-  },
-  {
-    slug: "ecommerce",
-    title: "E-commerce",
-    meta: "Comércio digital · 2024 — 2025",
-    desc: "Vitrine, catálogo e checkout pensados para vender.",
-    linkUrl: "https://www.prog-imports.com",
-    linkLabel: "Ver loja no ar",
-    cover: pi("catalogo"),
-    problema: "Lojas online perdem venda em catálogo confuso, falta de informação de parcelamento e checkout longo demais.",
-    solucao: "Estrutura de e-commerce com coleções navegáveis, cards de produto com preço, parcelamento e promoção, busca, favoritos, carrinho e área de gerenciamento integrada ao estoque.",
-    techs: ["React", "TypeScript", "Node.js", "PostgreSQL", "Integrações de pagamento"],
-    resultado: "Jornada de compra curta e leitura clara do que vende, com o catálogo sempre coerente com o estoque real.",
-    processo: [
-      "Análise do catálogo e da jornada de compra",
-      "Redesign da vitrine e das páginas de produto",
-      "Otimização do carrinho e das formas de pagamento",
-      "Instrumentação de métricas de conversão",
-    ],
-    gallery: [
-      { src: pi("catalogo"), caption: "Catálogo com filtros" },
-      { src: pi("home-categorias"), caption: "Categorias e vitrine" },
-      { src: pi("promocoes"), caption: "Coleção de promoções" },
-      { src: pi("home-servicos-depoimentos"), caption: "Serviços e depoimentos" },
-    ],
-  },
 ];
+
+// Preencher quando existirem (o site só mostra o que estiver preenchido):
+// EMAIL: e-mail profissional do domínio próprio (ex.: "contato@arthurprog.com").
+// AGENDA_URL: link de agendamento (Cal.com ou Calendly) para "Agendar conversa de 20 min".
+// FOTO: caminho da foto tratada em public/ (ex.: "/eu/arthur.webp").
+export const EMAIL = "";
+export const AGENDA_URL = "";
+export const FOTO = null;
 
 export const TICKER = [
   "Product Owner", "React", "TypeScript", "UX / UI", "Node.js", "Power BI",
@@ -357,7 +292,7 @@ export const STATS = [
 ].map((st) => ({ target: st[0], suffix: st[1], label: st[2] }));
 
 export const DEPOIMENTOS = [
-  { quote: "O Arthur entendeu exatamente o que eu precisava e entregou um resultado melhor do que eu imaginava. O projeto ficou bonito, rápido e muito bem organizado.", name: "Pedro", role: "Proprietário TecnoPallet", initials: "P" },
-  { quote: "O Orbi automatizou várias tarefas que eu fazia manualmente. Hoje consigo focar muito mais no que realmente importa.", name: "Felipe Sousa", role: "Usuário do Orbi", initials: "FS" },
-  { quote: "Trabalhar com o Arthur trouxe muito mais clareza para o projeto. Ele conecta estratégia, design e desenvolvimento de forma natural, entregando soluções modernas e bem estruturadas.", name: "Wellington Cunha Filho", role: "Proprietário VitaliTI", initials: "WF" },
+  { quote: "O Arthur entendeu exatamente o que eu precisava e entregou um resultado melhor do que eu imaginava. O projeto ficou bonito, rápido e muito bem organizado.", name: "Pedro", role: "Proprietário TecnoPallet", initials: "P", projeto: "tecnopallet" },
+  { quote: "O Orbi automatizou várias tarefas que eu fazia manualmente. Hoje consigo focar muito mais no que realmente importa.", name: "Felipe Sousa", role: "Usuário do Orbi", initials: "FS", projeto: "orbi" },
+  { quote: "Trabalhar com o Arthur trouxe muito mais clareza para o projeto. Ele conecta estratégia, design e desenvolvimento de forma natural, entregando soluções modernas e bem estruturadas.", name: "Wellington Cunha Filho", role: "Proprietário VitaliTI", initials: "WF", projeto: "vitaliti" },
 ];

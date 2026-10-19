@@ -20,6 +20,13 @@ Portfólio estático em React + Vite. Sem banco de dados nem variáveis de ambie
 - Textos fixos dos componentes usam `t("português", "english")` de `app/src/i18n.jsx`.
 - Planos: `planos.html` + dados em reais (`DADOS_PT` em `planos.js`); `planos.en.html` + `planos.en.js` com a tabela em dólar para os EUA (preços no piso do freelancer americano; só existe no portfólio, fora da regra de preços abaixo).
 
+- Portugal (`/pt-pt`): textos gerais saem do pt-BR pelo conversor `app/src/ptpt.js` (frases revistas + termos + artigo antes do possessivo); conteúdo em `content.ptpt.js`; planos escritos à mão em `planos.ptpt.html`/`planos.ptpt.js` (euros, MB WAY/Multibanco, faturação certificada). Texto novo em português: confira como sai no conversor. Depoimentos ficam com as palavras originais.
+
+## Conteúdo que depende do Arthur
+- `app/src/data/content.js`: `EMAIL`, `AGENDA_URL` (Cal.com/Calendly) e `FOTO` — vazios = não aparecem.
+- Depoimentos aceitam `foto`, `link` e `projeto` (slug do case).
+- `app/src/data/resultados.js`: números de cada case. Itens com `exemplo: true` NÃO aparecem no site; para conferir, abrir o projeto com `?rascunho=1`. Nunca publicar número inventado como real.
+
 ## SEO
 - `app/src/seo.js` define título, descrição, canonical, hreflang, imagem e JSON-LD de cada página.
 - No build, `scripts/prerender.mjs` grava um HTML por página com esses dados + `sitemap.xml` e `robots.txt`.
