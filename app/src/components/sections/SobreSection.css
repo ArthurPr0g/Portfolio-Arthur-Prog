@@ -87,6 +87,34 @@
   pointer-events: none;
   user-select: none;
 }
+.sobre-fatos-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.sobre-fato {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 24px 22px;
+  border: 1px solid oklch(0.74 0.12 262 / 0.18);
+  border-radius: 20px;
+  background: linear-gradient(180deg, oklch(0.74 0.12 262 / 0.08), oklch(0.7 0 0 / 0.015)), #0d0e13;
+}
+.sobre-fato .sobre-fatos__n {
+  font-size: 26px;
+}
+.sobre-fato .sobre-fatos__txt {
+  font-size: 13.5px;
+}
+@media (max-width: 440px) {
+  .sobre-fatos-grid {
+    grid-template-columns: 1fr;
+  }
+}
 .sobre-fatos {
   list-style: none;
   margin: 0;

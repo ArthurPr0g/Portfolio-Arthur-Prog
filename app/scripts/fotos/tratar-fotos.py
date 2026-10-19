@@ -86,6 +86,25 @@ protegidos = [(1112 * k, 1093 * k, 24 * k),   # relógio
               (970 * k, 730 * k, 130 * k)]    # rosto (dentes e olhos)
 r, removidos = limpar_claros(r, protegidos, y_tenis=1370 * k)
 print("pixels claros removidos:", removidos)
+
+# Máscara manual dos tênis: preto contra a base preta da mureta, a IA não separa.
+# Contornos traçados à mão sobre a foto original clareada (coordenadas de 2668 px).
+from PIL import ImageDraw
+TENIS = [
+    [(1083, 1940), (1095, 1938), (1120, 1942), (1150, 1960), (1185, 1982), (1215, 1995), (1238, 2028),
+     (1232, 2040), (1210, 2048), (1170, 2052), (1130, 2050), (1100, 2042), (1080, 2025), (1072, 2005), (1076, 1975)],
+    [(1537, 1960), (1627, 1958), (1643, 1990), (1653, 2033), (1668, 2068), (1680, 2084), (1665, 2090),
+     (1640, 2092), (1607, 2094), (1573, 2089), (1540, 2079), (1507, 2065), (1487, 2049), (1482, 2033),
+     (1486, 2020), (1498, 2010), (1520, 1990)],
+]
+esc_orig = bra.width / 2668
+manual = Image.new("L", bra.size, 0)
+dr = ImageDraw.Draw(manual)
+for poli in TENIS:
+    dr.polygon([(x * esc_orig, y * esc_orig) for x, y in poli], fill=255)
+manual = manual.filter(ImageFilter.GaussianBlur(1.4))
+alfa = np.maximum(np.asarray(r.getchannel("A")), np.asarray(manual))
+r.putalpha(Image.fromarray(alfa.astype(np.uint8)))
 r.save(d + r"\brasilia-recorte.png")
 a = np.asarray(r.getchannel("A"))
 ys, xs = np.where(a > 20)

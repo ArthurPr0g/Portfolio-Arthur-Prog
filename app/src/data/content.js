@@ -227,8 +227,8 @@ export const PROJECTS = [
 export const EMAIL = "";
 export const AGENDA_URL = "";
 export const FOTO = "/eu/arthur-sentado.webp";
-export const FOTO_ASSENTO = 0.5989;
-export const FOTO_PROPORCAO = 547 / 1100;
+export const FOTO_ASSENTO = 0.5975;
+export const FOTO_PROPORCAO = 551 / 1100;
 export const AVATAR = "/eu/arthur-avatar.webp";
 
 export const TICKER = [

@@ -35,7 +35,7 @@ Feito em 19/10/2026: 3 projetos repetidos removidos; projetos, números e depoim
 logo depois do topo; menu reordenado; ícones no lugar dos emojis em "O que construo";
 números por case (fatos publicados, exemplos só com ?rascunho=1); depoimentos ligados
 ao case; lugares prontos para foto, e-mail e agenda; versão de Portugal (/pt-pt).
-Fotos feitas (19/10): Arthur sentado no card de "Quem sou" e avatar no contato.
+Fotos feitas (19/10): Arthur sentado em cima da janela de projetos no topo da página (novo topo com frase de valor e clientes) e avatar no contato; tênis refeitos com máscara manual.
 Falta: domínio + e-mail, link de agenda, números reais, fotos/links dos depoimentos,
 emojis da página de planos, vídeos.
 

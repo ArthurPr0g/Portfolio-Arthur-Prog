@@ -1,5 +1,5 @@
 import Reveal from "../Reveal";
-import { FOTO, FOTO_ASSENTO, FOTO_PROPORCAO, PROJECTS } from "../../data/content";
+import { PROJECTS } from "../../data/content";
 import { useLang } from "../../i18n";
 import "./SobreSection.css";
 
@@ -18,7 +18,7 @@ export default function SobreSection() {
 
   return (
     <section id="sobre" className="section section--bordered">
-      <div className={"container" + (FOTO ? " sobre-com-foto" : "")}>
+      <div className="container sobre-com-foto">
         <div className="sobre-conteudo">
           <Reveal as="p" className="eyebrow">
             {t("Quem sou", "About me")}
@@ -49,25 +49,15 @@ export default function SobreSection() {
           </Reveal>
         </div>
 
-        {FOTO && (
-          <Reveal
-            as="div"
-            className="sobre-palco"
-            style={{ "--assento": FOTO_ASSENTO, "--proporcao": FOTO_PROPORCAO }}
-          >
-            <div className="sobre-card">
-              <ul className="sobre-fatos">
-                {fatos.map(([n, txt]) => (
-                  <li key={txt}>
-                    <span className="sobre-fatos__n">{n}</span>
-                    <span className="sobre-fatos__txt">{txt}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <img className="sobre-sentado" src={FOTO} alt="Arthur Prog" width="547" height="1100" loading="lazy" decoding="async" />
-          </Reveal>
-        )}
+        {/* A foto do Arthur sentado agora fica no topo da página; aqui, só os fatos. */}
+        <ul className="sobre-fatos-grid">
+          {fatos.map(([n, txt], i) => (
+            <Reveal as="li" key={txt} delay={i * 70} className="sobre-fato">
+              <span className="sobre-fatos__n">{n}</span>
+              <span className="sobre-fatos__txt">{txt}</span>
+            </Reveal>
+          ))}
+        </ul>
       </div>
     </section>
   );

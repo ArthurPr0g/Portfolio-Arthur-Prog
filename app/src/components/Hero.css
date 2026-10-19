@@ -1,18 +1,19 @@
 .hero {
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 150px 28px 80px;
+  padding: 130px 0 70px;
 }
 .hero__inner {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 56px;
   align-items: center;
+  width: 100%;
   will-change: transform;
 }
+
+/* ---------- Texto ---------- */
 .hero__badge {
   display: inline-flex;
   align-items: center;
@@ -34,92 +35,300 @@
   box-shadow: 0 0 10px var(--green);
   animation: dotPulse 2.2s ease-in-out infinite;
 }
+.hero__nome {
+  margin: 26px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  font-family: "Sora", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #f0f1f4;
+  animation: riseIn 0.9s var(--ease-soft) 0.06s both;
+}
+.hero__nome span {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11.5px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--muted-6);
+}
 .hero__title {
   font-family: "Sora", sans-serif;
   font-weight: 600;
-  font-size: clamp(58px, 11.5vw, 140px);
-  line-height: 0.92;
-  letter-spacing: -0.05em;
-  margin: 28px 0 0;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0 0.16em;
+  font-size: clamp(36px, 4.4vw, 58px);
+  line-height: 1.04;
+  letter-spacing: -0.045em;
+  margin: 18px 0 0;
+  color: #f4f5f7;
+  text-wrap: balance;
+  animation: riseIn 1s var(--ease-soft) 0.12s both;
 }
-.hero__title-mask {
-  display: block;
-  /* O overflow é o que faz o reveal das linhas, mas a tinta passa da caixa
-     de texto em dois lugares: a descendente do "g" de "Prog" desce 0.086em
-     abaixo da caixa de linha (line-height 0.92), e o itálico avança 0.103em
-     à direita do avanço da última letra ("Arthur", reto, avança 0.047em).
-     O padding estende a área visível nos dois eixos e as margens negativas
-     devolvem o espaço ao layout, preservando o espaçamento original. */
-  overflow: hidden;
-  padding-bottom: 0.14em;
-  padding-right: 0.16em;
-  margin-bottom: -0.1em;
-  margin-right: -0.16em;
-}
-.hero__title-line {
-  display: block;
-  animation: maskUp 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
-}
-.hero__title-line--strong {
-  background: linear-gradient(180deg, #ffffff 18%, #a7acb6 100%);
+.hero__title em {
+  font-style: italic;
+  font-weight: 400;
+  background: linear-gradient(120deg, var(--accent-strong), var(--accent-cyan));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-}
-.hero__title-line--soft {
-  font-style: italic;
-  font-weight: 300;
-  color: var(--muted-8);
-  animation-delay: 0.24s;
-}
-.hero__role {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 12.5px;
-  letter-spacing: 0.08em;
-  color: var(--muted-6);
-  margin: 24px 0 0;
-  animation: riseIn 1s var(--ease-soft) 0.42s both;
+  padding-right: 0.06em;
 }
 .hero__desc {
-  max-width: 630px;
+  max-width: 560px;
   font-size: 17px;
   line-height: 1.65;
   color: var(--muted-4);
-  margin: 20px 0 0;
+  margin: 22px 0 0;
   text-wrap: pretty;
-  animation: riseIn 1s var(--ease-soft) 0.5s both;
+  animation: riseIn 1s var(--ease-soft) 0.22s both;
 }
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  justify-content: center;
-  margin-top: 38px;
-  animation: riseIn 1s var(--ease-soft) 0.58s both;
+  align-items: center;
+  gap: 12px 18px;
+  margin-top: 34px;
+  animation: riseIn 1s var(--ease-soft) 0.3s both;
 }
 .hero__actions .btn {
   font-size: 14.5px;
-  padding: 15px 28px;
+  padding: 15px 26px;
 }
-.hero__scroll {
-  margin-top: 84px;
+.hero__link {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--accent-soft);
+}
+.hero__link:hover {
+  color: #fff;
+}
+.hero__clientes {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 10px;
-  color: #565b64;
-  font-family: "JetBrains Mono", monospace;
-  font-size: 10px;
-  letter-spacing: 0.22em;
-  animation: fadeIn 1.6s ease 1.1s both;
+  gap: 8px 18px;
+  margin-top: 40px;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  font-size: 12px;
+  color: var(--muted-7);
+  animation: riseIn 1s var(--ease-soft) 0.38s both;
 }
-.hero__scroll-line {
-  width: 1px;
-  height: 52px;
-  background: linear-gradient(180deg, #6a707a, transparent);
-  animation: scrollHint 2.6s ease-in-out infinite;
+.hero__clientes span {
+  font-family: "JetBrains Mono", monospace;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 10.5px;
+}
+.hero__clientes strong {
+  font-family: "Sora", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--muted-3);
+}
+
+/* ---------- Palco: Arthur sentado em cima da janela ---------- */
+.hero__palco {
+  --h: 430px;
+  position: relative;
+  padding-top: calc(var(--h) * var(--assento));
+  justify-self: end;
+  width: 100%;
+  max-width: 600px;
+  animation: popIn 1.1s var(--ease-out) 0.2s both;
+}
+.hero__palco::before {
+  content: "";
+  position: absolute;
+  right: -4%;
+  top: -2%;
+  width: 70%;
+  height: 72%;
+  background: radial-gradient(closest-side, oklch(0.6 0.15 262 / 0.35), transparent);
+  filter: blur(14px);
+  pointer-events: none;
+}
+.hero__janela {
+  position: relative;
+  z-index: 1;
+  display: block;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid oklch(0.74 0.12 262 / 0.28);
+  background: #0d0e13;
+  box-shadow: 0 40px 90px oklch(0 0 0 / 0.55), 0 0 0 1px oklch(0 0 0 / 0.4);
+  color: inherit;
+  transition: transform 0.5s var(--ease-out), border-color 0.4s ease;
+}
+.hero__janela:hover {
+  transform: translateY(-3px);
+  border-color: oklch(0.74 0.12 262 / 0.55);
+  color: inherit;
+}
+.hero__barra {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 36px;
+  padding: 0 14px;
+  background: linear-gradient(180deg, #1a1c24, #14151b);
+  border-bottom: 1px solid oklch(0.7 0 0 / 0.08);
+}
+.hero__barra i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #3a3e48;
+}
+.hero__barra i:first-child {
+  background: #ff5f57;
+}
+.hero__barra i:nth-child(2) {
+  background: #febc2e;
+}
+.hero__barra i:nth-child(3) {
+  background: #28c840;
+}
+.hero__url {
+  margin-left: 12px;
+  flex: 1;
+  max-width: 55%;
+  padding: 4px 12px;
+  border-radius: 7px;
+  background: oklch(0.7 0 0 / 0.07);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 10.5px;
+  color: var(--muted-5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.hero__tela {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 10;
+  background: #101116;
+}
+.hero__tela img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  opacity: 0;
+  transform: scale(1.03);
+  transition: opacity 0.9s ease, transform 4s ease;
+}
+.hero__tela img.is-on {
+  opacity: 1;
+  transform: scale(1);
+}
+.hero__legenda {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 2;
+  padding: 7px 13px;
+  border-radius: 999px;
+  background: oklch(0.12 0.01 262 / 0.82);
+  backdrop-filter: blur(8px);
+  border: 1px solid oklch(0.7 0 0 / 0.14);
+  font-size: 12px;
+  font-weight: 500;
+  color: #f0f1f4;
+}
+.hero__legenda b {
+  color: var(--accent-soft);
+  margin-left: 4px;
+}
+/* Sombra de contato onde ele senta, sobre a barra da janela */
+.hero__palco::after {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: calc(var(--h) * var(--assento) - 6px);
+  right: 9%;
+  width: calc(var(--h) * var(--proporcao));
+  height: 26px;
+  background: radial-gradient(closest-side, oklch(0 0 0 / 0.7), transparent);
+  filter: blur(4px);
+  pointer-events: none;
+}
+.hero__sentado {
+  position: absolute;
+  z-index: 3;
+  top: 0;
+  right: 10%;
+  height: var(--h);
+  width: calc(var(--h) * var(--proporcao));
+  object-fit: contain;
+  filter: drop-shadow(0 0 1px oklch(0.88 0.06 262 / 0.5)) drop-shadow(0 0 22px oklch(0.62 0.15 262 / 0.32));
+  pointer-events: none;
+  user-select: none;
+}
+.hero__chip {
+  position: absolute;
+  z-index: 4;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid oklch(0.74 0.12 262 / 0.3);
+  background: oklch(0.14 0.02 262 / 0.82);
+  backdrop-filter: blur(8px);
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--accent-strong);
+  white-space: nowrap;
+  box-shadow: 0 12px 30px oklch(0 0 0 / 0.4);
+  animation: floatY 5s ease-in-out infinite;
+}
+.hero__chip--a {
+  top: 12%;
+  left: 2%;
+}
+.hero__chip--b {
+  top: 34%;
+  left: 18%;
+  animation-delay: -1.6s;
+}
+.hero__chip--c {
+  top: 4%;
+  right: -2%;
+  animation-delay: -3.2s;
+}
+
+@media (max-width: 980px) {
+  .hero {
+    min-height: 0;
+    padding-top: 120px;
+  }
+  .hero__inner {
+    grid-template-columns: 1fr;
+    gap: 46px;
+  }
+  .hero__palco {
+    --h: 380px;
+    justify-self: center;
+    order: -1; /* no celular a cena vem primeiro, para chamar atenção logo de cara */
+  }
+}
+@media (max-width: 480px) {
+  .hero {
+    padding-top: 96px;
+  }
+  .hero__inner {
+    gap: 34px;
+  }
+  .hero__palco {
+    --h: 300px;
+  }
+  .hero__chip--b {
+    display: none;
+  }
+  .hero__actions .btn {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
 }
