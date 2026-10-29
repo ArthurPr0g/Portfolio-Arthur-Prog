@@ -35,6 +35,9 @@ Portfólio estático em React + Vite. Sem banco de dados nem variáveis de ambie
 ## SEO
 - `app/src/seo.js` define título, descrição, canonical, hreflang, imagem e JSON-LD de cada página.
 - No build, `scripts/prerender.mjs` grava um HTML por página com esses dados + `sitemap.xml` e `robots.txt`.
+- Desde 28/10/2026 o HTML de cada página sai com **todo o conteúdo** (React montado no build por `src/entry-server.jsx`, `vite build --ssr`): Bing e buscas com IA leem sem JavaScript. No navegador, `main.jsx` monta por cima (createRoot). Regra: componente não pode usar `window`/`document`/`localStorage` durante a renderização, só em efeitos — senão o build quebra. A página de planos sai num shadow root declarativo (`<template shadowrootmode>`).
+- SEO local: endereço Goiânia/GO no JSON-LD; título da home em português começa com "Criação de sites".
+- Pendente do Arthur: domínio próprio e Google Search Console (tag HTML + envio do sitemap).
 - Imagens de compartilhamento: `public/og/og-pt.png` e `og-en.png` (1200×630).
 - Endereço do site em um lugar só: `SITE` em `app/src/rotas.js` (trocar se houver domínio próprio).
 
