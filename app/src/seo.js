@@ -26,6 +26,8 @@ const OG_LOCALE = { pt: "pt_BR", "pt-pt": "pt_PT", en: "en_US" };
 const T = (lang, pt, ptpt, en) => (lang === "en" ? en : lang === "pt-pt" ? ptpt : pt);
 
 const PERFIS = [PT.LINKEDIN_URL, PT.INSTAGRAM_URL];
+// SEO local (buscas como "criação de sites em Goiânia"): cidade e estado, sem rua.
+const ENDERECO = { "@type": "PostalAddress", addressLocality: "Goiânia", addressRegion: "GO", addressCountry: "BR" };
 
 function pessoa(lang) {
   return {
@@ -37,7 +39,7 @@ function pessoa(lang) {
     jobTitle: T(lang, "Product Owner, Desenvolvedor e Designer", "Product Owner, Programador e Designer", "Product Owner, Developer and Designer"),
     sameAs: PERFIS,
     knowsAbout: ["Product Management", "UX/UI Design", "React", "TypeScript", "Node.js", "PostgreSQL", "Next.js", "Power BI", "Artificial Intelligence"],
-    address: { "@type": "PostalAddress", addressCountry: "BR" },
+    address: ENDERECO,
   };
 }
 
@@ -59,7 +61,16 @@ function servico(lang) {
     availableLanguage: ["Portuguese", "English"],
     telephone: "+" + PT.WHATSAPP_NUMBER,
     sameAs: PERFIS,
-    address: { "@type": "PostalAddress", addressCountry: "BR" },
+    address: ENDERECO,
+    hasOfferCatalog: { "@id": SITE + caminho(lang, "planos") + "#precos" },
+  };
+}
+
+/** Trilha de navegação (aparece no resultado do Google). */
+function trilha(lang, itens) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: itens.map(([name, url], i) => ({ "@type": "ListItem", position: i + 1, name, item: url })),
   };
 }
 
@@ -68,6 +79,7 @@ function catalogo(lang) {
   const itens = [...D.PROD.site.p, ...D.PROD.loja.p, ...D.PROD.erp.p, ...D.BRAND];
   return {
     "@type": "OfferCatalog",
+    "@id": SITE + caminho(lang, "planos") + "#precos",
     name: T(lang, "Planos e preços — Arthur Prog", "Planos e preços — Arthur Prog", "Pricing — Arthur Prog"),
     url: SITE + caminho(lang, "planos"),
     itemListElement: itens.map((x) => ({
@@ -105,7 +117,7 @@ export function metaDaRota(lang, name = "home", slug = null) {
       `Fixed prices: websites from ${din(s)}, online stores from ${din(l)} and custom business software from ${din(g)}. Pay 50% to start and 50% on delivery.`
     );
     h1 = T(lang, "Planos e preços", "Planos e preços", "Pricing");
-    grafo = [servico(lang), catalogo(lang)];
+    grafo = [servico(lang), catalogo(lang), trilha(lang, [["Arthur Prog", SITE + caminho(lang)], [h1, SITE + caminho(lang, "planos")]])];
   } else if (projeto) {
     title = `${projeto.title} — ${projeto.meta} | Arthur Prog`;
     description = projeto.desc;
@@ -122,17 +134,22 @@ export function metaDaRota(lang, name = "home", slug = null) {
         inLanguage: HREFLANG[lang],
         keywords: projeto.techs.join(", "),
       },
+      trilha(lang, [
+        ["Arthur Prog", SITE + caminho(lang)],
+        [T(lang, "Projetos", "Projetos", "Projects"), SITE + caminho(lang) + "#projetos"],
+        [projeto.title, SITE + caminho(lang, "project", projeto.slug)],
+      ]),
     ];
   } else {
     title = T(
       lang,
-      "Arthur Prog | Sites, lojas virtuais e sistemas sob medida",
+      "Criação de sites, lojas virtuais e sistemas | Arthur Prog",
       "Arthur Prog | Sites, lojas online e software à medida",
       "Arthur Prog | Websites, Online Stores & Custom Software"
     );
     description = T(
       lang,
-      "Product Owner, desenvolvedor e designer. Crio sites, lojas virtuais e sistemas de gestão sob medida com IA, do conceito ao lançamento, para todo o Brasil.",
+      "Criação de sites, lojas virtuais e sistemas de gestão sob medida, com preço fechado. Product Owner, desenvolvedor e designer em Goiânia, atendendo todo o Brasil.",
       "Product Owner, programador e designer. Crio sites, lojas online e sistemas de gestão à medida com IA, do conceito ao lançamento, para empresas em Portugal.",
       "Product owner, developer and designer building websites, online stores and custom business software with AI, from concept to launch. Working remotely with US clients."
     );
@@ -188,6 +205,9 @@ export function headHtml(m) {
     `<meta property="og:description" content="${esc(m.description)}" />`,
     `<meta property="og:url" content="${m.url}" />`,
     `<meta property="og:image" content="${m.image}" />`,
+    `<meta property="og:image:width" content="1200" />`,
+    `<meta property="og:image:height" content="630" />`,
+    `<meta property="og:image:alt" content="${esc(m.title)}" />`,
     `<meta property="og:locale" content="${m.ogLocale}" />`,
     ...m.ogLocaleAlt.map((l) => `<meta property="og:locale:alternate" content="${l}" />`),
     `<meta name="twitter:card" content="summary_large_image" />`,

@@ -69,5 +69,11 @@ export default function PlanosPage({ lang = "pt" }) {
     initPlanos(root, lang, { moeda, aoTrocarMoeda: trocarMoeda });
   }, [lang, moeda, trocarMoeda]);
 
+  // Fora do navegador (build, scripts/prerender.mjs): o conteúdo já sai no HTML num
+  // shadow root declarativo, para buscadores e IAs lerem os planos sem JavaScript.
+  if (typeof window === "undefined") {
+    const html = lang === "en" ? htmlEn : lang === "pt-pt" ? htmlPtPt : htmlPt;
+    return <main dangerouslySetInnerHTML={{ __html: `<template shadowrootmode="open"><style>${css}</style>${html}</template>` }} />;
+  }
   return <main ref={hostRef} />;
 }

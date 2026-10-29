@@ -81,8 +81,12 @@ function aplicarHead(m) {
   meta('meta[name="twitter:description"]', "content", m.description);
 }
 
-export function LangProvider({ children }) {
-  const [route, setRoute] = useState(rotaInicial);
+/**
+ * rotaFixa: só no build (scripts/prerender.mjs), que monta o HTML completo de cada
+ * página fora do navegador para buscadores e IAs lerem o conteúdo sem JavaScript.
+ */
+export function LangProvider({ children, rotaFixa = null }) {
+  const [route, setRoute] = useState(() => rotaFixa ?? rotaInicial());
   const lang = route.lang;
 
   useEffect(() => {

@@ -8,18 +8,20 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { metaDaRota, todasAsRotas, headHtml, HREFLANG } from "../src/seo.js";
 import { SITE, caminho } from "../src/rotas.js";
+// Pacote de servidor (vite build --ssr src/entry-server.jsx): o HTML de cada página
+// sai com todo o conteúdo, para buscadores e IAs lerem sem rodar JavaScript.
+const { render } = await import(new URL("../dist-ssr/entry-server.js", import.meta.url).href);
 
 const dist = fileURLToPath(new URL("../dist/", import.meta.url));
 const base = fs.readFileSync(path.join(dist, "index.html"), "utf8");
 if (!/<!-- seo:inicio[\s\S]*?<!-- seo:fim -->/.test(base)) throw new Error("index.html sem os marcadores seo:inicio/seo:fim");
 
-const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-function pagina(m) {
+function pagina(m, corpo) {
   return base
     .replace(/<html lang="[^"]*">/, `<html lang="${m.htmlLang}">`)
     .replace(/<!-- seo:inicio[\s\S]*?<!-- seo:fim -->/, headHtml(m))
-    .replace('<div id="root"></div>', `<div id="root"></div>\n    <noscript><h1>${esc(m.h1)}</h1><p>${esc(m.description)}</p></noscript>`);
+    .replace('<div id="root"></div>', `<div id="root">${corpo}</div>`);
 }
 
 const rotas = todasAsRotas();
@@ -27,10 +29,10 @@ for (const r of rotas) {
   const m = metaDaRota(r.lang, r.name, r.slug);
   const dir = path.join(dist, caminho(r.lang, r.name, r.slug));
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, "index.html"), pagina(m));
+  fs.writeFileSync(path.join(dir, "index.html"), pagina(m, render(r.lang, r.name, r.slug)));
 }
 // A raiz só redireciona na Vercel (vercel.json); o HTML dela é o da home em português.
-fs.writeFileSync(path.join(dist, "index.html"), pagina(metaDaRota("pt", "home")));
+fs.writeFileSync(path.join(dist, "index.html"), pagina(metaDaRota("pt", "home"), render("pt", "home")));
 
 // Sitemap com as duas versões de cada página ligadas entre si.
 const hoje = new Date().toISOString().slice(0, 10);

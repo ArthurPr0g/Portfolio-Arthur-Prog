@@ -120,7 +120,7 @@ export default function Hero({ heroRef, onSection }) {
               </span>
             </a>
 
-            <img className="hero__sentado" src={FOTO} alt="Arthur Prog" width="551" height="1100" fetchpriority="high" />
+            <img className="hero__sentado" src={FOTO} alt="Arthur Prog" width="551" height="1100" fetchPriority="high" />
           </div>
         )}
       </div>

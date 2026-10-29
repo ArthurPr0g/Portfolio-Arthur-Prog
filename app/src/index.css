@@ -25,6 +25,9 @@
 
 html {
   background: var(--bg);
+  /* Safari do iPhone ignora o overflow do body: o brilho de fundo e a faixa de
+     logos passavam da tela e criavam rolagem lateral. clip não quebra o menu fixo. */
+  overflow-x: clip;
 }
 
 body {
