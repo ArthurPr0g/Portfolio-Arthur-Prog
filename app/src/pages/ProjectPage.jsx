@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import Reveal from "../components/Reveal";
 import BeforeAfter from "../components/BeforeAfter";
 import { useTilt } from "../hooks/useTilt";
-import { WHATSAPP_NUMBER } from "../data/content";
+import { waLink } from "../data/content";
 import { RESULTADOS } from "../data/resultados";
 import { paraPtPt } from "../ptpt";
 import { useLang } from "../i18n";
@@ -73,7 +73,7 @@ export default function ProjectPage({ project, nextProject, onSection, onOpenPro
           {project.restrito && (
             <span className="project-page__restrito">{t("Sistema interno — acesso restrito", "Internal system — restricted access")}</span>
           )}
-          <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener" className="btn btn-outline">
+          <a href={waLink(t(`Olá! Vim pelo portfólio da Prog Soluções e quero algo parecido com o projeto ${project.title}.`, `Hi! I found Prog Soluções through the portfolio and I'd like something like the ${project.title} project.`))} target="_blank" rel="noopener" className="btn btn-outline">
             {t("Quero algo assim", "I want something like this")}
           </a>
         </div>

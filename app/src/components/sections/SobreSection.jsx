@@ -13,7 +13,7 @@ export default function SobreSection() {
     [t("Desde 2022", "Since 2022"), t("em processos, dados e produto", "in processes, data and product")],
     [String(PROJECTS.length), t("projetos publicados neste portfólio", "projects published in this portfolio")],
     ["BR · PT · US · EU", t("atendimento para Brasil, Portugal, EUA e Europa", "serving Brazil, Portugal, the US and Europe")],
-    ["< 24 h", t("para responder, pessoalmente", "to reply, personally")],
+    ["< 24 h", t("para responder, já com a análise do seu negócio", "to reply, with your business already analyzed")],
   ];
 
   return (

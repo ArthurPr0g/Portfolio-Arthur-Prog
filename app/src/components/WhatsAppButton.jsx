@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { WHATSAPP_NUMBER } from "../data/content";
+import { waLink } from "../data/content";
 import { useLang } from "../i18n";
 import "./WhatsAppButton.css";
 
@@ -20,7 +20,7 @@ export default function WhatsAppButton() {
 
   return (
     <a
-      href={"https://wa.me/" + WHATSAPP_NUMBER}
+      href={waLink(t("Olá! Vim pelo portfólio da Prog Soluções.", "Hi! I found Prog Soluções through the portfolio."))}
       target="_blank"
       rel="noopener"
       className={overFooter ? "wa-fab wa-fab--hidden" : "wa-fab"}

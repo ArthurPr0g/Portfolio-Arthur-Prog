@@ -1,4 +1,4 @@
-import { WHATSAPP_NUMBER, INSTAGRAM_URL, LINKEDIN_URL } from "../data/content";
+import { waLink, INSTAGRAM_URL, LINKEDIN_URL } from "../data/content";
 import { useLang } from "../i18n";
 import ProgMark from "../brand/ProgMark";
 import "./Footer.css";
@@ -14,7 +14,7 @@ export default function Footer() {
           <span className="footer__tag">{t("Da ideia ao produto", "From idea to product")} — 2026</span>
         </span>
         <span className="footer__links">
-          <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener">
+          <a href={waLink(t("Olá! Vim pelo portfólio da Prog Soluções.", "Hi! I found Prog Soluções through the portfolio."))} target="_blank" rel="noopener">
             WhatsApp
           </a>
           <a href={INSTAGRAM_URL} target="_blank" rel="noopener">

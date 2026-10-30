@@ -99,7 +99,7 @@ const t = (pt, ing, ptpt) => (en ? ing : pp ? (ptpt ?? paraPtPt(pt)) : pt);
 const D = en ? (eur ? DADOS_EU : DADOS_EN) : pp ? DADOS_PTPT : DADOS_PT;
 
 /* ===== CONFIG ===== */
-const WHATSAPP = "5562982133188";
+const WHATSAPP = "5562996368281"; // Lia, a atendente de IA (30/10/2026)
 
 /* ===== DADOS ===== */
 const LV = D.LV;
@@ -157,7 +157,7 @@ function renderCards(highlight) {
       <div class="facts"><span class="fact">⏱️ ${x.prazo}</span><span class="fact">🔁 ${t("depois", "then")} ${mes(x.mo)}</span><span class="fact">🌐 ${t("domínio grátis", "free domain")}</span></div>
       <div class="meters">${P.meters.map((m, k) => `<div class="meter">${m}<span class="dots">${[1, 2, 3, 4, 5].map(d => `<i class="${d <= x.m[k] ? "on" : ""}"></i>`).join("")}</span></div>`).join("")}</div>
       <ul>${x.f.map(f => `<li>${f}</li>`).join("")}</ul>
-      <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(t(`Olá! Tenho interesse no pacote ${x.name} (${money(x.price)}).`, `Hi Arthur! I'm interested in the ${x.name} package (${money(x.price)}).`))}>${t("Quero este", "I want this")}</a>
+      <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(t(`Olá! Tenho interesse no pacote ${x.name} (${money(x.price)}).`, `Hi! I'm interested in the ${x.name} package (${money(x.price)}).`))}>${t("Quero este", "I want this")}</a>
     </article>`).join("");
   root.getElementById("cmpTable").innerHTML =
     `<thead><tr><th></th>${P.p.map((x, i) => `<th><span class="chip c-${COLORS[i]}">${P.lv[i]}</span><div style="margin-top:6px">${x.from ? aPartir + " " : ""}${money(x.price)}</div></th>`).join("")}</tr></thead><tbody>` +
@@ -220,7 +220,7 @@ root.getElementById("brandGrid").innerHTML = BRAND.map((x, i) => `
     <div class="facts"><span class="fact">⏱️ ${x.prazo}</span><span class="fact">🎨 ${t("sem mensalidade", "no monthly fee")}</span></div>
     <ul>${x.f.map(f => `<li>${f}</li>`).join("")}</ul>
     <a class="btn ${x.pop ? "btn-primary" : "btn-ghost"} cta" ${ctaAttrs(en
-      ? (i === 1 ? `Hi Arthur! I already have a logo and I'd like the ${x.name}.` : `Hi Arthur! I need to create my brand: ${x.name}.`)
+      ? (i === 1 ? `Hi! I already have a logo and I'd like the ${x.name}.` : `Hi! I need to create my brand: ${x.name}.`)
       : pp ? (i === 1 ? `Olá! Já tenho logótipo e quero a ${x.name}.` : `Olá! Preciso de criar a minha marca de raiz: ${x.name}.`)
       : (i === 1 ? `Olá! Já tenho logo e quero a ${x.name}.` : `Olá! Preciso criar minha marca do zero: ${x.name}.`))}>${t("Quero minha marca", "Build my brand")}</a>
   </article>`).join("");
@@ -250,7 +250,7 @@ function renderSim() {
   if (S.brand) { const b = BRAND[S.brand - 1]; lines.push([b.combo < b.price ? `${b.name} <s style="color:var(--muted)">${money(b.price)}</s>` : b.name, b.combo]); total += b.combo; }
   const from = (S.prod === "erp" && S.l === 2) || (S.erp && S.prod !== "erp" && S.el === 2);
   const nomes = lines.map(l => l[0].replace(/ <s.*<\/s>/, "")).join(" + ");
-  const msg = en ? `Hi Arthur! I built: ${nomes} for ${money(total)}. I'd like a proposal!` : `Olá! Simulei: ${nomes} por ${money(total)}. Quero uma proposta!`;
+  const msg = en ? `Hi! I built: ${nomes} for ${money(total)}. I'd like a proposal!` : `Olá! Simulei: ${nomes} por ${money(total)}. Quero uma proposta!`;
   const inst = n => `<span>${n}x de ${brl(parcela(total, n))}</span><span style="color:var(--muted);font-weight:600">total ${brl(parcela(total, n) * n)}</span>`;
   const pagamento = en ? `
     <div class="payopts">
@@ -404,7 +404,7 @@ function renderQuiz() {
 }
 
 /* ===== TEMA / INIT ===== */
-if (WHATSAPP) root.querySelectorAll("[data-wa]").forEach(a => { a.href = waLink(t("Olá! Quero um orçamento com a Prog Soluções.", "Hi Arthur! I'd like a quote for a project.")); a.target = "_blank"; a.rel = "noopener"; });
+if (WHATSAPP) root.querySelectorAll("[data-wa]").forEach(a => { a.href = waLink(t("Olá! Quero um orçamento com a Prog Soluções.", "Hi! I'd like a quote for a project.")); a.target = "_blank"; a.rel = "noopener"; });
 renderCards(); renderQuiz(); renderSim();
 
 /* ===== ÂNCORAS INTERNAS =====

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { WHATSAPP_NUMBER, FOTO, FOTO_ASSENTO, FOTO_PROPORCAO } from "../data/content";
+import { waLink, FOTO, FOTO_ASSENTO, FOTO_PROPORCAO } from "../data/content";
 import { useLang } from "../i18n";
 import "./Hero.css";
 
@@ -87,7 +87,7 @@ export default function Hero({ heroRef, onSection }) {
             <a href="#projetos" onClick={onSection("projetos")} className="btn btn-solid">
               {t("Ver projetos", "See projects")} <span>→</span>
             </a>
-            <a href={"https://wa.me/" + WHATSAPP_NUMBER} target="_blank" rel="noopener" className="btn btn-outline">
+            <a href={waLink(t("Olá! Vim pelo portfólio da Prog Soluções.", "Hi! I found Prog Soluções through the portfolio."))} target="_blank" rel="noopener" className="btn btn-outline">
               {t("Falar no WhatsApp", "Chat on WhatsApp")}
             </a>
             <a

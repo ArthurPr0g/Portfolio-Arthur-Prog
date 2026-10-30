@@ -12,7 +12,13 @@ const lm = (n) => P + "lumen-" + n + ".webp";
 const sl = (n) => P + "saloes-" + n + ".webp";
 const pi = (n) => P + "progimports-" + n + ".webp";
 
-export const WHATSAPP_NUMBER = "5562982133188";
+// WhatsApp da Lia, a atendente de IA da Prog Soluções (desde 30/10/2026). O pessoal do Arthur não aparece mais.
+export const WHATSAPP_NUMBER = "5562996368281";
+export const WHATSAPP_EXIBIDO = { pt: "(62) 99636-8281", intl: "+55 62 99636-8281" };
+/** Link do WhatsApp da Lia, com a mensagem pronta (opcional). */
+export const waLink = (texto) => "https://wa.me/" + WHATSAPP_NUMBER + (texto ? "?text=" + encodeURIComponent(texto) : "");
+/** Rota da Lia que recebe o formulário de contato (site-prog-imports). */
+export const LIA_CONTATO_URL = "https://www.prog-imports.com/api/portfolio/contato";
 export const INSTAGRAM_URL = "https://instagram.com/prog.arthur";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/arthur-araujo-6a6292179/";
 
