@@ -1,5 +1,6 @@
 import { WHATSAPP_NUMBER, INSTAGRAM_URL, LINKEDIN_URL } from "../data/content";
 import { useLang } from "../i18n";
+import ProgMark from "../brand/ProgMark";
 import "./Footer.css";
 
 export default function Footer() {
@@ -7,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="footer">
       <div className="footer__inner container">
-        <span className="footer__badge">AP</span>
+        <ProgMark s={36} className="footer__mark" />
         <span className="footer__brand">
           <span className="footer__name" translate="no">Arthur Prog</span>
           <span className="footer__tag">{t("Da ideia ao produto", "From idea to product")} — 2026</span>

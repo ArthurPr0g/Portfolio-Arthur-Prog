@@ -10,18 +10,11 @@
   flex-wrap: wrap;
   gap: 18px;
 }
-.footer__badge {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  background: oklch(0.74 0.12 262 / 0.18);
-  color: var(--accent-strong);
-  font-family: "Sora", sans-serif;
-  font-size: 12px;
-  font-weight: 600;
-  flex-shrink: 0;
+.footer__mark {
+  /* Símbolo P no lugar do antigo "AP"; a haste alinha com a margem do conteúdo. */
+  margin-left: calc(-36px * 9.75 / 48);
+  /* Até o nome: 0,393·H (H = 27 px visíveis), descontando o recuo do SVG e o gap de 18 px. */
+  margin-right: calc(36px * 0.75 * 0.393 - 36px * 9.75 / 48 - 18px);
 }
 .footer__brand {
   display: flex;
