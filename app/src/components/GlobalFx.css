@@ -7,7 +7,7 @@
 .fx-blob {
   position: absolute;
   border-radius: 50%;
-  filter: blur(30px);
+  /* Auras sem filtro de desfoque (caro ao animar); o radial-gradient já é suave. */
   animation: auraDrift 26s ease-in-out infinite;
 }
 .fx-blob--a {
@@ -23,7 +23,6 @@
   width: 38vw;
   height: 38vw;
   background: radial-gradient(circle, oklch(0.46 0.11 300 / 0.2), transparent 65%);
-  filter: blur(40px);
   animation-duration: 34s;
   animation-direction: reverse;
 }
@@ -33,7 +32,6 @@
   width: 34vw;
   height: 34vw;
   background: radial-gradient(circle, oklch(0.5 0.1 200 / 0.14), transparent 65%);
-  filter: blur(40px);
   animation-duration: 30s;
 }
 

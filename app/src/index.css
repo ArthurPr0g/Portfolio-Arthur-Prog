@@ -1,25 +1,26 @@
 :root {
-  --bg: #08080a;
-  --text: #eceef1;
-  --accent: oklch(0.74 0.12 262);
-  --accent-soft: oklch(0.78 0.11 262);
-  --accent-strong: oklch(0.86 0.09 262);
-  --accent-cyan: oklch(0.8 0.12 200);
-  --green: oklch(0.78 0.16 150);
+  /* Mesmas cores dos tokens da marca (src/brand/tokens.css, embutido no <head>). */
+  --bg: var(--ps-ink);
+  --text: var(--ps-body);
+  --accent: var(--ps-accent);
+  --accent-soft: var(--ps-accent-soft);
+  --accent-strong: var(--ps-accent-strong);
+  --accent-cyan: var(--ps-cyan);
+  --green: var(--ps-green);
   --whatsapp: oklch(0.62 0.16 150);
-  --muted-1: #eceef1;
-  --muted-2: #d7dae0;
+  --muted-1: var(--ps-body);
+  --muted-2: var(--ps-muted-1);
   --muted-3: #b7bcc5;
-  --muted-4: #a3a8b2;
-  --muted-5: #9ba1ab;
-  --muted-6: #8b919b;
+  --muted-4: var(--ps-muted);
+  --muted-5: var(--ps-nav);
+  --muted-6: var(--ps-muted-2);
   --muted-7: #797f89;
-  --muted-8: #6d727c;
-  --muted-9: #5d626b;
-  --line: oklch(0.7 0 0 / 0.09);
+  --muted-8: var(--ps-dim);
+  --muted-9: var(--ps-muted-dark);
+  --line: var(--ps-line);
   --line-soft: oklch(0.7 0 0 / 0.07);
-  --card-bg: linear-gradient(180deg, oklch(0.7 0 0 / 0.05), oklch(0.7 0 0 / 0.015));
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --card-bg: var(--ps-card);
+  --ease-out: var(--ps-ease-enter);
   --ease-soft: cubic-bezier(0.22, 1, 0.36, 1);
 }
 

@@ -13,6 +13,27 @@ const TELAS = [
 ];
 const CLIENTES = ["TecnoPallet", "VitaliTI", "Prog Imports", "Depyl Action"];
 
+// Título com cada palavra numa máscara: o loader da página (brand/loaders/boot.js)
+// agrupa as palavras por linha e faz a entrada linha a linha da referência.
+// partes: [texto, destaque?]; destaque vira <em> com o gradiente.
+function Frase({ partes }) {
+  const out = [];
+  partes.forEach(([texto, em], pi) =>
+    texto.split(" ").filter(Boolean).forEach((w, wi) => {
+      if (out.length) out.push(" ");
+      const k = pi + "-" + wi;
+      out.push(
+        em ? (
+          <em key={k} className="hero__w" data-ps="hero-w"><span>{w}</span></em>
+        ) : (
+          <span key={k} className="hero__w" data-ps="hero-w"><span>{w}</span></span>
+        )
+      );
+    })
+  );
+  return out;
+}
+
 export default function Hero({ heroRef, onSection }) {
   const { lang, t, link, navigate, content } = useLang();
   const planosHref = link("planos");
@@ -37,36 +58,32 @@ export default function Hero({ heroRef, onSection }) {
     <section id="top" className="hero">
       <div ref={heroRef} className="hero__inner container">
         <div className="hero__texto">
-          <div className="hero__badge">
+          <div className="hero__badge" data-ps="hero-pill">
             <span className="hero__dot" />
             <span>{t("Disponível para novos projetos", "Available for new projects")}</span>
           </div>
 
-          <p className="hero__nome" translate="no">
+          <p className="hero__nome" translate="no" data-ps="hero-pill">
             Arthur Prog
             <span>{t("Product Owner · Desenvolvedor · Designer · IA", "Product Owner · Developer · Designer · AI")}</span>
           </p>
 
           <h1 className="hero__title">
             {lang === "en" ? (
-              <>
-                Digital products that <em>sell</em> and <em>organize</em> your business.
-              </>
+              <Frase partes={[["Digital products that"], ["sell", true], ["and"], ["organize", true], ["your business."]]} />
             ) : (
-              <>
-                Produtos digitais que <em>vendem</em> e <em>organizam</em> o seu negócio.
-              </>
+              <Frase partes={[["Produtos digitais que"], ["vendem", true], ["e"], ["organizam", true], ["o seu negócio."]]} />
             )}
           </h1>
 
-          <p className="hero__desc">
+          <p className="hero__desc" data-ps="hero-cta">
             {t(
               "Sites, lojas virtuais e sistemas de gestão sob medida — estratégia, design, código e IA feitos por uma só pessoa, do primeiro rascunho ao lançamento.",
               "Websites, online stores and custom business software — strategy, design, code and AI from a single person, from the first sketch to launch."
             )}
           </p>
 
-          <div className="hero__actions">
+          <div className="hero__actions" data-ps="hero-cta">
             <a href="#projetos" onClick={onSection("projetos")} className="btn btn-solid">
               {t("Ver projetos", "See projects")} <span>→</span>
             </a>
@@ -85,7 +102,7 @@ export default function Hero({ heroRef, onSection }) {
             </a>
           </div>
 
-          <div className="hero__clientes">
+          <div className="hero__clientes" data-ps="hero-cta">
             <span>{t("Projetos para", "Built for")}</span>
             {CLIENTES.map((c) => (
               <strong key={c} translate="no">
@@ -96,7 +113,7 @@ export default function Hero({ heroRef, onSection }) {
         </div>
 
         {FOTO && (
-          <div className="hero__palco" style={{ "--assento": FOTO_ASSENTO, "--proporcao": FOTO_PROPORCAO }}>
+          <div className="hero__palco" data-ps="hero-cta" style={{ "--assento": FOTO_ASSENTO, "--proporcao": FOTO_PROPORCAO }}>
             <span className="hero__chip hero__chip--a">React · TypeScript</span>
             <span className="hero__chip hero__chip--b">{t("IA no dia a dia", "AI-powered")}</span>
             <span className="hero__chip hero__chip--c">UX / UI</span>

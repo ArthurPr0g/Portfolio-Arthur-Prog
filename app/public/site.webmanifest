@@ -1,0 +1,12 @@
+{
+  "name": "Prog Soluções",
+  "short_name": "Prog",
+  "icons": [
+    { "src": "/icones/app-icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icones/app-icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icones/app-icon-escuro.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "theme_color": "#08080a",
+  "background_color": "#08080a",
+  "display": "browser"
+}

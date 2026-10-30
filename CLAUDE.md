@@ -51,6 +51,15 @@ Portfólio estático em React + Vite. Sem banco de dados nem variáveis de ambie
 2. Alterar, testar com `npm run build`, commitar e dar `git push` → a Vercel publica sozinha.
 3. Se a pasta local sumir: `git clone https://github.com/ArthurPr0g/Portfolio-Arthur-Prog.git`.
 
+## Marca Prog Soluções e telas de carregamento (29/10/2026)
+- Handoff de design em `Prog Soluções - Identidade/design_handoff_prog_solucoes/` (fonte da verdade do movimento: `referencias-html/*.jsx`).
+- Código em `app/src/brand/`: `tokens.css`, `motion.js` (enter/draw/pop), `mark.js` (geometria do P), `ProgMark.jsx`, `ProgWordmark.jsx`, `useTimeline.js`.
+- O cabeçalho usa a logo Prog Soluções (decisão do Arthur; o rodapé ainda tem o badge "AP").
+- Loader do site (`src/brand/loaders/boot.js`): roda **embutido no <head>** (plugin em `vite.config.js`), antes do bundle, porque o HTML pré-renderizado aparece antes do JS. Splash só no 1º acesso da aba (`sessionStorage` `ps-splash`); loader só se a espera passar de 300 ms; progresso real = HTML, CSS, fontes, montagem do React e imagens da 1ª tela. O CSS carrega sem bloquear a pintura (media=print + onload, com <noscript>).
+- O topo da página precisa dos atributos `data-ps` (logo, itens do menu, `hero-pill`, `hero-w`, `hero-cta`) para o voo da logo e a entrada em stagger.
+- Comparar com a referência: `/pt?ps-quadro=7.8` (para no tempo) ou `/pt?ps-ref` (toca a timeline da referência).
+- `/dev/loaders/` (noindex, fora do menu e do sitemap): `AppLoader` e `DocLoader` para os sistemas; `?quadro=13.6` congela.
+
 ---
 
 # Preços da Prog Soluções

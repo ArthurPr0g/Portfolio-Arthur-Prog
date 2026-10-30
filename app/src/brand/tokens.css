@@ -1,0 +1,25 @@
+/* Prog Soluções — tokens (design_handoff_prog_solucoes/tokens/tokens.css).
+   Fonte única das cores da marca. As variáveis antigas do site (--bg, --accent…)
+   apontam para estas em index.css. Transparências: color-mix sobre um token. */
+:root {
+  --ps-ink: #08080a; --ps-panel: #0d0e13; --ps-surface: #12141a; --ps-tile-dark: #0b0c10;
+  --ps-paper: #f2f3f5; --ps-white: #ffffff;
+  --ps-text: #f4f5f7; --ps-body: #eceef1; --ps-muted-1: #d7dae0; --ps-muted: #a3a8b2; --ps-muted-2: #8b919b; --ps-nav: #9ba1ab; --ps-dim: #6d727c; --ps-muted-dark: #5d626b;
+  --ps-accent: oklch(74% .12 262);        /* #81aaf7 */
+  --ps-accent-soft: oklch(78% .11 262);   /* #91b7fe */
+  --ps-accent-strong: oklch(86% .09 262); /* #b1d2ff */
+  --ps-accent-dark: oklch(50% .13 262);   /* #3860ac */
+  --ps-cyan: oklch(80% .12 200);          /* #43d5dc — só gradiente de texto */
+  --ps-green: oklch(78% .16 150);         /* #5fd37f — só status */
+  --ps-purple: oklch(46% .11 300);        /* #62488c — só aura */
+  /* Base neutra de --ps-line e --ps-line-strong (as referências usam outras opacidades dela). */
+  --ps-neutral: oklch(70% 0 0);
+  --ps-line: oklch(70% 0 0 / .09); --ps-line-strong: oklch(70% 0 0 / .14);
+  --ps-card: linear-gradient(180deg, oklch(70% 0 0 / .05), oklch(70% 0 0 / .015));
+  --ps-text-gradient: linear-gradient(120deg, var(--ps-accent-strong), var(--ps-cyan));
+  --ps-font-display: 'Sora', sans-serif; --ps-font-body: 'DM Sans', sans-serif; --ps-font-mono: 'JetBrains Mono', monospace;
+  --ps-ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ps-ease-draw: cubic-bezier(0.65, 0, 0.35, 1);
+  --ps-ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ps-radius-pill: 999px; --ps-radius-card: 24px;
+}

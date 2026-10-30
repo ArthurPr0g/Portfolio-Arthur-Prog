@@ -1,2 +1,6 @@
 # Fotos originais e masters em alta: backup local, fora do repositório.
 _originais-fotos/
+
+# Pacote do handoff e vídeo exportado: ficam só no disco (a pasta descompactada vai no Git).
+*.zip
+*.mp4

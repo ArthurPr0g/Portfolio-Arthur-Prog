@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import GlobalFx from "./components/GlobalFx";
 import Nav from "./components/Nav";
 import Footer from "./components/Footer";
@@ -38,6 +38,20 @@ export default function App() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, [route.name, route.slug]);
+
+  // Loader da marca (src/brand/loaders/boot.js, embutido no <head>): avisa que o
+  // React montou e, nas trocas de página, deixa ele esperar as imagens da tela.
+  const primeiraRota = useRef(true);
+  useEffect(() => {
+    window.__psLoader?.montado();
+  }, []);
+  useLayoutEffect(() => {
+    if (primeiraRota.current) {
+      primeiraRota.current = false;
+      return;
+    }
+    window.__psLoader?.rota();
   }, [route.name, route.slug]);
 
   const onSection = useCallback(
