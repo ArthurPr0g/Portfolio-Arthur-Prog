@@ -365,10 +365,13 @@ function renderQuiz() {
     : pp ? { site: "Precisa de uma presença profissional para ser encontrado e transmitir confiança.", loja: "Quer vender online com carrinho, portes e encomendas organizados.", erp: "Precisa de sair das folhas de cálculo e ter stock, vendas e financeiro num só lugar." }
     : { site: "Você precisa de presença profissional para ser encontrado e transmitir confiança.", loja: "Você quer vender online com carrinho, frete e pedidos organizados.", erp: "Você precisa sair da planilha e ter estoque, vendas e financeiro num lugar só." })[prod]
     + (withErp ? t(" Como também quer organizar a gestão, o combo sai mais barato e fica tudo integrado, com o mesmo login.", " Since you also want to organize your operations, the bundle costs less and everything is connected, with a single login.", " Como também quer organizar a gestão, o combo fica mais barato e tudo fica integrado, com o mesmo login.") : "");
+  // Mesmo nome do cartão (ou do combo) e o preço sem a marca, que aparece somada à parte.
+  const idealNome = withErp ? "Combo " + COMBOS.find(k => k[1] === prod && k[2] === ideal)[0] : PROD[prod].p[ideal].name;
+  const idealPreco = money(priceAt(ideal) - (bp ? bp.combo : 0)) + (bp ? ` + ${bp.name} ${money(bp.combo)}` : "");
   const alt = l < ideal ? (en
-    ? `<div class="alt">💡 For where your business is, the <b>${PROD[prod].lv[ideal]}</b> tier would be ideal (${money(priceAt(ideal))}). You can start with ${lvName} and upgrade later, paying only the difference.</div>`
-    : pp ? `<div class="alt">💡 Pela fase do seu negócio, o nível <b>${PROD[prod].lv[ideal]}</b> seria o ideal (${money(priceAt(ideal))}). Pode começar no ${lvName} e subir de nível mais tarde: paga apenas a diferença.</div>`
-    : `<div class="alt">💡 Pelo momento do seu negócio, o nível <b>${PROD[prod].lv[ideal]}</b> seria o ideal (${brl(priceAt(ideal))}). Dá para começar no ${lvName} e fazer upgrade depois, pagando só a diferença.</div>`) : "";
+    ? `<div class="alt">💡 For where your business is, the <b>${idealNome}</b> (${PROD[prod].lv[ideal]} tier) would be ideal: ${idealPreco}. You can start with ${lvName} and upgrade later, paying only the difference.</div>`
+    : pp ? `<div class="alt">💡 Pela fase do seu negócio, o <b>${idealNome}</b> (nível ${PROD[prod].lv[ideal]}) seria o ideal: ${idealPreco}. Pode começar no ${lvName} e subir de nível mais tarde: paga apenas a diferença.</div>`
+    : `<div class="alt">💡 Pelo momento do seu negócio, o <b>${idealNome}</b> (nível ${PROD[prod].lv[ideal]}) seria o ideal: ${idealPreco}. Dá para começar no ${lvName} e fazer upgrade depois, pagando só a diferença.</div>`) : "";
   const fromTxt = l === 2 && (prod === "erp" || withErp);
   const total = price + (bp ? bp.combo : 0);
   const sistema = prod === "erp" ? t("sistema", "system") : t("site", "website");

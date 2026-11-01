@@ -98,7 +98,7 @@ export const PROJECTS = [
     title: "Orbi",
     meta: "Produto com IA · 2025",
     desc: "Assistente pessoal com IA reunindo agenda, tarefas, finanças e treinos.",
-    seo: "Orbi, assistente pessoal com IA: agenda, tarefas, finanças e treinos num só lugar, com resumo do dia e pendências apontadas pela inteligência artificial.",
+    seo: "Orbi, assistente pessoal com IA: agenda, tarefas, finanças e treinos num só lugar, com resumo do dia e pendências apontadas pela IA.",
     linkUrl: "https://jarvis-webapp-three.vercel.app/login",
     linkLabel: "Acessar Orbi",
     cover: IMG.orbiVisao,
