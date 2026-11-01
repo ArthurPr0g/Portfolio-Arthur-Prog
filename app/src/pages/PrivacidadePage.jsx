@@ -22,7 +22,7 @@ const TEXTO = {
       ["Quem é o responsável", [`O responsável (controlador) pelos dados é ${RESPONSAVEL}, Brasil. É quem faz os sites, lojas e sistemas mostrados aqui.`]],
       ["Quais dados coletamos", [
         ["Formulário de contato: nome, e-mail, WhatsApp e a mensagem que você escrever, além do idioma e do endereço da página de onde enviou.",
-          "Proteção contra abuso: o seu endereço IP, guardado só em forma cifrada (hash), para limitar envios repetidos.",
+          "Proteção contra abuso: o seu endereço IP, guardado só embaralhado (hash), para limitar envios repetidos.",
           "Conversa no WhatsApp: ao enviar o formulário ou tocar no botão, o WhatsApp abre com a sua mensagem. O que você conversar lá também fica registrado no nosso atendimento.",
           "Navegação: não usamos cookies de publicidade nem ferramentas de medição de audiência. Só guardamos no seu navegador a escolha de idioma (um cookie \"idioma\") e de moeda, para lembrar da próxima vez. As fontes do site são servidas por ele mesmo, sem passar pelo Google."],
       ]],
@@ -37,7 +37,7 @@ const TEXTO = {
       ]],
       ["Com quem compartilhamos", [
         "Só com os fornecedores que fazem o atendimento funcionar:",
-        ["Vercel (hospedagem do site e do sistema de atendimento);", "Supabase (banco de dados do atendimento);", "Anthropic (IA que pesquisa e ajuda a responder);", "Meta (WhatsApp), por onde a conversa continua."],
+        ["Vercel (hospedagem do site e do sistema de atendimento);", "Supabase (banco de dados do atendimento);", "Anthropic (IA que pesquisa e ajuda a responder);", "Meta (WhatsApp), por onde a conversa continua;", "Google (agenda e videochamada), quando marcamos uma reunião com você e enviamos o convite para o seu e-mail."],
         "Esses fornecedores guardam dados fora do Brasil e da União Europeia (principalmente nos Estados Unidos), com as garantias previstas na LGPD e no RGPD, como as cláusulas contratuais-padrão que eles oferecem. Também podemos fornecer dados quando a lei ou uma ordem judicial exigir.",
       ]],
       ["Por quanto tempo guardamos", ["Os dados de contato e as conversas ficam guardados enquanto houver conversa ou relacionamento comercial e, depois, por até 2 anos, a menos que você peça a exclusão antes. O que a lei obriga a guardar (por exemplo, dados de contratos e notas fiscais) fica pelo prazo legal."]],
@@ -61,7 +61,7 @@ const TEXTO = {
       ["Quem é o responsável", [`O responsável pelo tratamento é ${RESPONSAVEL}, Brasil. É quem faz os sites, lojas e sistemas aqui apresentados.`]],
       ["Que dados recolhemos", [
         ["Formulário de contacto: nome, e-mail, WhatsApp e a mensagem que escrever, além do idioma e do endereço da página de onde a enviou.",
-          "Proteção contra abusos: o seu endereço IP, guardado apenas de forma cifrada (hash), para limitar envios repetidos.",
+          "Proteção contra abusos: o seu endereço IP, guardado apenas sob a forma de hash, para limitar envios repetidos.",
           "Conversa no WhatsApp: ao enviar o formulário ou carregar no botão, o WhatsApp abre com a sua mensagem. O que conversar lá também fica registado no nosso atendimento.",
           "Navegação: não usamos cookies de publicidade nem ferramentas de medição de audiências. Só guardamos no seu navegador a escolha de idioma (um cookie \"idioma\") e de moeda, para a próxima visita. Os tipos de letra do site são servidos pelo próprio site, sem passar pela Google."],
       ]],
@@ -76,7 +76,7 @@ const TEXTO = {
       ]],
       ["Com quem partilhamos", [
         "Apenas com os fornecedores que fazem o atendimento funcionar:",
-        ["Vercel (alojamento do site e do sistema de atendimento);", "Supabase (base de dados do atendimento);", "Anthropic (IA que pesquisa e ajuda a responder);", "Meta (WhatsApp), onde a conversa continua."],
+        ["Vercel (alojamento do site e do sistema de atendimento);", "Supabase (base de dados do atendimento);", "Anthropic (IA que pesquisa e ajuda a responder);", "Meta (WhatsApp), onde a conversa continua;", "Google (agenda e videochamada), quando marcamos uma reunião consigo e enviamos o convite para o seu e-mail."],
         "Os dados são tratados fora do Espaço Económico Europeu (no Brasil e, sobretudo, nos Estados Unidos), com as garantias previstas no RGPD, como as cláusulas contratuais-tipo que estes fornecedores disponibilizam. Também podemos fornecer dados quando a lei ou uma ordem judicial o exigir.",
       ]],
       ["Durante quanto tempo os guardamos", ["Os dados de contacto e as conversas ficam guardados enquanto houver conversa ou relação comercial e, depois, até 2 anos, salvo se pedir a eliminação antes. O que a lei obriga a guardar (por exemplo, dados de contratos e faturas) fica pelo prazo legal."]],
@@ -115,7 +115,7 @@ const TEXTO = {
       ]],
       ["Who we share it with", [
         "Only the providers that make our support work:",
-        ["Vercel (hosting for this site and the support system);", "Supabase (support database);", "Anthropic (the AI that researches and helps reply);", "Meta (WhatsApp), where the conversation continues."],
+        ["Vercel (hosting for this site and the support system);", "Supabase (support database);", "Anthropic (the AI that researches and helps reply);", "Meta (WhatsApp), where the conversation continues;", "Google (calendar and video calls), when we book a meeting with you and send the invite to your email."],
         "These providers process data outside the European Economic Area (in Brazil and mainly in the United States), with the safeguards required by the GDPR, such as the standard contractual clauses they offer. We may also disclose data when required by law or a court order.",
       ]],
       ["How long we keep it", ["Contact details and conversations are kept while we're talking or working together and for up to 2 years afterwards, unless you ask us to delete them sooner. Anything the law requires us to keep (such as contract and invoice records) is kept for the legal period."]],

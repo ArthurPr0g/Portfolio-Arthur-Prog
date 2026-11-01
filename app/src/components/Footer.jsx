@@ -27,6 +27,8 @@ export default function Footer() {
           <a
             href={privacidade}
             onClick={(e) => {
+              // Ctrl/Cmd+clique e clique do meio abrem em nova aba normalmente.
+              if (e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
               e.preventDefault();
               navigate(privacidade);
             }}

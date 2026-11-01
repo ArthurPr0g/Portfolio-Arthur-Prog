@@ -33,8 +33,7 @@ function avisarLia(form, lang) {
 }
 
 export default function ContatoSection() {
-  const { lang, t, link, navigate } = useLang();
-  const privacidade = link("privacidade");
+  const { lang, t, link } = useLang();
   const [form, setForm] = useState(EMPTY_FORM);
   const [sentMsg, setSentMsg] = useState("");
   const [erro, setErro] = useState(false);
@@ -116,13 +115,8 @@ export default function ContatoSection() {
             </button>
             <p className="contato-aviso">
               {lang === "en" ? "We use your details only to reply to you. " : lang === "pt-pt" ? "Usamos os seus dados apenas para lhe responder. " : "Usamos seus dados só para responder ao seu contato. "}
-              <a
-                href={privacidade}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(privacidade);
-                }}
-              >
+              {/* Nova aba: trocar de página aqui desmontaria o formulário e apagaria o que foi digitado. */}
+              <a href={link("privacidade")} target="_blank" rel="noopener">
                 {t("Política de privacidade", "Privacy policy")}
               </a>
             </p>
