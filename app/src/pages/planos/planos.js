@@ -204,6 +204,7 @@ root.getElementById("comboGrid").innerHTML = COMBOS.map(([n, p, l]) => {
     <div class="old">${money(c.sum)} ${t("separado", "separately", "em separado")}</div>
     <div class="now">${from}${money(c.price)}</div>
     <div class="mo">${pagamento}</div>
+    <a class="btn btn-ghost cta" ${ctaAttrs(t(`Olá! Tenho interesse no Combo ${n} (${PROD[p].p[l].name} + ${PROD.erp.p[l].name}, ${from ? "a partir de " : ""}${money(c.price)}).`, `Hi! I'm interested in the ${n} bundle (${PROD[p].p[l].name} + ${PROD.erp.p[l].name}, ${from ? "from " : ""}${money(c.price)}).`))}>${t("Quero este combo", "I want this bundle")}</a>
   </div>`;
 }).join("");
 
@@ -387,7 +388,8 @@ function renderQuiz() {
       <h3>${title}</h3>
       <p class="why">${parts ? `<b>${parts}</b> ` : ""}${why}</p>${alt}${brandTip}
       <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:18px">
-        <a class="btn btn-primary" href="#simulador" id="qSee">${t("Simular pagamento", "See payment details")}</a>
+        <a class="btn btn-primary" ${ctaAttrs(t(`Olá! Fiz o quiz e o recomendado foi: ${title}${bp ? " + " + bp.name : ""} (${fromTxt ? "a partir de " : ""}${money(total)}). Quero uma proposta!`, `Hi! I took the quiz and got: ${title}${bp ? " + " + bp.name : ""} (${fromTxt ? "from " : ""}${money(total)}). I'd like a proposal!`))}>💬 ${t("Falar no WhatsApp", "Chat on WhatsApp")}</a>
+        <a class="btn btn-ghost" href="#simulador" id="qSee">${t("Simular pagamento", "See payment details")}</a>
         <button class="btn btn-ghost" id="qAgain">${t("↺ Refazer", "↺ Start over")}</button>
       </div>
     </div>
