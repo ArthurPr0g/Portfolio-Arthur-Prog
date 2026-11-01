@@ -73,7 +73,7 @@
 }
 
 html { background: var(--ps-ink); }
-/* Conteúdo oculto enquanto o loader decide (até 300 ms) e enquanto ele roda. */
+/* Conteúdo oculto enquanto o loader decide (até 300 ms) e até o fundo dele cobrir a tela. */
 html.ps-boot #root { opacity: 0; }
 html.ps-fade #root { transition: opacity 0.2s var(--ps-ease-draw); }
 /* Com o loader, a entrada do topo é a dele: desliga as animações de CSS. */

@@ -235,18 +235,22 @@ import { criarMarca, C, a, F } from "../mark";
     palco.setAttribute("aria-hidden", "true");
     // Pular: clique/toque no loader (click, não pointerdown, para o toque não
     // cair num link da página que aparece por baixo) ou Esc, Enter e espaço.
+    let dica = null;
     if (!REF) {
       const toque = !!(W.matchMedia && W.matchMedia("(pointer: coarse)").matches);
-      const dica = el("div", `position:absolute;left:0;right:0;bottom:max(28px, env(safe-area-inset-bottom));text-align:center;font-family:${F.mono};font-size:11px;letter-spacing:.22em;color:${C.dim}`, raiz, TXT.pular[toque ? 0 : 1]);
+      dica = el("div", `position:absolute;left:0;right:0;bottom:max(28px, env(safe-area-inset-bottom));text-align:center;font-family:${F.mono};font-size:11px;letter-spacing:.22em;color:${C.dim}`, raiz, TXT.pular[toque ? 0 : 1]);
       dica.setAttribute("aria-hidden", "true");
       raiz.style.cursor = "pointer";
       raiz.addEventListener("click", pular);
       W.addEventListener("keydown", teclaPular);
     }
-    return { raiz, sr, fundo, palco };
+    return { raiz, sr, fundo, palco, dica };
   }
   function teclaPular(e) {
-    if (e.key === "Escape" || e.key === "Enter" || e.key === " ") pular();
+    if (e.key === "Escape" || e.key === "Enter" || e.key === " ") {
+      e.preventDefault(); // o espaço rolaria a página por baixo do loader
+      pular();
+    }
   }
   function pular() {
     if (L.fase === "cena") concluir();
@@ -359,6 +363,13 @@ import { criarMarca, C, a, F } from "../mark";
     dt *= VEL;
     V.Tr += dt;
     V.T += dt;
+    // Com o fundo do loader já opaco, a página é desenhada por baixo (o navegador
+    // conta a 1ª pintura e o LCP sem esperar a abertura). O topo só ganha o estado
+    // inicial da entrada em prepararRevelacao, antes de o fundo começar a sumir.
+    if (!V.desenhada && V.Tr - V.T0 >= 0.25) {
+      V.desenhada = true;
+      H.classList.remove("ps-boot");
+    }
     const r = real();
     if (V.T >= 0.2 && V.T < S) V.spl = suavizar(V.spl, r, dt);
     if (V.T >= S + 0.2) V.site = suavizar(V.site, r, dt);
@@ -405,6 +416,7 @@ import { criarMarca, C, a, F } from "../mark";
     const entrada = V.splash ? 1 : EASE.draw(clamp((Tr - V.T0) / 0.2, 0, 1));
     o.raiz.style.opacity = entrada;
     o.fundo.style.opacity = 1 - draw(S + 2.9, S + 3.4);
+    if (o.dica) o.dica.style.opacity = 1 - draw(S + 2.9, S + 3.2);
     o.raiz.style.pointerEvents = T >= S + 3.0 ? "none" : "";
 
     // Auras e grade.
