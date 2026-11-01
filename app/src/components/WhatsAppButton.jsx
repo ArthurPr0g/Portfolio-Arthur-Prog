@@ -20,14 +20,13 @@ export default function WhatsAppButton() {
 
   // Dentro de uma região com nome: leitores de tela acham o botão pela lista de regiões.
   return (
-    <aside aria-label={t("Contato rápido", "Quick contact")}>
+    <aside aria-label={t("Contato rápido", "Quick contact")} aria-hidden={overFooter}>
       <a
         href={waLink(t("Olá! Vim pelo portfólio da Prog Soluções.", "Hi! I found Prog Soluções through the portfolio."))}
         target="_blank"
         rel="noopener"
         className={overFooter ? "wa-fab wa-fab--hidden" : "wa-fab"}
         aria-label={t("Falar no WhatsApp", "Chat on WhatsApp")}
-        aria-hidden={overFooter}
         tabIndex={overFooter ? -1 : undefined}
       >
         <svg viewBox="0 0 24 24" width="27" height="27" fill="currentColor" aria-hidden="true">
