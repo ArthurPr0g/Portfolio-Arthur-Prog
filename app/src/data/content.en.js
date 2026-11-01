@@ -6,6 +6,7 @@ const PROJETOS = {
   "prog-imports": {
     meta: "Web system + e-commerce · 2025",
     desc: "A complete import business platform: store, management, inventory and finance in one place.",
+    seo: "Prog Imports case study: an online store and management system in one, with inventory, quotes, sales and finance together. Built with React and Node.js.",
     problema: "The operation ran on scattered spreadsheets, informal chats and manual controls. There was no single view of inventory, sales, quotes and finance — every answer meant consolidating data by hand.",
     solucao: "One product with two fronts: the customer-facing e-commerce (catalog, collections, technical services, cart) and the internal management system with dashboard, customers, products, inventory, quotes, sales, returns and full finance.",
     resultado: "The whole operation now lives in a single system: general, financial and sales metrics in real time, a visible monthly cash flow and an online catalog integrated with inventory.",
@@ -34,6 +35,7 @@ const PROJETOS = {
   tecnopallet: {
     meta: "Corporate website redesign · 2026",
     desc: "From an outdated website to a digital presence that matches two decades of operation.",
+    seo: "TecnoPallet Logística website redesign: a high-impact hero, browsable logistics services, an operations gallery and quote requests straight to WhatsApp.",
     beforeAfter: ["About us", "Services", "Facilities"],
     problema: "The old site had a 2020 layout, long blocks of text, small photos and no clear call to request a quote. It didn't show the real size of the operation: 7,500 m² of covered warehouse, 24/7 security and a tracked fleet.",
     solucao: "A new site with a high-impact hero, a company timeline since 2003, browsable logistics solutions, step-by-step palletizing, an operations gallery with filters, facilities, a coverage map for Rio de Janeiro state and a form that goes straight to WhatsApp.",
@@ -59,6 +61,7 @@ const PROJETOS = {
   orbi: {
     meta: "AI product · 2025",
     desc: "A personal AI assistant that brings together calendar, tasks, finances and workouts.",
+    seo: "Orbi, a personal AI assistant: calendar, tasks, finances and workouts on one screen, with an AI daily summary that flags what still needs doing.",
     linkLabel: "Open Orbi",
     problema: "Productivity tools treat calendar, money, tasks and health as separate apps. Users waste time switching contexts and nobody sees the day as a whole.",
     solucao: "Orbi brings the daily overview, calendar, tasks, finances and workouts into one interface, with an assistant (Jarvis) that summarizes the day, flags what's pending and talks through what to do next.",
@@ -75,6 +78,7 @@ const PROJETOS = {
   vitaliti: {
     meta: "Corporate website + management dashboard · 2025",
     desc: "A website built for credibility and conversion, with its own dashboard for customers and quotes.",
+    seo: "VitaliTI Soluções corporate website with WhatsApp quote requests and a custom dashboard for customers, proposals and approved deals.",
     problema: "VitaliTI delivered strong technical work — CCTV, structured cabling, automation, access control — but had no digital presence to back that authority up and generate quote requests.",
     solucao: "A corporate website with a clear services narrative, credibility numbers, a portfolio of real clients, testimonials, FAQ and direct WhatsApp calls to request a quote. Behind it, a management dashboard with sales metrics, customer records, full customer profiles and quote history, in light and dark themes and fully responsive on mobile.",
     resultado: "A stronger brand perception, a short path from visitor to quote request, and the sales operation (customers, proposals and approved values) organized in one place.",
@@ -102,6 +106,7 @@ const PROJETOS = {
   lumen: {
     meta: "AI product · 2026",
     desc: "A reading platform that turns books into knowledge that sticks.",
+    seo: "Lumen, an AI reading platform: library, notes, chapter quizzes and spaced-repetition flashcards that help you remember what you read.",
     problema: "We read a lot and remember little: notes get lost, nobody reviews what they read and reading progress isn't visible.",
     solucao: "Library, reader and notes connected to a learning loop: chapter quizzes, spaced-repetition flashcards, reviews, a knowledge map and Lumen AI, which generates questions, summarizes chapters and explains concepts. Goals, insights and achievements keep readers consistent.",
     resultado: "A complete experience on desktop, tablet and phone, where every book read becomes reviews, metrics and connected knowledge.",
@@ -131,6 +136,7 @@ const PROJETOS = {
     title: "Service Tracking for Salons",
     meta: "Web system · 2026",
     desc: "Log services per professional and close the day in a few taps.",
+    seo: "Software for beauty salons: log services per professional in three taps, close the day instantly and give each salon its own branded app.",
     problema: "Salons wrote services down in notebooks or spreadsheets. Closing the day and working out what each professional did took time and caused errors.",
     solucao: "Logging in three taps (professional, service and price), summaries by professional and category per day, month or total, and a settings screen where each salon sets its name, color, logo, team and service price list.",
     resultado: "Instant end-of-day closing and a system that takes on each salon's brand: the same product serves Depyl Action, Studio Bella and others, each with its own identity.",
@@ -151,6 +157,7 @@ const PROJETOS = {
     title: "Consortium System",
     meta: "Web system · 2024",
     desc: "Management of groups, shares, awards and late payments for consortiums (pooled buying groups).",
+    seo: "Consortium management software: groups, shares, awards, installments and late payments on one dashboard, with a status light for each member.",
     problema: "Running consortiums involves groups, shares, installments, awards and payment status — rules no spreadsheet can handle without errors.",
     solucao: "A system with a consolidated dashboard of every consortium: overview, monthly finance, payments, upcoming due dates, participants to receive from and a traffic-light status per participant.",
     resultado: "A standardized, auditable operation: every installment, award and delay is recorded, with an instant view of who is up to date.",

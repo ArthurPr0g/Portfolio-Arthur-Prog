@@ -13,6 +13,7 @@ export function adaptarPtPt(PT) {
       title: c(p.title),
       meta: c(p.meta),
       desc: c(p.desc),
+      seo: c(p.seo),
       linkLabel: p.linkLabel && !/\./.test(p.linkLabel) ? c(p.linkLabel) : p.linkLabel,
       problema: c(p.problema),
       solucao: c(p.solucao),

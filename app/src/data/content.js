@@ -22,12 +22,14 @@ export const LIA_CONTATO_URL = "https://www.prog-imports.com/api/portfolio/conta
 export const INSTAGRAM_URL = "https://instagram.com/prog.arthur";
 export const LINKEDIN_URL = "https://www.linkedin.com/in/arthur-araujo-6a6292179/";
 
+// desc: texto curto do card; seo: descrição para o Google (120 a 155 caracteres).
 export const PROJECTS = [
   {
     slug: "prog-imports",
     title: "Prog Imports",
     meta: "Sistema web + e-commerce · 2025",
     desc: "Plataforma completa de importação: loja, gestão, estoque e financeiro em um só lugar.",
+    seo: "Case Prog Imports: e-commerce e sistema de gestão integrados, com estoque, orçamentos, vendas e financeiro num só lugar. Feito em React e Node.js.",
     linkUrl: "https://www.prog-imports.com",
     linkLabel: "prog-imports.com",
     cover: pi("home-hero"),
@@ -62,6 +64,7 @@ export const PROJECTS = [
     title: "TecnoPallet Logística",
     meta: "Redesign de site institucional · 2026",
     desc: "Do site antigo e datado a uma presença digital à altura de duas décadas de operação.",
+    seo: "Redesign do site da TecnoPallet Logística: topo de impacto, soluções navegáveis, galeria de operações e pedido de orçamento direto no WhatsApp.",
     cover: tp("hero"),
     beforeAfter: [
       { label: "Quem somos", before: P + "tecno-ba1-antes.webp", after: P + "tecno-ba1-depois.webp" },
@@ -95,6 +98,7 @@ export const PROJECTS = [
     title: "Orbi",
     meta: "Produto com IA · 2025",
     desc: "Assistente pessoal com IA reunindo agenda, tarefas, finanças e treinos.",
+    seo: "Orbi, assistente pessoal com IA: agenda, tarefas, finanças e treinos num só lugar, com resumo do dia e pendências apontadas pela inteligência artificial.",
     linkUrl: "https://jarvis-webapp-three.vercel.app/login",
     linkLabel: "Acessar Orbi",
     cover: IMG.orbiVisao,
@@ -119,6 +123,7 @@ export const PROJECTS = [
     title: "VitaliTI Soluções",
     meta: "Site institucional + painel de gestão · 2025",
     desc: "Site de credibilidade e conversão, com painel próprio para clientes e orçamentos.",
+    seo: "Site institucional da VitaliTI Soluções com orçamento pelo WhatsApp e painel de gestão próprio para clientes, propostas e valores aprovados.",
     linkUrl: "https://www.vitalitisolucoes.com.br",
     linkLabel: "vitalitisolucoes.com.br",
     cover: vt("site-01-topo"),
@@ -152,6 +157,7 @@ export const PROJECTS = [
     title: "Lumen",
     meta: "Produto com IA · 2026",
     desc: "Plataforma de leitura que transforma livros em conhecimento que fica.",
+    seo: "Lumen, plataforma de leitura com IA: biblioteca, anotações, quizzes por capítulo e flashcards com repetição espaçada para fixar cada livro lido.",
     cover: lm("d02-inicio"),
     problema: "A gente lê muito e lembra pouco: as anotações se perdem, ninguém revisa o que leu e o progresso de leitura não fica visível.",
     solucao: "Biblioteca, leitor e anotações conectados a um ciclo de aprendizado: quizzes por capítulo, flashcards com repetição espaçada, revisões, mapa de conhecimento e a Lumen AI, que gera perguntas, resume capítulos e explica conceitos. Metas, insights e conquistas mantêm a constância.",
@@ -184,6 +190,7 @@ export const PROJECTS = [
     title: "Controle de Serviços para Salões",
     meta: "Sistema web · 2026",
     desc: "Lançamento de serviços por profissional e fechamento do dia em poucos toques.",
+    seo: "Sistema para salões de beleza: lançamento de serviços por profissional em três toques, fechamento do dia na hora e a marca de cada salão no app.",
     restrito: true,
     cover: sl("01-lancamento"),
     problema: "Salões anotavam os serviços em caderno ou planilha. Fechar o dia e calcular o que cada profissional fez levava tempo e gerava erro.",
@@ -208,6 +215,7 @@ export const PROJECTS = [
     title: "Sistema de Consórcio",
     meta: "Sistema web · 2024",
     desc: "Gestão de grupos, cotas, contemplações e inadimplência.",
+    seo: "Sistema de gestão de consórcio: grupos, cotas, contemplações, parcelas e inadimplência num painel com farol por participante e próximos vencimentos.",
     cover: IMG.consorcio,
     problema: "Administrar consórcios envolve grupos, cotas, parcelas, contemplações e adimplência — regras que nenhuma planilha sustenta sem erro.",
     solucao: "Sistema com dashboard consolidado de todos os consórcios: visão geral, financeiro por mês, pagamentos, próximos vencimentos, participantes a receber e um farol por participante.",

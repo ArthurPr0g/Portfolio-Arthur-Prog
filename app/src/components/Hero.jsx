@@ -71,9 +71,9 @@ export default function Hero({ heroRef, onSection }) {
 
           <h1 className="hero__title">
             {lang === "en" ? (
-              <Frase partes={[["Digital products that"], ["sell", true], ["and"], ["organize", true], ["your business."]]} />
+              <Frase partes={[["Websites and software that"], ["sell", true], ["and"], ["organize", true], ["your business."]]} />
             ) : (
-              <Frase partes={[["Produtos digitais que"], ["vendem", true], ["e"], ["organizam", true], ["o seu negócio."]]} />
+              <Frase partes={[["Sites e sistemas que"], ["vendem", true], ["e"], ["organizam", true], ["o seu negócio."]]} />
             )}
           </h1>
 
