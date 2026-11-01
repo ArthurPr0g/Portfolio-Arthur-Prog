@@ -83,8 +83,8 @@ function Marca() {
         <div className="demo__marca demo__marca--lockup"><ProgMark s={52} /><ProgWordmark size={33} style={{ marginLeft: 52 * 0.75 * 0.393 - 52 * 9.75 / 48 }} /></div>
       </div>
       <p className="demo__nota">
-        Splash e loader de página rodam no site, não aqui. Para rever o splash: abra o site numa aba nova (o splash vale uma vez por aba) e
-        simule rede lenta no DevTools. <a href="/" onClick={() => { try { sessionStorage.removeItem("ps-splash"); } catch { /* sem storage */ } }}>Abrir o site</a>
+        O loader de página roda no site, não aqui (no máximo ~2 s; um toque pula). A cena longa do splash só toca
+        com <code>?ps-ref</code>: <a href="/pt?ps-ref">abrir o site com o splash</a>
       </p>
     </section>
   );

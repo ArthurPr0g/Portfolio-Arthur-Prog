@@ -8,9 +8,11 @@
 //
 // Máquina de estados (docs/04-implementacao.md):
 //   espera (≤300 ms, conteúdo oculto) → pronto antes? revela com fade, sem loader
-//   → splash (só no 1º acesso da sessão) → site: o arco é o progresso real
-//     suavizado; segura em S+2,85 até concluir → voo da logo para o cabeçalho
-//     e entrada do conteúdo com o stagger da referência → fim.
+//   → site: o arco é o progresso real suavizado; segura em S+2,85 até concluir
+//     → voo da logo para o cabeçalho e entrada do conteúdo com o stagger da
+//     referência → fim.
+// Decisão do Arthur (01/11/2026): no site, no máximo ~2 s e um toque (ou Esc)
+// pula. A cena longa do splash (~8 s) ficou só para ?ps-ref e /dev/loaders.
 // O app avisa: window.__psLoader.montado() e .rota() (troca de página).
 import { EASE, clamp, lerp, interpolate, relogio, pct, CUES } from "../motion";
 import { criarMarca, C, a, F } from "../mark";
@@ -23,6 +25,7 @@ import { criarMarca, C, a, F } from "../mark";
   const ESPERA = 0.3; // s sem loader
   const LIMITE = 15; // s: depois disso revela de qualquer jeito
   const SEGURA = S + 2.85; // fim do trecho "carregando"
+  const VEL = 2; // a timeline do site (~2,9 s) roda acelerada: o loader fica ~1,8 s na tela
   const SIM_SPLASH = interpolate([0.2, 1.2, 2.2, 3.0, 4.3], [0, 0.22, 0.48, 0.71, 1], EASE.draw);
   const SIM_SITE = interpolate([0.3, 1.2, 1.7, 2.4, 2.9], [0, 0.38, 0.46, 0.86, 1], EASE.draw);
   // Comparação com a referência: ?ps-ref toca a timeline dela (progresso simulado,
@@ -33,8 +36,9 @@ import { criarMarca, C, a, F } from "../mark";
   const reduzido = !!(W.matchMedia && W.matchMedia("(prefers-reduced-motion: reduce)").matches);
   const en = /^en/i.test(H.lang || "");
   const TXT = en
-    ? { carregando: "LOADING", pagina: "LOADING PAGE", hud: "SYMBOL · 48U GRID", hudM: "48U GRID", sr: "Loading page", ok: "Page loaded" }
-    : { carregando: "CARREGANDO", pagina: "CARREGANDO PÁGINA", hud: "SÍMBOLO · GRADE 48U", hudM: "GRADE 48U", sr: "Carregando página", ok: "Página carregada" };
+    ? { carregando: "LOADING", pagina: "LOADING PAGE", hud: "SYMBOL · 48U GRID", hudM: "48U GRID", sr: "Loading page", ok: "Page loaded", pular: ["TAP TO SKIP", "CLICK TO SKIP"] }
+    : { carregando: "CARREGANDO", pagina: "CARREGANDO PÁGINA", hud: "SÍMBOLO · GRADE 48U", hudM: "GRADE 48U", sr: "Carregando página", ok: "Página carregada",
+        pular: /^pt-PT/i.test(H.lang || "") ? ["TOQUE PARA SALTAR", "CLIQUE PARA SALTAR"] : ["TOQUE PARA PULAR", "CLIQUE PARA PULAR"] };
 
   // Medidas de cada cena (desktop 1920×1080, mobile 390×844), copiadas das referências.
   const CENAS = {
@@ -159,11 +163,10 @@ import { criarMarca, C, a, F } from "../mark";
   }
 
   // ── Estado ─────────────────────────────────────────────────────────────────
-  const L = { fase: "parado", t0: 0, ultimo: 0, raf: 0, primeira: true };
+  const L = { fase: "parado", t0: 0, ultimo: 0, raf: 0 };
 
-  function iniciar(primeira) {
+  function iniciar() {
     L.fase = "espera";
-    L.primeira = primeira;
     L.t0 = L.ultimo = performance.now();
     H.classList.add("ps-boot");
     cancelAnimationFrame(L.raf);
@@ -230,7 +233,27 @@ import { criarMarca, C, a, F } from "../mark";
     const fundo = el("div", `position:absolute;inset:0;background:${C.ink}`, raiz);
     const palco = el("div", "position:absolute;left:0;top:0;transform-origin:0 0", raiz);
     palco.setAttribute("aria-hidden", "true");
+    // Pular: clique/toque no loader (click, não pointerdown, para o toque não
+    // cair num link da página que aparece por baixo) ou Esc, Enter e espaço.
+    if (!REF) {
+      const toque = !!(W.matchMedia && W.matchMedia("(pointer: coarse)").matches);
+      const dica = el("div", `position:absolute;left:0;right:0;bottom:max(28px, env(safe-area-inset-bottom));text-align:center;font-family:${F.mono};font-size:11px;letter-spacing:.22em;color:${C.dim}`, raiz, TXT.pular[toque ? 0 : 1]);
+      dica.setAttribute("aria-hidden", "true");
+      raiz.style.cursor = "pointer";
+      raiz.addEventListener("click", pular);
+      W.addEventListener("keydown", teclaPular);
+    }
     return { raiz, sr, fundo, palco };
+  }
+  function teclaPular(e) {
+    if (e.key === "Escape" || e.key === "Enter" || e.key === " ") pular();
+  }
+  function pular() {
+    if (L.fase === "cena") concluir();
+    else if (L.fase === "simples") {
+      H.classList.remove("ps-fade");
+      fechar();
+    }
   }
 
   // ── Cena (Splash + Site) ───────────────────────────────────────────────────
@@ -239,16 +262,7 @@ import { criarMarca, C, a, F } from "../mark";
   function mostrar() {
     const mobile = W.innerWidth <= 600;
     const cfg = mobile ? CENAS.mobile : CENAS.desktop;
-    let splash = false;
-    if (REF) splash = true;
-    else if (!reduzido && L.primeira) {
-      try {
-        splash = !sessionStorage.getItem("ps-splash");
-        sessionStorage.setItem("ps-splash", "1");
-      } catch {
-        splash = false;
-      }
-    }
+    const splash = REF;
     H.classList.add("ps-anim");
     const o = montarOverlay();
     V = { cfg, mobile, splash, o, alvos: null, site: 0, spl: 0 };
@@ -342,6 +356,7 @@ import { criarMarca, C, a, F } from "../mark";
       if (V.alvos && V.T >= V.fimT) concluir();
       return;
     }
+    dt *= VEL;
     V.Tr += dt;
     V.T += dt;
     const r = real();
@@ -560,6 +575,7 @@ import { criarMarca, C, a, F } from "../mark";
     V.o.sr.textContent = TXT.ok;
     V.o.raiz.remove();
     W.removeEventListener("resize", medir);
+    W.removeEventListener("keydown", teclaPular);
     H.classList.remove("ps-boot");
     clearTimeout(L.limite);
     L.fase = "parado";
@@ -619,7 +635,7 @@ import { criarMarca, C, a, F } from "../mark";
   };
   D.addEventListener("readystatechange", aoLer);
   aoLer();
-  iniciar(true);
+  iniciar();
 
   W.__psLoader = {
     /** O React montou: falta só esperar as imagens da primeira tela. */
@@ -636,7 +652,7 @@ import { criarMarca, C, a, F } from "../mark";
       if (!pend.length) return;
       iniciarTarefas({ imagens: 1 });
       vigiarImagens(pend, "imagens");
-      iniciar(false);
+      iniciar();
     },
   };
 })();
