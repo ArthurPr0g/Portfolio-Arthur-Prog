@@ -38,6 +38,11 @@ Portfólio estático em React + Vite. Sem banco de dados nem variáveis de ambie
 - Desde 28/10/2026 o HTML de cada página sai com **todo o conteúdo** (React montado no build por `src/entry-server.jsx`, `vite build --ssr`): Bing e buscas com IA leem sem JavaScript. No navegador, `main.jsx` monta por cima (createRoot). Regra: componente não pode usar `window`/`document`/`localStorage` durante a renderização, só em efeitos — senão o build quebra. A página de planos sai num shadow root declarativo (`<template shadowrootmode>`).
 - SEO local: endereço Goiânia/GO no JSON-LD; título da home em português começa com "Criação de sites".
 - Pendente do Arthur: domínio próprio e Google Search Console (tag HTML + envio do sitemap).
+- Cada projeto tem `seo` (descrição do Google, 120 a 155 caracteres) além do `desc` do card; título de projeto acima de 65 caracteres sai sem "| Arthur Prog".
+
+## Política de privacidade (01/11/2026)
+- `/pt/privacidade`, `/pt-pt/privacidade`, `/en/privacy` → `src/pages/PrivacidadePage.jsx` (três textos escritos à mão; PT-PT não passa pelo conversor). Link no rodapé e aviso abaixo do botão do formulário.
+- Mesma base da política da Prog Imports (`site-prog-imports/src/app/privacidade`). Mudou algo que trate dados pessoais (analytics, novo formulário, fornecedor)? Atualize os três textos e a data.
 - Imagens de compartilhamento: `public/og/og-pt.png` e `og-en.png` (1200×630).
 - Endereço do site em um lugar só: `SITE` em `app/src/rotas.js` (trocar se houver domínio próprio).
 
@@ -56,7 +61,7 @@ Portfólio estático em React + Vite. Sem banco de dados nem variáveis de ambie
 - Código em `app/src/brand/`: `tokens.css`, `motion.js` (enter/draw/pop), `mark.js` (geometria do P), `ProgMark.jsx`, `ProgWordmark.jsx`, `useTimeline.js`.
 - O cabeçalho usa a logo Prog Soluções e o rodapé, o símbolo P (decisões do Arthur; o nome "Arthur Prog" continua no rodapé e no topo).
 - Lockups em curvas (arquivos-mestre, sem depender da Sora instalada): `assets/logotipo/*-curvas.svg`, gerados do `<text>` original com a Sora variável e o kerning do HarfBuzz.
-- Loader do site (`src/brand/loaders/boot.js`): roda **embutido no <head>** (plugin em `vite.config.js`), antes do bundle, porque o HTML pré-renderizado aparece antes do JS. Splash só no 1º acesso da aba (`sessionStorage` `ps-splash`); loader só se a espera passar de 300 ms; progresso real = HTML, CSS, fontes, montagem do React e imagens da 1ª tela. O CSS carrega sem bloquear a pintura (media=print + onload, com <noscript>).
+- Loader do site (`src/brand/loaders/boot.js`): roda **embutido no <head>** (plugin em `vite.config.js`), antes do bundle, porque o HTML pré-renderizado aparece antes do JS. Decisão do Arthur (01/11/2026): no site não há mais a cena longa do splash (~8 s, só com `?ps-ref`); o loader do site roda 2x mais rápido (~1,8 s na tela) e um toque/clique ou Esc pula; loader só se a espera passar de 300 ms; progresso real = HTML, CSS, fontes, montagem do React e imagens da 1ª tela. O CSS carrega sem bloquear a pintura (media=print + onload, com <noscript>).
 - O topo da página precisa dos atributos `data-ps` (logo, itens do menu, `hero-pill`, `hero-w`, `hero-cta`) para o voo da logo e a entrada em stagger.
 - Comparar com a referência: `/pt?ps-quadro=7.8` (para no tempo) ou `/pt?ps-ref` (toca a timeline da referência).
 - `/dev/loaders/` (noindex, fora do menu e do sitemap): `AppLoader` e `DocLoader` para os sistemas; `?quadro=13.6` congela.
