@@ -19,7 +19,7 @@
   font-size: 12.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--muted-8);
+  color: var(--ps-muted-2); /* --muted-8 dava contraste 4,1:1 em 12,5 px (mínimo AA: 4,5) */
   white-space: nowrap;
 }
 .marquee__item {

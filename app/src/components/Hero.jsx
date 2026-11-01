@@ -119,7 +119,7 @@ export default function Hero({ heroRef, onSection }) {
             <span className="hero__chip hero__chip--b">{t("IA no dia a dia", "AI-powered")}</span>
             <span className="hero__chip hero__chip--c">UX / UI</span>
 
-            <a className="hero__janela" href={link("project", tela.slug)} onClick={abrir} aria-label={projeto?.title}>
+            <a className="hero__janela" href={link("project", tela.slug)} onClick={abrir}>
               <span className="hero__barra">
                 <i />
                 <i />

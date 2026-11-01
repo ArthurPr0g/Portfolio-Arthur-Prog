@@ -28,7 +28,7 @@
 }
 .footer__tag {
   font-size: 12px;
-  color: var(--muted-8);
+  color: var(--ps-muted-2); /* --muted-8 dava contraste 4,1:1 em 12 px (mínimo AA: 4,5) */
 }
 .footer__links {
   margin-left: auto;

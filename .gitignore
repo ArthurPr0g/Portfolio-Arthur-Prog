@@ -4,3 +4,6 @@ _originais-fotos/
 # Pacote do handoff e vídeo exportado: ficam só no disco (a pasta descompactada vai no Git).
 *.zip
 *.mp4
+
+# Prints e medições das vistorias do time (Lighthouse, telas): ficam só no disco.
+vistoria/
