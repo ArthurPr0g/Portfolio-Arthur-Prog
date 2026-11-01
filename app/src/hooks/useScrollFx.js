@@ -22,10 +22,17 @@ export function useScrollFx({ barRef, navRef, heroRef, auraRef, timelineRef, tra
       }
 
       if (heroRef.current) {
-        const p = Math.min(1, y / (viewH || 800));
-        heroRef.current.style.transform =
-          "translate3d(0," + (y * 0.16).toFixed(1) + "px,0) scale(" + (1 - p * 0.05).toFixed(4) + ")";
-        heroRef.current.style.opacity = String(Math.max(0, 1 - p * 1.25));
+        // Até 980 px a foto vem antes do texto (Hero.css): esmaecer e deslocar pela rolagem
+        // apagaria o título e os botões justo quando entram na tela. Ali o topo fica parado.
+        if (window.innerWidth <= 980) {
+          heroRef.current.style.transform = "";
+          heroRef.current.style.opacity = "";
+        } else {
+          const p = Math.min(1, y / (viewH || 800));
+          heroRef.current.style.transform =
+            "translate3d(0," + (y * 0.16).toFixed(1) + "px,0) scale(" + (1 - p * 0.05).toFixed(4) + ")";
+          heroRef.current.style.opacity = String(Math.max(0, 1 - p * 1.25));
+        }
       }
 
       if (auraRef.current) {

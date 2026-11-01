@@ -65,7 +65,14 @@
   padding: 6px 9px;
   cursor: pointer;
   touch-action: manipulation;
+  position: relative;
   transition: color 0.25s ease, background 0.25s ease;
+}
+/* Área de toque maior que o desenho (~44 px de altura), sem mudar o visual. */
+.nav__lang-btn::after {
+  content: "";
+  position: absolute;
+  inset: -11px 0;
 }
 .nav__lang-btn:hover {
   color: #fff;

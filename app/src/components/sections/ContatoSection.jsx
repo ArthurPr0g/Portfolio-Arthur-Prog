@@ -36,17 +36,20 @@ export default function ContatoSection() {
   const { lang, t } = useLang();
   const [form, setForm] = useState(EMPTY_FORM);
   const [sentMsg, setSentMsg] = useState("");
+  const [erro, setErro] = useState(false);
 
   const field = (key) => (e) => {
     const value = e.target.value;
     setForm((f) => ({ ...f, [key]: value }));
     setSentMsg("");
+    setErro(false);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!form.nome || (!form.email && !form.fone)) {
       setSentMsg(t("Preencha seu nome e ao menos um contato.", "Please enter your name and at least one way to reach you."));
+      setErro(true);
       return;
     }
     const linhas =
@@ -60,6 +63,7 @@ export default function ContatoSection() {
     if (!form.site) avisarLia(form, lang);
     window.open(waLink(texto), "_blank", "noopener");
     setForm(EMPTY_FORM);
+    setErro(false);
     setSentMsg(
       t(
         "Recebemos sua mensagem. O atendimento continua pelo WhatsApp, que abriu em outra aba.",
@@ -88,15 +92,15 @@ export default function ContatoSection() {
           <Reveal as="form" onSubmit={handleSubmit} className="contato-form">
             <label className="contato-field">
               <span className="contato-label">{t("Nome", "Name")}</span>
-              <input type="text" value={form.nome} onChange={field("nome")} placeholder={t("Seu nome", "Your name")} />
+              <input type="text" autoComplete="name" value={form.nome} onChange={field("nome")} placeholder={t("Seu nome", "Your name")} />
             </label>
             <label className="contato-field">
               <span className="contato-label">{lang === "pt-pt" ? "E-mail" : "Email"}</span>
-              <input type="email" value={form.email} onChange={field("email")} placeholder={t("voce@email.com", "you@email.com")} />
+              <input type="email" autoComplete="email" value={form.email} onChange={field("email")} placeholder={t("voce@email.com", "you@email.com")} />
             </label>
             <label className="contato-field">
               <span className="contato-label">WhatsApp</span>
-              <input type="tel" value={form.fone} onChange={field("fone")} placeholder={t("(62) 90000-0000", "+1 (555) 000-0000")} />
+              <input type="tel" autoComplete="tel" value={form.fone} onChange={field("fone")} placeholder={t("(62) 90000-0000", "+1 (555) 000-0000")} />
             </label>
             <label className="contato-field">
               <span className="contato-label">{t("Mensagem", "Message")}</span>
@@ -109,7 +113,7 @@ export default function ContatoSection() {
             <button type="submit" className="btn btn-solid contato-submit">
               {t("Enviar mensagem", "Send message")} <span>→</span>
             </button>
-            <p className="contato-feedback">{sentMsg}</p>
+            <p className={"contato-feedback" + (erro ? " contato-feedback--erro" : "")} role="status">{sentMsg}</p>
           </Reveal>
 
           <Reveal as="div" className="contato-direct">

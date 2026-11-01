@@ -61,6 +61,16 @@
   color: oklch(0.82 0.13 150);
   min-height: 18px;
 }
+.contato-feedback--erro {
+  color: oklch(0.74 0.16 25);
+}
+/* No iPhone, campo com fonte menor que 16 px faz a tela dar zoom ao tocar. */
+@media (max-width: 760px) {
+  .contato-field input,
+  .contato-field textarea {
+    font-size: 16px;
+  }
+}
 
 .contato-direct {
   padding: 30px;
