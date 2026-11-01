@@ -2,9 +2,9 @@ import { useEffect, useRef, useState } from "react";
 
 export function useCountUp(targets, duration = 1700) {
   const ref = useRef(null);
-  // No build (pré-renderização) o efeito não roda: o HTML sai com os números finais,
-  // não "0+". No navegador a contagem começa do zero ao aparecer na tela.
-  const [progress, setProgress] = useState(() => (typeof window === "undefined" ? 1 : 0));
+  // Começa nos números finais, igual ao HTML pré-renderizado (o hydrateRoot exige o
+  // mesmo resultado); depois de montar, zera e conta do zero ao aparecer na tela.
+  const [progress, setProgress] = useState(1);
   const started = useRef(false);
 
   useEffect(() => {
@@ -15,6 +15,7 @@ export function useCountUp(targets, duration = 1700) {
       setProgress(1);
       return;
     }
+    if (!started.current) setProgress(0);
 
     let raf = null;
     const io = new IntersectionObserver(
