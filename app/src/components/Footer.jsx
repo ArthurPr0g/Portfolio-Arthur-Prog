@@ -4,7 +4,8 @@ import ProgMark from "../brand/ProgMark";
 import "./Footer.css";
 
 export default function Footer() {
-  const { t } = useLang();
+  const { t, link, navigate } = useLang();
+  const privacidade = link("privacidade");
   return (
     <footer className="footer">
       <div className="footer__inner container">
@@ -22,6 +23,15 @@ export default function Footer() {
           </a>
           <a href={LINKEDIN_URL} target="_blank" rel="noopener">
             LinkedIn
+          </a>
+          <a
+            href={privacidade}
+            onClick={(e) => {
+              e.preventDefault();
+              navigate(privacidade);
+            }}
+          >
+            {t("Privacidade", "Privacy")}
           </a>
         </span>
       </div>

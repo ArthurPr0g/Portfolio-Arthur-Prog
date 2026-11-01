@@ -33,7 +33,8 @@ function avisarLia(form, lang) {
 }
 
 export default function ContatoSection() {
-  const { lang, t } = useLang();
+  const { lang, t, link, navigate } = useLang();
+  const privacidade = link("privacidade");
   const [form, setForm] = useState(EMPTY_FORM);
   const [sentMsg, setSentMsg] = useState("");
   const [erro, setErro] = useState(false);
@@ -113,6 +114,18 @@ export default function ContatoSection() {
             <button type="submit" className="btn btn-solid contato-submit">
               {t("Enviar mensagem", "Send message")} <span>→</span>
             </button>
+            <p className="contato-aviso">
+              {lang === "en" ? "We use your details only to reply to you. " : lang === "pt-pt" ? "Usamos os seus dados apenas para lhe responder. " : "Usamos seus dados só para responder ao seu contato. "}
+              <a
+                href={privacidade}
+                onClick={(e) => {
+                  e.preventDefault();
+                  navigate(privacidade);
+                }}
+              >
+                {t("Política de privacidade", "Privacy policy")}
+              </a>
+            </p>
             <p className={"contato-feedback" + (erro ? " contato-feedback--erro" : "")} role="status">{sentMsg}</p>
           </Reveal>
 

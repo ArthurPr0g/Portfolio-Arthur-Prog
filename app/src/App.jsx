@@ -7,6 +7,7 @@ import Lightbox from "./components/Lightbox";
 import Home from "./pages/Home";
 import ProjectPage from "./pages/ProjectPage";
 import PlanosPage from "./pages/PlanosPage";
+import PrivacidadePage from "./pages/PrivacidadePage";
 import { useScrollFx } from "./hooks/useScrollFx";
 import { useCursorGlow } from "./hooks/useCursorGlow";
 import { useLang } from "./i18n";
@@ -32,7 +33,8 @@ export default function App() {
   const project = route.name === "project" ? PROJECTS.find((p) => p.slug === route.slug) : null;
   const isProject = route.name === "project" && !!project;
   const isPlanos = route.name === "planos";
-  const isSubpage = isProject || isPlanos;
+  const isPrivacidade = route.name === "privacidade";
+  const isSubpage = isProject || isPlanos || isPrivacidade;
   const projectIndex = project ? PROJECTS.indexOf(project) : -1;
   const nextProject = project ? PROJECTS[(projectIndex + 1) % PROJECTS.length] : null;
 
@@ -89,6 +91,8 @@ export default function App() {
 
       {isPlanos ? (
         <PlanosPage key={lang} lang={lang} />
+      ) : isPrivacidade ? (
+        <PrivacidadePage onSection={onSection} />
       ) : isProject ? (
         <ProjectPage
           project={project}

@@ -43,7 +43,7 @@ const urls = rotas.map((r) => {
     .map(([l, u]) => `    <xhtml:link rel="alternate" hreflang="${hreflang[l]}" href="${u}"/>`)
     .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${xDefault(m)}"/>`)
     .join("\n");
-  const prioridade = r.name === "home" ? "1.0" : r.name === "planos" ? "0.9" : "0.7";
+  const prioridade = r.name === "home" ? "1.0" : r.name === "planos" ? "0.9" : r.name === "privacidade" ? "0.3" : "0.7";
   return `  <url>\n    <loc>${m.url}</loc>\n    <lastmod>${hoje}</lastmod>\n    <priority>${prioridade}</priority>\n${alt}\n  </url>`;
 });
 fs.writeFileSync(
