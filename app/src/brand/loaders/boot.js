@@ -11,8 +11,8 @@
 //   → site: o arco é o progresso real suavizado; segura em S+2,85 até concluir
 //     → voo da logo para o cabeçalho e entrada do conteúdo com o stagger da
 //     referência → fim.
-// Decisão do Arthur (01/11/2026): no site, no máximo ~2 s e um toque (ou Esc)
-// pula. A cena longa do splash (~8 s) ficou só para ?ps-ref e /dev/loaders.
+// Decisão do Arthur (01/11/2026): no site, ~1,8 s com a página pronta (numa rede
+// lenta segura até carregar, no máximo LIMITE) e um toque (ou Esc) pula. A cena longa do splash (~8 s) ficou só para ?ps-ref e /dev/loaders.
 // O app avisa: window.__psLoader.montado() e .rota() (troca de página).
 import { EASE, clamp, lerp, interpolate, relogio, pct, CUES } from "../motion";
 import { criarMarca, C, a, F } from "../mark";
@@ -36,8 +36,8 @@ import { criarMarca, C, a, F } from "../mark";
   const reduzido = !!(W.matchMedia && W.matchMedia("(prefers-reduced-motion: reduce)").matches);
   const en = /^en/i.test(H.lang || "");
   const TXT = en
-    ? { carregando: "LOADING", pagina: "LOADING PAGE", hud: "SYMBOL · 48U GRID", hudM: "48U GRID", sr: "Loading page", ok: "Page loaded", pular: ["TAP TO SKIP", "CLICK TO SKIP"] }
-    : { carregando: "CARREGANDO", pagina: "CARREGANDO PÁGINA", hud: "SÍMBOLO · GRADE 48U", hudM: "GRADE 48U", sr: "Carregando página", ok: "Página carregada",
+    ? { carregando: "LOADING", pagina: "LOADING PAGE", hud: "SYMBOL · 48U GRID", hudM: "48U GRID", sr: "Loading page. Press Esc to skip", ok: "Page loaded", pular: ["TAP TO SKIP", "CLICK TO SKIP"] }
+    : { carregando: "CARREGANDO", pagina: "CARREGANDO PÁGINA", hud: "SÍMBOLO · GRADE 48U", hudM: "GRADE 48U", sr: /^pt-PT/i.test(H.lang || "") ? "A carregar a página. Esc para saltar" : "Carregando página. Esc para pular", ok: "Página carregada",
         pular: /^pt-PT/i.test(H.lang || "") ? ["TOQUE PARA SALTAR", "CLIQUE PARA SALTAR"] : ["TOQUE PARA PULAR", "CLIQUE PARA PULAR"] };
 
   // Medidas de cada cena (desktop 1920×1080, mobile 390×844), copiadas das referências.
@@ -238,7 +238,7 @@ import { criarMarca, C, a, F } from "../mark";
     let dica = null;
     if (!REF) {
       const toque = !!(W.matchMedia && W.matchMedia("(pointer: coarse)").matches);
-      dica = el("div", `position:absolute;left:0;right:0;bottom:max(28px, env(safe-area-inset-bottom));text-align:center;font-family:${F.mono};font-size:11px;letter-spacing:.22em;color:${C.dim}`, raiz, TXT.pular[toque ? 0 : 1]);
+      dica = el("div", `position:absolute;left:0;right:0;bottom:max(28px, env(safe-area-inset-bottom));text-align:center;font-family:${F.mono};font-size:11px;letter-spacing:.22em;color:${C.nav}`, raiz, TXT.pular[toque ? 0 : 1]);
       dica.setAttribute("aria-hidden", "true");
       raiz.style.cursor = "pointer";
       raiz.addEventListener("click", pular);

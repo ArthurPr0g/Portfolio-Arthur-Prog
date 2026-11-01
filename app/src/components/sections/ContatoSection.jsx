@@ -114,7 +114,12 @@ export default function ContatoSection() {
               {t("Enviar mensagem", "Send message")} <span>→</span>
             </button>
             <p className="contato-aviso">
-              {lang === "en" ? "We use your details only to reply to you. " : lang === "pt-pt" ? "Usamos os seus dados apenas para lhe responder. " : "Usamos seus dados só para responder ao seu contato. "}
+              {/* Diz na hora da coleta o que a política detalha: resposta pelo WhatsApp e primeira análise com IA (LGPD art. 9º, RGPD art. 13). */}
+              {lang === "en"
+                ? "We use your details to reply to you on WhatsApp and to prepare a first look at your business, with help from AI. "
+                : lang === "pt-pt"
+                  ? "Usamos os seus dados para lhe responder pelo WhatsApp e preparar uma primeira análise do seu negócio, com ajuda de IA. "
+                  : "Usamos seus dados para responder pelo WhatsApp e preparar uma primeira análise do seu negócio, com ajuda de IA. "}
               {/* Nova aba: trocar de página aqui desmontaria o formulário e apagaria o que foi digitado. */}
               <a href={link("privacidade")} target="_blank" rel="noopener">
                 {t("Política de privacidade", "Privacy policy")}

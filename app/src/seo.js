@@ -24,6 +24,8 @@ const OG_LOCALE = { pt: "pt_BR", "pt-pt": "pt_PT", en: "en_US" };
 
 // Textos por idioma: [Brasil, Portugal, inglês]
 const T = (lang, pt, ptpt, en) => (lang === "en" ? en : lang === "pt-pt" ? ptpt : pt);
+/** Põe " | Arthur Prog" só se o título continuar com até 65 caracteres (cabe no resultado do Google). */
+const comMarca = (base) => (base.length + 14 > 65 ? base : `${base} | Arthur Prog`);
 
 const PERFIS = [PT.LINKEDIN_URL, PT.INSTAGRAM_URL];
 // SEO local (buscas como "criação de sites em Goiânia"): cidade e estado, sem rua.
@@ -104,11 +106,13 @@ export function metaDaRota(lang, name = "home", slug = null) {
 
   if (name === "planos") {
     const [s, l, g] = [D.PROD.site.p[0].price, D.PROD.loja.p[0].price, D.PROD.erp.p[0].price];
-    title = T(
-      lang,
-      "Planos e preços: sites, lojas virtuais e sistemas | Arthur Prog",
-      "Planos e preços: sites, lojas online e software de gestão | Arthur Prog",
-      "Pricing: Websites, Online Stores & Business Software | Arthur Prog"
+    title = comMarca(
+      T(
+        lang,
+        "Planos e preços: sites, lojas virtuais e sistemas",
+        "Planos e preços: sites, lojas online e software de gestão",
+        "Pricing: Websites, Online Stores & Business Software"
+      )
     );
     description = T(
       lang,
@@ -122,16 +126,15 @@ export function metaDaRota(lang, name = "home", slug = null) {
     title = T(lang, "Política de privacidade | Arthur Prog", "Política de privacidade | Arthur Prog", "Privacy Policy | Arthur Prog");
     description = T(
       lang,
-      "Como o portfólio da Prog Soluções usa os dados do formulário de contato, com quem compartilha, por quanto tempo guarda e como pedir acesso ou exclusão (LGPD).",
-      "Como o portfólio da Prog Soluções trata os dados do formulário de contacto, com quem os partilha, durante quanto tempo e como pedir acesso ou apagamento (RGPD).",
-      "How the Prog Soluções portfolio handles contact form data, who it is shared with, how long it is kept and how to request access or deletion (GDPR and LGPD)."
+      "Como o portfólio da Prog Soluções usa os dados do formulário, com quem compartilha, por quanto tempo guarda e como pedir acesso ou exclusão (LGPD).",
+      "Como o portfólio da Prog Soluções trata os dados do formulário, com quem os partilha, durante quanto tempo e como pedir acesso ou apagamento (RGPD).",
+      "How the Prog Soluções portfolio handles form data, who it is shared with, how long it is kept and how to request access or deletion (GDPR and LGPD)."
     );
     h1 = T(lang, "Política de privacidade", "Política de privacidade", "Privacy policy");
     grafo = [trilha(lang, [["Arthur Prog", SITE + caminho(lang)], [h1, SITE + caminho(lang, "privacidade")]])];
   } else if (projeto) {
-    // Sem o ano (" · 2025") e, se passar de 65 caracteres, sem a marca: o título cabe no resultado do Google.
-    const base = `${projeto.title} — ${projeto.meta.replace(/\s*·\s*\d{4}$/, "")}`;
-    title = base.length + 14 > 65 ? base : `${base} | Arthur Prog`;
+    // Sem o ano (" · 2025"): o título cabe no resultado do Google.
+    title = comMarca(`${projeto.title} — ${projeto.meta.replace(/\s*·\s*\d{4}$/, "")}`);
     description = projeto.seo || projeto.desc;
     h1 = projeto.title;
     grafo = [

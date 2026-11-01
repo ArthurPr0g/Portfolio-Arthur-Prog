@@ -13,7 +13,9 @@
   gap: 9px;
   font-size: 13px;
   color: var(--muted-6);
-  margin-bottom: 34px;
+  /* 44 px de área de toque sem mudar a posição: o padding sai da margem. */
+  padding: 13px 0;
+  margin: -13px 0 21px;
   transition: color 0.3s ease, gap 0.3s ease;
 }
 .project-page__back:hover {

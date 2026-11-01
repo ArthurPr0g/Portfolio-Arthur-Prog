@@ -64,6 +64,8 @@
   color: var(--muted-4);
   text-decoration: underline;
   text-underline-offset: 3px;
+  /* Área de toque maior no celular; padding em elemento inline não muda o layout. */
+  padding: 8px 0;
 }
 .contato-feedback {
   margin: 0;

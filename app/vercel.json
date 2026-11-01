@@ -15,7 +15,9 @@
     { "source": "/", "has": [{ "type": "header", "key": "accept-language", "value": { "pre": "pt" } }], "destination": "/pt", "permanent": false },
     { "source": "/", "destination": "/en", "permanent": false },
     { "source": "/planos", "destination": "/pt/planos", "permanent": true },
-    { "source": "/pricing", "destination": "/en/pricing", "permanent": true }
+    { "source": "/pricing", "destination": "/en/pricing", "permanent": true },
+    { "source": "/privacidade", "destination": "/pt/privacidade", "permanent": true },
+    { "source": "/privacy", "destination": "/en/privacy", "permanent": true }
   ],
   "headers": [
     {
