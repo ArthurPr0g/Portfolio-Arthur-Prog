@@ -86,7 +86,10 @@ import { criarMarca, C, a, F } from "../mark";
   };
   const real = () => {
     let s = 0, p = 0;
-    for (const k in tarefas) (s += tarefas[k].peso * tarefas[k].f), (p += tarefas[k].peso);
+    for (const k in tarefas) {
+      s += tarefas[k].peso * tarefas[k].f;
+      p += tarefas[k].peso;
+    }
     return p ? s / p : 1;
   };
   const tudoPronto = () => {
@@ -143,7 +146,10 @@ import { criarMarca, C, a, F } from "../mark";
       let feito = false;
       const uma = () => !feito && ((feito = true), marcar(nome, ++ok / imgs.length));
       const decodifica = () => (img.decode ? img.decode().then(uma, uma) : uma());
-      if (img.complete) img.naturalWidth ? decodifica() : uma();
+      if (img.complete) {
+        if (img.naturalWidth) decodifica();
+        else uma();
+      }
       else {
         img.addEventListener("load", decodifica, { once: true });
         img.addEventListener("error", uma, { once: true });
@@ -494,7 +500,10 @@ import { criarMarca, C, a, F } from "../mark";
     let topo = null;
     q('[data-ps="hero-w"]').forEach((w) => {
       const t = Math.round(w.getBoundingClientRect().top);
-      if (topo === null || Math.abs(t - topo) > 4) al.linhas.push([]), (topo = t);
+      if (topo === null || Math.abs(t - topo) > 4) {
+        al.linhas.push([]);
+        topo = t;
+      }
       al.linhas[al.linhas.length - 1].push(w.firstElementChild || w);
     });
     al.wordSize = al.logoWord ? parseFloat(getComputedStyle(al.logoWord).fontSize) : 0;

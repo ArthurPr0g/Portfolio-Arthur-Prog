@@ -154,7 +154,7 @@ export default function BeforeAfter({ pairs }) {
         className={"ba__frame" + (dragging ? " is-dragging" : "")}
         role="slider"
         tabIndex={0}
-        aria-label={`Comparar antes e depois: ${pair.label}`}
+        aria-label={t(`Comparar antes e depois: ${pair.label}`, `Compare before and after: ${pair.label}`)}
         aria-valuemin={0}
         aria-valuemax={100}
         aria-valuenow={50}

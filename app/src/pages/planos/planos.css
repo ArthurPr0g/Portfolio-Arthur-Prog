@@ -129,7 +129,7 @@
   @media (max-width: 960px) { .combo-grid { grid-template-columns: 1fr; max-width: 520px; margin-inline: auto; } }
   .combo { background: var(--surface); border: 1px solid var(--border); border-radius: 20px; padding: 22px; position: relative; }
   .combo .save { position: absolute; top: 20px; right: 18px; background: var(--green-soft); color: var(--green); font-size: .76rem; font-weight: 800; padding: 5px 10px; border-radius: 99px; }
-  .combo h4 { font-size: 1.15rem; font-weight: 800; margin: 12px 0 2px; }
+  .combo h3 { font-size: 1.15rem; font-weight: 800; margin: 12px 0 2px; }
   .combo .parts { color: var(--muted); font-size: .88rem; }
   .combo .old { text-decoration: line-through; color: var(--muted); font-size: .9rem; margin-top: 14px; }
   .combo .now { font-size: 1.9rem; font-weight: 900; letter-spacing: -.02em; }

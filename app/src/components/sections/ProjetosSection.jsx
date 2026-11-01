@@ -1,5 +1,6 @@
 import Reveal from "../Reveal";
 import { useLang } from "../../i18n";
+import { srcsetDe } from "../../data/miniaturas";
 import "./ProjetosSection.css";
 
 export default function ProjetosSection({ onOpenProject }) {
@@ -33,7 +34,7 @@ export default function ProjetosSection({ onOpenProject }) {
               className="project-card"
             >
               <span className="project-card__media">
-                <img src={p.cover} alt={p.title} loading="lazy" className="project-card__img" />
+                <img src={p.cover} srcSet={srcsetDe(p.cover)} sizes="(max-width: 720px) 50vw, 420px" alt={p.title} loading="lazy" className="project-card__img" />
               </span>
               <span className="project-card__body">
                 <span className="project-card__meta">{p.meta}</span>

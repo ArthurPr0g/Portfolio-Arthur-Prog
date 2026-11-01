@@ -4,6 +4,7 @@ import htmlEn from "./planos/planos.en.html?raw";
 import htmlPtPt from "./planos/planos.ptpt.html?raw";
 import css from "./planos/planos.css?raw";
 import { initPlanos } from "./planos/planos.js";
+import { precoInicial } from "../seo.js";
 
 // A página de planos foi feita como HTML + JS independente. Ela é montada num
 // shadow root para manter o CSS isolado do portfólio; menu, rodapé, favicon e
@@ -72,7 +73,11 @@ export default function PlanosPage({ lang = "pt" }) {
   // Fora do navegador (build, scripts/prerender.mjs): o conteúdo já sai no HTML num
   // shadow root declarativo, para buscadores e IAs lerem os planos sem JavaScript.
   if (typeof window === "undefined") {
-    const html = lang === "en" ? htmlEn : lang === "pt-pt" ? htmlPtPt : htmlPt;
+    // Preços do topo saem dos dados (planos*.js), nunca digitados no HTML.
+    const html = (lang === "en" ? htmlEn : lang === "pt-pt" ? htmlPtPt : htmlPt).replace(
+      /<strong data-from="(\w+)"><\/strong>/g,
+      (_, produto) => `<strong data-from="${produto}">${precoInicial(lang, produto)}</strong>`
+    );
     return <main dangerouslySetInnerHTML={{ __html: `<template shadowrootmode="open"><style>${css}</style>${html}</template>` }} />;
   }
   return <main ref={hostRef} />;

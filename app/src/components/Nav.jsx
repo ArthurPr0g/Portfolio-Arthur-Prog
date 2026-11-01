@@ -92,7 +92,8 @@ export default function Nav({ navRef, onSection }) {
         </button>
       </div>
 
-      <div className={"nav__mobile" + (open ? " is-open" : "")}>
+      {/* Fechado, fica fora do Tab e dos leitores de tela (inert). */}
+      <div className={"nav__mobile" + (open ? " is-open" : "")} inert={!open}>
         {LINKS.map(([id, pt, en]) => (
           <a key={id} href={"#" + id} onClick={wrap(id)} className="nav__mobile-link">
             {t(pt, en)}

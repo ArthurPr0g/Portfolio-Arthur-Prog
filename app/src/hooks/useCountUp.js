@@ -2,7 +2,9 @@ import { useEffect, useRef, useState } from "react";
 
 export function useCountUp(targets, duration = 1700) {
   const ref = useRef(null);
-  const [progress, setProgress] = useState(0);
+  // No build (pré-renderização) o efeito não roda: o HTML sai com os números finais,
+  // não "0+". No navegador a contagem começa do zero ao aparecer na tela.
+  const [progress, setProgress] = useState(() => (typeof window === "undefined" ? 1 : 0));
   const started = useRef(false);
 
   useEffect(() => {

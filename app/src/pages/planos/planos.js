@@ -199,7 +199,7 @@ root.getElementById("comboGrid").innerHTML = COMBOS.map(([n, p, l]) => {
   return `<div class="combo">
     <span class="chip c-${COLORS[l]}">${PROD[p].icon} + 📊</span>
     <span class="save">${t("economize", "save", "poupe")} ${money(c.sum - c.price)}</span>
-    <h4>${n}</h4>
+    <h3>${n}</h3>
     <div class="parts">${PROD[p].p[l].name} + ${PROD.erp.p[l].name}</div>
     <div class="old">${money(c.sum)} ${t("separado", "separately", "em separado")}</div>
     <div class="now">${from}${money(c.price)}</div>
@@ -408,8 +408,8 @@ if (WHATSAPP) root.querySelectorAll("[data-wa]").forEach(a => { a.href = waLink(
 renderCards(); renderQuiz(); renderSim();
 
 /* ===== ÂNCORAS INTERNAS =====
-   O portfólio usa rotas por hash (#/planos), então um link "#quiz" trocaria de
-   rota. Aqui ele só rola até a seção. */
+   A página vive num shadow root: um link "#quiz" não acharia a seção pelo
+   navegador. Aqui ele só rola até ela. */
 // A página é remontada ao trocar de idioma; o ouvinte entra só uma vez.
 if (root.__ancoras) return;
 root.__ancoras = true;

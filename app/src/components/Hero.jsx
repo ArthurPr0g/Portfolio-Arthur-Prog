@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { waLink, FOTO, FOTO_ASSENTO, FOTO_PROPORCAO } from "../data/content";
 import { useLang } from "../i18n";
+import { srcsetDe } from "../data/miniaturas";
 import "./Hero.css";
 
 // Topo: frase de valor à esquerda; à direita o Arthur sentado em cima de uma
@@ -129,7 +130,7 @@ export default function Hero({ heroRef, onSection }) {
               </span>
               <span className="hero__tela">
                 {TELAS.map((tl, i) => (
-                  <img key={tl.slug} src={tl.src} alt="" className={i === atual ? "is-on" : ""} loading={i ? "lazy" : "eager"} />
+                  <img key={tl.slug} src={tl.src} srcSet={srcsetDe(tl.src)} sizes="(max-width: 720px) 90vw, 560px" alt="" className={i === atual ? "is-on" : ""} loading={i ? "lazy" : "eager"} />
                 ))}
               </span>
               <span className="hero__legenda">

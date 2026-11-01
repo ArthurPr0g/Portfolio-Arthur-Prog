@@ -6,7 +6,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { metaDaRota, todasAsRotas, headHtml, HREFLANG } from "../src/seo.js";
+import { metaDaRota, todasAsRotas, headHtml, HREFLANG, xDefault } from "../src/seo.js";
 import { SITE, caminho } from "../src/rotas.js";
 // Pacote de servidor (vite build --ssr src/entry-server.jsx): o HTML de cada página
 // sai com todo o conteúdo, para buscadores e IAs lerem sem rodar JavaScript.
@@ -41,7 +41,7 @@ const urls = rotas.map((r) => {
   const m = metaDaRota(r.lang, r.name, r.slug);
   const alt = Object.entries(m.alternates)
     .map(([l, u]) => `    <xhtml:link rel="alternate" hreflang="${hreflang[l]}" href="${u}"/>`)
-    .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${SITE}/"/>`)
+    .concat(`    <xhtml:link rel="alternate" hreflang="x-default" href="${xDefault(m)}"/>`)
     .join("\n");
   const prioridade = r.name === "home" ? "1.0" : r.name === "planos" ? "0.9" : "0.7";
   return `  <url>\n    <loc>${m.url}</loc>\n    <lastmod>${hoje}</lastmod>\n    <priority>${prioridade}</priority>\n${alt}\n  </url>`;

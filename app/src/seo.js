@@ -119,7 +119,8 @@ export function metaDaRota(lang, name = "home", slug = null) {
     h1 = T(lang, "Planos e preços", "Planos e preços", "Pricing");
     grafo = [servico(lang), catalogo(lang), trilha(lang, [["Arthur Prog", SITE + caminho(lang)], [h1, SITE + caminho(lang, "planos")]])];
   } else if (projeto) {
-    title = `${projeto.title} — ${projeto.meta} | Arthur Prog`;
+    // Sem o ano (" · 2025"): o título cabe no resultado do Google.
+    title = `${projeto.title} — ${projeto.meta.replace(/\s*·\s*\d{4}$/, "")} | Arthur Prog`;
     description = projeto.desc;
     h1 = projeto.title;
     grafo = [
@@ -177,6 +178,11 @@ export function metaDaRota(lang, name = "home", slug = null) {
   };
 }
 
+/** Preço "a partir de" de um produto (site, loja, erp), na moeda do idioma. */
+export function precoInicial(lang, produto) {
+  return DIN[lang](PLANOS[lang].PROD[produto].p[0].price);
+}
+
 /** Todas as páginas do site, para o build e o sitemap. */
 export function todasAsRotas() {
   const rotas = [];
@@ -190,6 +196,11 @@ export function todasAsRotas() {
 
 export { HREFLANG };
 
+/** x-default: na home é a raiz (que escolhe o idioma do visitante); nas outras páginas, a versão em inglês da mesma página. */
+export function xDefault(m) {
+  return m.url === SITE + caminho(m.lang) ? SITE + "/" : m.alternates.en;
+}
+
 /** Tags do <head> em HTML (usado no build). */
 export function headHtml(m) {
   const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
@@ -198,7 +209,7 @@ export function headHtml(m) {
     `<meta name="description" content="${esc(m.description)}" />`,
     `<link rel="canonical" href="${m.url}" />`,
     ...Object.entries(m.alternates).map(([l, u]) => `<link rel="alternate" hreflang="${HREFLANG[l]}" href="${u}" />`),
-    `<link rel="alternate" hreflang="x-default" href="${SITE}/" />`,
+    `<link rel="alternate" hreflang="x-default" href="${xDefault(m)}" />`,
     `<meta property="og:type" content="website" />`,
     `<meta property="og:site_name" content="Arthur Prog" />`,
     `<meta property="og:title" content="${esc(m.title)}" />`,
