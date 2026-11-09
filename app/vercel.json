@@ -2,6 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "trailingSlash": false,
   "redirects": [
+    { "source": "/:raiz(solucoes|reuniao|diagnostico|vendedor|cliente|admin|auth|previa)/:resto*", "destination": "https://app.progsolucoes.company/:raiz/:resto*", "permanent": false },
+    { "source": "/:raiz(solucoes|diagnostico-gratis|entrar|cadastro|conta|admin)", "destination": "https://app.progsolucoes.company/:raiz", "permanent": false },
     { "source": "/", "has": [{ "type": "query", "key": "lang", "value": "pt-pt" }], "destination": "/pt-pt", "permanent": false },
     { "source": "/", "has": [{ "type": "query", "key": "lang", "value": "en" }], "destination": "/en", "permanent": false },
     { "source": "/", "has": [{ "type": "query", "key": "lang", "value": "pt" }], "destination": "/pt", "permanent": false },
