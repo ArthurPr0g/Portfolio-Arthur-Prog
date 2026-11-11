@@ -1,0 +1,23 @@
+PROG SOLUÇÕES — PACOTE DE LOGOS (PNG)
+
+"para-fundo-escuro" / "para-fundo-claro" = fundo transparente, cores da marca.
+"fundo-...-solido" = já com o fundo da marca (#08080A escuro / #F2F3F5 claro).
+"mono-branco" / "mono-preto" = uma cor só (gravação, carimbo, fotos, parceiros).
+
+01-logo-horizontal  Principal. Sites, cabeçalhos, propostas, e-mail.
+02-logo-vertical    Capas, telas de login, splash, eventos.
+03-logo-compacta    Sidebars, rodapés, assinaturas.
+04-simbolo          Só o P. Use quando a marca já estiver identificada no contexto.
+05-icones           favicon.ico + favicon 16/32/48 (desenho pequeno otimizado),
+                    apple-touch-icon 180, PWA 192/512, app 1024 (sem cantos = lojas;
+                    "arredondado" = apresentações), avatar 1080 (Instagram/LinkedIn
+                    recortam em círculo automaticamente).
+06-planta-2a        Versão "em construção" — posts, capas, materiais acima de 120 px.
+
+Regras: haste sempre neutra, arco sempre azul. Não aplicar sombra, gradiente ou
+contorno. Não distorcer nem trocar a fonte. Manter área livre em volta equivalente
+a 2/3 da altura do P. Tamanho mínimo: horizontal 104 px de largura, símbolo 16 px.
+
+Cores: #08080A tinta · #F2F3F5 papel · #F4F5F7 texto · #81AAF7 azul (escuro)
+       #3860AC azul (claro) · #A3A8B2 / #5D626B "Soluções" (escuro / claro)
+Fonte: Sora 600 ("Prog") + Sora 400 ("Soluções"), espaçamento −3%.
